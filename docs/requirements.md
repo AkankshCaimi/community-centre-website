@@ -9,6 +9,8 @@
 7. A footer containing the address, location, opening times, and contact details of the centre.
 8. An admin page for the management team to view all booking details, along with options to edit or cancel booking requests.
 9. Admin page features for filtering, sorting, and searching booking requests.
+10. Only 1 event can run at a time due to constraint of one hall only.
+11. The booking form states would be submitted -> contacted -> accepted/declined. These can only be changed by the admin.
 
 **Non-Functional Requirements:**
 
