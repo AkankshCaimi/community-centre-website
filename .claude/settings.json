@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "defaultMode": "plan",
+    "allow": [
+      "Bash(git status:*)", "Bash(git log:*)", "Bash(git diff:*)",
+      "Bash(pytest:*)", "Bash(make test:*)", "Bash(make lint:*)"
+    ],
+    "deny": [
+      "Read(.env)", "Read(.env.*)",
+      "Bash(curl:*)", "Bash(wget:*)", "Bash(rm -rf:*)"
+    ]
+  }
+}
