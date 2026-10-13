@@ -16,3 +16,6 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Mutation testing
+mutants/
