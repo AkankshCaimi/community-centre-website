@@ -84,7 +84,7 @@ def insert(
 
 _DETAIL_COLUMNS = """
     id, state, client_name, client_email, client_phone, guest_count,
-    starts_at, ends_at, event_details, submitted_at, auto_declined
+    starts_at, ends_at, event_details, submitted_at, auto_declined, erased_at IS NOT NULL
 """
 
 # The only ORDER BY expressions a caller can choose between (LI4).
@@ -207,4 +207,67 @@ def auto_decline_overdue(
         )
         """,
         {"now": now, "submitted_by": submitted_by},
+    ).rowcount
+
+
+# --- erasing client data (docs/specs/F04.md)
+
+# What erasing empties (E1). Everything else about the booking is kept.
+_EMPTY_THE_DETAILS = """
+    client_name = NULL, client_email = NULL, client_phone = NULL, client_ip = NULL,
+    guest_count = NULL, event_details = NULL,
+    terms_accepted_at = NULL, privacy_notice_accepted_at = NULL
+"""
+
+
+def erase(connection: psycopg.Connection, booking_id: int, now: datetime) -> BookingDetails:
+    """Empty one booking's client details and record when (E1)."""
+    row = connection.execute(
+        f"""
+        UPDATE bookings SET {_EMPTY_THE_DETAILS}, erased_at = %s WHERE id = %s
+        RETURNING {_DETAIL_COLUMNS}
+        """,
+        (now, booking_id),
+    ).fetchone()
+    return _details(row)
+
+
+def erase_due(connection: psycopg.Connection, now: datetime) -> int:
+    """Erase every booking submitted six calendar months or more before `now` (P2, P3).
+
+    "Six calendar months" is the same Europe/London day and time six months
+    on, or the last day of a shorter month, which is how PostgreSQL adds
+    months to a local time. A booking another request holds is skipped (P13).
+    Returns how many were erased.
+    """
+    return connection.execute(
+        f"""
+        UPDATE bookings SET {_EMPTY_THE_DETAILS}, erased_at = %(now)s
+        WHERE id IN (
+            SELECT id FROM bookings
+            WHERE erased_at IS NULL
+              AND ((submitted_at AT TIME ZONE 'Europe/London') + interval '6 months')
+                    AT TIME ZONE 'Europe/London' <= %(now)s
+            FOR UPDATE SKIP LOCKED
+        )
+        """,
+        {"now": now},
+    ).rowcount
+
+
+def remove_addresses(connection: psycopg.Connection, submitted_by: datetime) -> int:
+    """Empty the network address of every booking submitted at or before `submitted_by` (P4).
+
+    Returns how many addresses were removed.
+    """
+    return connection.execute(
+        """
+        UPDATE bookings SET client_ip = NULL
+        WHERE id IN (
+            SELECT id FROM bookings
+            WHERE client_ip IS NOT NULL AND submitted_at <= %s
+            FOR UPDATE SKIP LOCKED
+        )
+        """,
+        (submitted_by,),
     ).rowcount

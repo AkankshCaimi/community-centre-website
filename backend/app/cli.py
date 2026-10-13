@@ -7,7 +7,7 @@ from flask.cli import with_appcontext
 
 from app import db
 from app.repositories import admin_repository
-from app.services import auto_decline, passwords
+from app.services import auto_decline, passwords, purge
 from app.services.booking_validation import check_email
 from app.services.passwords import PASSWORD_MAX, PASSWORD_MIN
 
@@ -46,6 +46,26 @@ def create_admin_command(email: str):
 jobs_logger = logging.getLogger("app.jobs")
 
 
+def _run_job(label: str, run) -> None:
+    """Run a scheduled job and report it: one line on success, one on failure.
+
+    `run` does the work and returns the text for the success line. On failure
+    only the type of the error is reported: a database error's message can
+    quote client details (F01 P1). Exits with code 1 if the run fails.
+    """
+    try:
+        outcome = run()
+    except Exception as error:
+        line = f"{label} run failed: {type(error).__name__}."
+        jobs_logger.error(line)
+        click.echo(line)
+        raise SystemExit(1) from None
+
+    line = f"{label} run: {outcome}"
+    jobs_logger.info(line)
+    click.echo(line)
+
+
 @click.command("auto-decline")
 @with_appcontext
 def auto_decline_command():
@@ -53,15 +73,20 @@ def auto_decline_command():
 
     Meant to be run once an hour by a scheduler. Exits with code 1 if the run fails.
     """
-    try:
-        declined = auto_decline.run()
-    except Exception as error:
-        # Only the type: a database error's message can quote client details (F01 P1).
-        line = f"Auto-decline run failed: {type(error).__name__}."
-        jobs_logger.error(line)
-        click.echo(line)
-        raise SystemExit(1) from None
+    _run_job("Auto-decline", lambda: f"{auto_decline.run()} declined.")
 
-    line = f"Auto-decline run: {declined} declined."
-    jobs_logger.info(line)
-    click.echo(line)
+
+@click.command("purge")
+@with_appcontext
+def purge_command():
+    """Erase client data kept for six months, and network addresses kept for 7 days.
+
+    docs/specs/F04.md. Meant to be run once an hour by a scheduler. Exits with
+    code 1 if the run fails.
+    """
+
+    def run() -> str:
+        erased, addresses = purge.run()
+        return f"{erased} erased, {addresses} addresses removed."
+
+    _run_job("Purge", run)

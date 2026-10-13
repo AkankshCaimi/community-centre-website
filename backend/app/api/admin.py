@@ -130,6 +130,20 @@ def change_state(booking_id, admin_email):
         return jsonify(error="declined_is_final"), 409
 
 
+@route("/bookings/<booking_id>/erase", "POST")
+@needs_session
+def erase_booking(booking_id, admin_email):
+    body = json_body()
+    try:
+        return jsonify(admin_bookings.erase_booking(booking_id, body))
+    except admin_bookings.ValidationFailed as failure:
+        return _validation_failed(failure)
+    except admin_bookings.NotFound:
+        return jsonify(error="not_found"), 404
+    except admin_bookings.BookingIsLive:
+        return jsonify(error="booking_is_live"), 409
+
+
 @route("/password-reset", "POST")
 def request_password_reset():
     body = json_body()

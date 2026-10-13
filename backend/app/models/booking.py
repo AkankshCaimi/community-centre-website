@@ -44,3 +44,4 @@ class BookingDetails:
     details: str | None
     submitted_at: datetime
     auto_declined: bool
+    erased: bool

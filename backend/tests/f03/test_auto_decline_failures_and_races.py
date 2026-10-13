@@ -118,7 +118,7 @@ def health(app):
 
 
 def test_r6_health_shows_null_before_any_run(app):
-    assert health(app) == {"status": "ok", "auto_decline_last_run": None}
+    assert health(app) == {"status": "ok", "auto_decline_last_run": None, "purge_last_run": None}
 
 
 def test_r5_r6_health_shows_the_instant_of_the_last_successful_run(app, clock):
@@ -126,7 +126,11 @@ def test_r5_r6_health_shows_the_instant_of_the_last_successful_run(app, clock):
 
     assert run_job(app).exit_code == 0
 
-    assert health(app) == {"status": "ok", "auto_decline_last_run": "2026-03-10T12:04:05Z"}
+    assert health(app) == {
+        "status": "ok",
+        "auto_decline_last_run": "2026-03-10T12:04:05Z",
+        "purge_last_run": None,
+    }
 
 
 def test_r6_last_run_is_reported_in_utc_in_summer(app, clock):
@@ -172,7 +176,7 @@ def test_r6_health_answers_with_null_when_the_database_cannot_be_reached(app, cl
     run_job(app)
     app.config["DATABASE_URL"] = "postgresql://nobody:nothing@127.0.0.1:1/nowhere"
 
-    assert health(app) == {"status": "ok", "auto_decline_last_run": None}
+    assert health(app) == {"status": "ok", "auto_decline_last_run": None, "purge_last_run": None}
 
 
 # --- J9: two runs at the same instant

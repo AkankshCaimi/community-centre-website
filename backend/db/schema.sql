@@ -62,7 +62,6 @@ CREATE TABLE IF NOT EXISTS bookings (
             AND client_name IS NOT NULL
             AND client_phone IS NOT NULL
             AND client_email IS NOT NULL
-            AND client_ip IS NOT NULL
             AND guest_count IS NOT NULL
             AND terms_accepted_at IS NOT NULL
             AND privacy_notice_accepted_at IS NOT NULL)
@@ -157,3 +156,39 @@ CREATE TABLE IF NOT EXISTS job_runs (
     job          text        PRIMARY KEY,
     last_run_at  timestamptz NOT NULL
 );
+
+-- Deleting client data and the retention purge (docs/specs/F04.md).
+--
+-- The network address is emptied after 7 days (P4), so a booking that is not
+-- erased no longer has to have one. A table created before F04 still carries
+-- the older rule; it is replaced once, here.
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'bookings_erased_or_complete'
+          AND pg_get_constraintdef(oid) LIKE '%client_ip IS NOT NULL%'
+    ) THEN
+        ALTER TABLE bookings DROP CONSTRAINT bookings_erased_or_complete;
+        ALTER TABLE bookings ADD CONSTRAINT bookings_erased_or_complete CHECK (
+            (erased_at IS NULL
+                AND client_name IS NOT NULL
+                AND client_phone IS NOT NULL
+                AND client_email IS NOT NULL
+                AND guest_count IS NOT NULL
+                AND terms_accepted_at IS NOT NULL
+                AND privacy_notice_accepted_at IS NOT NULL)
+            OR
+            (erased_at IS NOT NULL
+                AND client_name IS NULL
+                AND client_phone IS NULL
+                AND client_email IS NULL
+                AND client_ip IS NULL
+                AND guest_count IS NULL
+                AND event_details IS NULL
+                AND terms_accepted_at IS NULL
+                AND privacy_notice_accepted_at IS NULL)
+        );
+    END IF;
+END;
+$$;

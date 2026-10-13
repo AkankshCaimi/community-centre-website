@@ -94,7 +94,6 @@ CREATE TABLE bookings (
             AND client_name IS NOT NULL
             AND client_phone IS NOT NULL
             AND client_email IS NOT NULL
-            AND client_ip IS NOT NULL
             AND guest_count IS NOT NULL
             AND terms_accepted_at IS NOT NULL
             AND privacy_notice_accepted_at IS NOT NULL)
@@ -143,7 +142,7 @@ The trigger blocks only the state change. A declined booking can still be erased
 | `locked_days` | `daterange` | generated from the Europe/London local dates; no overlap among non-declined rows | FR10, F01 L3 |
 | `client_name`, `client_phone`, `client_email` | `text` | required until erased; at most 100, 30 and 254 characters | FR5, F01 V1 to V3 |
 | `client_phone_normalized` | `text` | generated: the phone with spaces and dashes removed, then a leading `+44` replaced by `0` | F01 L2 |
-| `client_ip` | `inet` | required until erased | NFR3, F01 L1 and S3 |
+| `client_ip` | `inet` | set at submission; emptied after 7 days, and on erasure | NFR3, F01 L1 and S3, F04 P4 |
 | `guest_count` | `integer` | required until erased; 1 to 250 | FR5, F01 V4 |
 | `event_details` | `text` | optional; at most 2000 characters | FR5, F01 V10 |
 | `terms_accepted_at`, `privacy_notice_accepted_at` | `timestamptz` | both required until erased (the two ticks) | FR5 |
@@ -152,7 +151,9 @@ The trigger blocks only the state change. A declined booking can still be erased
 
 ### Erasure
 
-Erasing a booking (by the admin, FR18, or automatically at 6 months, NFR7) sets every client column, including `client_ip`, to `NULL` and sets `erased_at`. What remains is the date (`starts_at`, `ends_at`, `locked_days`) and the `state`. An erased booking that is not declined still locks its day.
+Erasing a booking (by the admin, FR18, or automatically at 6 months, NFR7) sets every client column, including `client_ip`, to `NULL` and sets `erased_at`. What remains is the date (`starts_at`, `ends_at`, `locked_days`) and the `state`. An erased booking that is not declined still locks its day. The rules are in `docs/specs/F04.md`.
+
+Since F04 the network address has a shorter life of its own: the purge job sets `client_ip` to `NULL` 7 days after submission (F04 P4). So `bookings_erased_or_complete` no longer requires `client_ip` for a booking that is not erased; it still requires it to be `NULL` for one that is.
 
 ### Indexes
 
@@ -232,7 +233,7 @@ CREATE TABLE job_runs (
 );
 ```
 
-The auto-decline job writes its row, named `auto-decline`, in the same transaction as its declines, so the time is recorded only if the run succeeded.
+The auto-decline job writes its row, named `auto-decline`, in the same transaction as its declines, so the time is recorded only if the run succeeded. The purge job of F04 does the same with a row named `purge`.
 
 ## The 5-requests limit (NFR3)
 
@@ -262,7 +263,7 @@ Design choices I made that you have not decided, and gaps I found. None are sett
 2. **Clock changes.** Decided by the author on 2026-10-13 (F01): start and end are stored in UTC, so a booking's length is elapsed time. A local time skipped when the clocks go forward is refused, and a time in the repeated hour means its first occurrence (F01 V5).
 3. **What is erased.** FR18 says only date and state remain, so `guest_count`, `event_details` and the two tick timestamps are erased along with name, phone and email.
 4. **What counts as a request for the 5-a-day limit.** Only bookings that are actually created count. Submissions refused for a taken day, bad input or a failed CAPTCHA do not.
-5. **Keeping network addresses.** The address stays on the booking until the booking is erased, which is up to 6 months, although the limit only needs it for 24 hours. Whether it appears in the privacy notice is still open in R1.
+5. **Keeping network addresses.** Decided with F04 on 2026-10-13: the address is kept for 7 days and then emptied by the purge job, and the privacy notice says so (F04 P4, T3).
 6. **Matching phone and email for the 2-slot limit.** Email is compared ignoring case. Phone is compared after removing spaces and dashes and replacing a leading `+44` with `0` (decided 2026-10-13, F01 L2), so `07700 900123`, `07700-900-123` and `+44 7700 900123` are the same person.
 7. **Password reset.** Decided with F02: the token is valid for 30 minutes and only its hash is stored.
 8. **Multiple centres (NFR6).** There is no `centre_id`. Adding centres later means adding that column and including it in `bookings_one_per_day`.

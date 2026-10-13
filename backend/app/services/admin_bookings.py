@@ -1,5 +1,6 @@
 """Listing bookings and changing their state (docs/specs/F02.md: LI, ST)."""
 
+import logging
 import re
 from datetime import date, datetime
 
@@ -8,6 +9,8 @@ from app.models.booking import BookingDetails
 from app.repositories import booking_repository
 from app.services import clock, email
 from app.services.booking_validation import has_control_character, utc_to_london_text
+
+auth_logger = logging.getLogger("app.auth")
 
 STATES = ("submitted", "contacted", "accepted", "declined")
 SORTS = ("submitted_at", "starts_at", "name")
@@ -34,6 +37,10 @@ class NotFound(Exception):
 
 class DeclinedIsFinal(Exception):
     pass
+
+
+class BookingIsLive(Exception):
+    """The booking is neither declined nor over, so its data cannot be deleted yet (F04 D4)."""
 
 
 def as_item(booking: BookingDetails) -> dict:
@@ -169,7 +176,8 @@ def change_state(booking_id_text: str, body: dict) -> dict:
         changed = booking_repository.set_state(connection, booking_id, state, clock.now_utc())
 
     item = as_item(changed)
-    if state == "accepted":
+    # An erased booking has no one to send the confirmation to (F04 A3).
+    if state == "accepted" and not changed.erased:
         try:
             email.log_booking_accepted(
                 changed.email, changed.name, item["starts_at"], item["ends_at"]
@@ -179,3 +187,29 @@ def change_state(booking_id_text: str, body: dict) -> dict:
             error.booking_id = booking_id
             raise
     return item
+
+
+def erase_booking(booking_id_text: str, body: dict) -> dict:
+    """Delete a booking's client data at an admin's request (F04 D1 to D9).
+
+    Returns the booking in the form of LI8, its details empty.
+    """
+    if body.get("confirm") is not True:
+        raise ValidationFailed({"confirm": "required"})
+
+    booking_id = _booking_id(booking_id_text)
+
+    with db.connect() as connection:
+        booking = booking_repository.find_for_update(connection, booking_id)
+        if booking is None:
+            raise NotFound
+        if booking.erased:
+            # Already erased, by an admin or by the purge: nothing more to do (D6).
+            return as_item(booking)
+        now = clock.now_utc()
+        if booking.state != "declined" and booking.ends_at > now:
+            raise BookingIsLive
+        erased = booking_repository.erase(connection, booking_id, now)
+
+    auth_logger.info("Booking %s erased by an admin.", booking_id)
+    return as_item(erased)
