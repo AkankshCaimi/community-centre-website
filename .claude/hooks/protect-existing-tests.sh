@@ -2,6 +2,8 @@
 # PreToolUse hook: enforces CLAUDE.md rule 4, "Never edit any existing test
 # after code is written". Spec: docs/specs/test-edit-guard.md
 #
+# A test file is locked once git tracks it; untracked test files stay editable.
+#
 # Reads the tool call as JSON on stdin.
 #   exit 0 -> tool call goes ahead
 #   exit 2 -> tool call is cancelled and stderr is passed back to the agent
@@ -49,7 +51,20 @@ esac
 
 [ "$is_test" = yes ] || exit 0
 
-# Creating a new test file is allowed.
-[ -e "$path" ] || exit 0
+command -v git >/dev/null 2>&1 || block "git is not installed, so the tool call could not be checked. Install git and retry."
 
-block "$path is an existing test file. CLAUDE.md rule 4: never edit any existing test after code is written. Do not retry this edit and do not change the file another way (for example through Bash). If the test fails, change the implementation so it passes. If new behaviour needs covering, create a NEW test file, which is allowed. If the test itself is wrong, stop and ask the user to change it."
+# A test file is locked once git tracks it. Ask git from the nearest directory
+# that exists, so new files in new directories and tracked files that were
+# deleted from disk are both answered correctly.
+rel="$name"
+base="${path%/*}"
+while [ -n "$base" ] && [ ! -d "$base" ]; do
+  rel="${base##*/}/$rel"
+  base="${base%/*}"
+done
+
+# Untracked (new, drafted, ignored, removed from git, or outside any
+# repository): still editable.
+git -C "${base:-/}" ls-files --error-unmatch -- "$rel" >/dev/null 2>&1 || exit 0
+
+block "$path is a test file tracked by git. CLAUDE.md rule 4: never edit any existing test after code is written. Do not retry this edit and do not change the file another way (for example through Bash or git). If the test fails, change the implementation so it passes. If new behaviour needs covering, create a NEW test file, which is allowed and stays editable until it is added to git. If the test itself is wrong, stop and ask the user to change it."
