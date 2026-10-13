@@ -232,26 +232,36 @@ def erase(connection: psycopg.Connection, booking_id: int, now: datetime) -> Boo
     return _details(row)
 
 
-def erase_due(connection: psycopg.Connection, now: datetime) -> int:
-    """Erase every booking submitted six calendar months or more before `now` (P2, P3).
+def lock_unerased_submitted_by(
+    connection: psycopg.Connection, submitted_by: datetime
+) -> list[tuple[int, datetime]]:
+    """The ID and submission time of every unerased booking submitted at or before `submitted_by`.
 
-    "Six calendar months" is the same Europe/London day and time six months
-    on, or the last day of a shorter month, which is how PostgreSQL adds
-    months to a local time. A booking another request holds is skipped (P13).
-    Returns how many were erased.
+    The rows are locked until the transaction ends, so that a caller can decide
+    which of them to erase and no other request changes them meanwhile. A
+    booking another request holds is skipped, not waited for (P13).
     """
     return connection.execute(
-        f"""
-        UPDATE bookings SET {_EMPTY_THE_DETAILS}, erased_at = %(now)s
-        WHERE id IN (
-            SELECT id FROM bookings
-            WHERE erased_at IS NULL
-              AND ((submitted_at AT TIME ZONE 'Europe/London') + interval '6 months')
-                    AT TIME ZONE 'Europe/London' <= %(now)s
-            FOR UPDATE SKIP LOCKED
-        )
+        """
+        SELECT id, submitted_at FROM bookings
+        WHERE erased_at IS NULL AND submitted_at <= %s
+        ORDER BY id
+        FOR UPDATE SKIP LOCKED
         """,
-        {"now": now},
+        (submitted_by,),
+    ).fetchall()
+
+
+def erase_many(connection: psycopg.Connection, booking_ids: list[int], now: datetime) -> int:
+    """Erase the given bookings (E1). Returns how many were erased."""
+    if not booking_ids:
+        return 0
+    return connection.execute(
+        f"""
+        UPDATE bookings SET {_EMPTY_THE_DETAILS}, erased_at = %s
+        WHERE id = ANY(%s) AND erased_at IS NULL
+        """,
+        (now, booking_ids),
     ).rowcount
 
 

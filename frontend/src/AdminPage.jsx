@@ -186,10 +186,15 @@ function DeclineDialog({ onConfirm, onCancel }) {
   );
 }
 
-function DeleteDialog({ onConfirm, onCancel }) {
+function optionText(booking) {
+  return `${booking.name}, ${shownTime(booking.starts_at)}`;
+}
+
+function DeleteDialog({ booking, onConfirm, onCancel }) {
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="delete-question">
       <p id="delete-question">Delete this client&apos;s data? This cannot be undone.</p>
+      <p>{optionText(booking)}</p>
       <button type="button" onClick={onConfirm}>
         Yes, delete
       </button>
@@ -203,7 +208,9 @@ function DeleteDialog({ onConfirm, onCancel }) {
 // The "Delete client data" section below the table (F04 W2, W3).
 function DeleteClientData({ bookings, onDelete }) {
   const [chosenId, setChosenId] = useState("");
-  const [asking, setAsking] = useState(false);
+  // The ID the dialog is open for. Tied to one booking, so the dialog closes
+  // by itself if that booking leaves the page and cannot reopen for another.
+  const [askingId, setAskingId] = useState(null);
 
   const withData = bookings.filter((booking) => !isErased(booking));
   // The chosen booking may have been deleted or have left the page since.
@@ -220,26 +227,30 @@ function DeleteClientData({ bookings, onDelete }) {
           <select
             id="delete-booking"
             value={chosen ? chosenId : ""}
-            onChange={(event) => setChosenId(event.target.value)}
+            onChange={(event) => {
+              setChosenId(event.target.value);
+              setAskingId(null);
+            }}
           >
             <option value="">Choose a booking</option>
             {withData.map((booking) => (
               <option key={booking.id} value={booking.id}>
-                {booking.name}, {shownTime(booking.starts_at)}
+                {optionText(booking)}
               </option>
             ))}
           </select>
-          <button type="button" disabled={!chosen} onClick={() => setAsking(true)}>
+          <button type="button" disabled={!chosen} onClick={() => setAskingId(chosenId)}>
             Delete data
           </button>
         </>
       )}
-      {asking && chosen && (
+      {chosen && askingId === chosenId && (
         <DeleteDialog
-          onCancel={() => setAsking(false)}
+          booking={chosen}
+          onCancel={() => setAskingId(null)}
           onConfirm={() => {
-            setAsking(false);
-            setChosenId("");
+            // The booking stays chosen: after a refusal the admin need not find it again.
+            setAskingId(null);
             onDelete(chosen);
           }}
         />

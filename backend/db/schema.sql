@@ -1,6 +1,6 @@
 -- Schema for docs/design/data-model.md. Applied by `flask --app app init-db`.
--- Safe to run again: nothing here changes existing data. The last section adds
--- a column to a table that may already exist.
+-- Safe to run again: nothing here changes existing data. The later sections
+-- change a table that may already exist: one adds a column, one replaces a rule.
 
 CREATE TABLE IF NOT EXISTS bookings (
     id                          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -144,7 +144,8 @@ ALTER TABLE bookings ADD COLUMN IF NOT EXISTS auto_declined boolean NOT NULL DEF
 DO $$
 BEGIN
     IF NOT EXISTS (
-        SELECT 1 FROM pg_constraint WHERE conname = 'bookings_auto_declined_is_declined'
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'bookings_auto_declined_is_declined' AND conrelid = 'bookings'::regclass
     ) THEN
         ALTER TABLE bookings ADD CONSTRAINT bookings_auto_declined_is_declined
             CHECK (NOT auto_declined OR state = 'declined');
@@ -167,6 +168,7 @@ BEGIN
     IF EXISTS (
         SELECT 1 FROM pg_constraint
         WHERE conname = 'bookings_erased_or_complete'
+          AND conrelid = 'bookings'::regclass
           AND pg_get_constraintdef(oid) LIKE '%client_ip IS NOT NULL%'
     ) THEN
         ALTER TABLE bookings DROP CONSTRAINT bookings_erased_or_complete;

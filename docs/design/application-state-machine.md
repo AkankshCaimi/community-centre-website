@@ -82,7 +82,7 @@ The update is a single statement, so a booking the admin moves out of `submitted
 
 ## Other scheduled work (not state changes)
 
-- **6-month removal (NFR7).** Erases the client details of bookings whose `submitted_at` is 6 months or more in the past. It does not change the state. How often it runs is not decided.
+- **6-month removal (NFR7).** Erases the client details of bookings submitted six calendar months or more ago, and removes network addresses after 7 days. It does not change the state. It is the command `flask --app app purge`, run hourly by the same scheduler as the auto-decline job (F04 P1 to P14).
 
 ## Points for the author
 
