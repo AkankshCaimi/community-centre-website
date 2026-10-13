@@ -61,20 +61,24 @@ Every move also updates `bookings.state_changed_at`.
 
 ## The 48-hour auto-decline job (FR12)
 
-- **Runs every hour.**
-- Declines every booking that is in `submitted` and whose `submitted_at` is 48 hours or more in the past. The 48 hours run through all days, including weekends.
+- **Runs every hour**, as the command `flask --app app auto-decline` started by an external scheduler (F03 R1, R2).
+- Declines every booking that is in `submitted` and whose `submitted_at` is 48 hours or more in the past (F03 J1). The 48 hours run through all days, including weekends, and never restart. The booking is marked `auto_declined`.
 - Bookings in `contacted` or `accepted` are never touched by the job.
 - Because it runs hourly, a booking is declined between 48 and 49 hours after it was submitted, not at exactly 48 hours.
 - `submitted_at` is set once and never changes.
 
 ```sql
 UPDATE bookings
-SET state = 'declined', state_changed_at = now()
-WHERE state = 'submitted'
-  AND submitted_at <= now() - interval '48 hours';
+SET state = 'declined', auto_declined = true, state_changed_at = :now
+WHERE id IN (
+    SELECT id FROM bookings
+    WHERE state = 'submitted'
+      AND submitted_at <= :now - interval '48 hours'
+    FOR UPDATE SKIP LOCKED
+);
 ```
 
-The update is a single statement, so a booking the admin moves out of `submitted` at the same moment is either moved by the admin or declined by the job, never both.
+The update is a single statement, so a booking the admin moves out of `submitted` at the same moment is either moved by the admin or declined by the job, never both. A booking another request holds at that moment is skipped and left for the next run (F03 J10).
 
 ## Other scheduled work (not state changes)
 
@@ -83,7 +87,7 @@ The update is a single statement, so a booking the admin moves out of `submitted
 ## Points for the author
 
 1. **This differs from FR11 as written.** FR11 lets accepted go back to contacted only. You confirmed on 2026-10-13 that accepted to submitted is also allowed. `requirements.md` has not been changed.
-2. **Moving back to submitted after 48 hours.** The job counts from the original submission. A booking moved from contacted or accepted back to submitted more than 48 hours after it was submitted is declined at the next hourly run, and declined is final.
+2. **Moving back to submitted.** Confirmed with F03 on 2026-10-13 as deliberate: the 48 hours count from the first submission and never restart. A booking returned to `submitted` after 47 hours has 1 hour left; one returned after 48 hours is declined by the next run, and declined is final.
 3. **Accepting twice.** A booking can go accepted, contacted, accepted. As designed, the client gets a confirmation email on every move into accepted. Whether a second email is wanted is not decided.
 4. **A client who is told nothing.** After an auto-decline the client holds a submission confirmation and never hears anything else (FR17).
 5. **Decline confirmation** is an admin page step. Whether the server also refuses a decline that arrives without the confirmation is not decided; the rules table assumes it does.

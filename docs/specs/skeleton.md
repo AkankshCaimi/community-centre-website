@@ -39,7 +39,7 @@ Configuration is read from environment variables. A `.env` file in the repositor
 |---|---|---|---|
 | `GET /health` | `200` | `application/json` | `{"status": "ok"}` |
 
-The endpoint does not need a database connection.
+The endpoint does not need a database connection. (Since F03 it also reports when the auto-decline job last ran, read from the database; see `F03.md` R6.)
 
 ## Frontend
 

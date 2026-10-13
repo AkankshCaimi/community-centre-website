@@ -5,7 +5,7 @@
 - **Database:** PostgreSQL (ADR 0001)
 - **Related:** `application-state-machine.md` (state moves, jobs, and the table of rules that must never break)
 
-Three tables: `bookings`, `admin_users` and `admin_sessions` (added with F02). An earlier version had a third, `ip_request_log`; the author decided on 2026-10-13 (F01) to store the network address on the booking instead.
+Four tables: `bookings`, `admin_users`, `admin_sessions` (added with F02) and `job_runs` (added with F03). An earlier version had a third, `ip_request_log`; the author decided on 2026-10-13 (F01) to store the network address on the booking instead.
 
 ## How the "day" is stored
 
@@ -37,6 +37,10 @@ CREATE TABLE bookings (
         CONSTRAINT bookings_state_valid
         CHECK (state IN ('submitted', 'contacted', 'accepted', 'declined')),
     state_changed_at            timestamptz NOT NULL DEFAULT now(),
+    -- set by the auto-decline job only (F03)
+    auto_declined               boolean     NOT NULL DEFAULT false
+        CONSTRAINT bookings_auto_declined_is_declined
+        CHECK (NOT auto_declined OR state = 'declined'),
 
     -- start and end of the event, stored in UTC
     starts_at                   timestamptz NOT NULL,
@@ -133,7 +137,8 @@ The trigger blocks only the state change. A declined booking can still be erased
 |---|---|---|---|
 | `id` | `bigint` identity | primary key | |
 | `state` | `text` | one of the four states; default `submitted` | FR11 |
-| `state_changed_at` | `timestamptz` | not null | |
+| `state_changed_at` | `timestamptz` | not null; when the booking entered its current state | F02 ST6 |
+| `auto_declined` | `boolean` | not null, default false; true only for a booking the auto-decline job declined, and only when the state is `declined` | F03 M1 |
 | `starts_at`, `ends_at` | `timestamptz` | not null; stored in UTC; end at least 1 hour and at most 12 hours of elapsed time after start | FR5, FR13, F01 S1, V8 and V9 |
 | `locked_days` | `daterange` | generated from the Europe/London local dates; no overlap among non-declined rows | FR10, F01 L3 |
 | `client_name`, `client_phone`, `client_email` | `text` | required until erased; at most 100, 30 and 254 characters | FR5, F01 V1 to V3 |
@@ -155,7 +160,7 @@ Erasing a booking (by the admin, FR18, or automatically at 6 months, NFR7) sets 
 |---|---|
 | primary key on `id` | lookups |
 | gist index behind `bookings_one_per_day` | the day lock; "is this day free?" |
-| `(submitted_at) WHERE state = 'submitted'` | the 48-hour auto-decline job |
+| `(submitted_at) WHERE state = 'submitted'` | the 48-hour auto-decline job (F03 J1) |
 | `(submitted_at) WHERE erased_at IS NULL` | the 6-month removal job |
 | `(lower(client_email)) WHERE state <> 'declined'` | the 2-slot limit |
 | `(client_phone_normalized) WHERE state <> 'declined'` | the 2-slot limit |
@@ -215,6 +220,19 @@ CREATE UNIQUE INDEX admin_sessions_token_hash_unique ON admin_sessions (token_ha
 | `last_used_at` | `timestamptz` | not null; a session is valid for less than 30 minutes after this | F02 SE3 |
 
 Logging out, and resetting the password, delete the rows (F02 SE5, PR3). Expired rows are simply never accepted again; nothing in F02 removes them.
+
+## `job_runs`
+
+When each scheduled job last ran successfully (F03 R5, R6). One row per job.
+
+```sql
+CREATE TABLE job_runs (
+    job          text        PRIMARY KEY,
+    last_run_at  timestamptz NOT NULL
+);
+```
+
+The auto-decline job writes its row, named `auto-decline`, in the same transaction as its declines, so the time is recorded only if the run succeeded.
 
 ## The 5-requests limit (NFR3)
 
