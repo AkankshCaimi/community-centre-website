@@ -1,2 +1,18 @@
 .claude/settings.local.json
 .env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/
