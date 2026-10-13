@@ -76,6 +76,7 @@ def test_r7_response_is_the_booking_in_list_form(admin_client, make_booking):
         "ends_at": "2026-04-01T14:00",
         "details": "Birthday party",
         "submitted_at": iso(NOW),
+        "auto_declined": False,
     }
 
 
@@ -243,7 +244,7 @@ def test_st7_a_booking_accepted_twice_gets_two_emails(admin_client, make_booking
 
 
 def test_st7_line_breaks_in_the_name_are_collapsed(admin_client, make_booking, caplog):
-    booking_id = make_booking(1, 1, name="Alice To: attacker@evil.example")
+    booking_id = make_booking(1, 1, name="Alice\u2028To: attacker@evil.example")
 
     caplog.clear()
     with caplog.at_level(logging.INFO, logger="app.email"):
@@ -251,7 +252,7 @@ def test_st7_line_breaks_in_the_name_are_collapsed(admin_client, make_booking, c
 
     text = email_log(caplog)[0]
     assert "Alice To: attacker@evil.example" in text
-    assert " " not in text
+    assert "\u2028" not in text
 
 
 # --- ST8: declining frees the day, and writes no email
