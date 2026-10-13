@@ -251,7 +251,11 @@ def test_r7_health_gives_up_on_a_database_that_does_not_answer(app, silent_serve
     took = time.monotonic() - started
 
     assert response.status_code == 200
-    assert response.get_json() == {"status": "ok", "auto_decline_last_run": None}
+    assert response.get_json() == {
+        "status": "ok",
+        "auto_decline_last_run": None,
+        "purge_last_run": None,
+    }
     assert took < 4.0  # 2 seconds, with room for a slow machine
 
 
@@ -262,7 +266,11 @@ def test_r7_unreadable_last_run_is_logged_as_a_warning_with_only_the_error_type(
     with caplog.at_level(logging.DEBUG, logger="app.jobs"):
         response = app.test_client().get("/health")
 
-    assert response.get_json() == {"status": "ok", "auto_decline_last_run": None}
+    assert response.get_json() == {
+        "status": "ok",
+        "auto_decline_last_run": None,
+        "purge_last_run": None,
+    }
     records = [record for record in caplog.records if record.name == "app.jobs"]
     assert len(records) == 1
     assert records[0].levelno == logging.WARNING
@@ -287,7 +295,11 @@ def test_r6_r7_missing_table_reads_as_null_and_is_logged(app, db, caplog):
     with caplog.at_level(logging.DEBUG, logger="app.jobs"):
         response = app.test_client().get("/health")
 
-    assert response.get_json() == {"status": "ok", "auto_decline_last_run": None}
+    assert response.get_json() == {
+        "status": "ok",
+        "auto_decline_last_run": None,
+        "purge_last_run": None,
+    }
     assert len([record for record in caplog.records if record.name == "app.jobs"]) == 1
 
 
@@ -319,7 +331,11 @@ def test_r6_health_answers_with_null_when_no_database_is_configured(app, caplog,
         response = app.test_client().get("/health")
 
     assert response.status_code == 200
-    assert response.get_json() == {"status": "ok", "auto_decline_last_run": None}
+    assert response.get_json() == {
+        "status": "ok",
+        "auto_decline_last_run": None,
+        "purge_last_run": None,
+    }
     assert len([record for record in caplog.records if record.name == "app.jobs"]) == 1
 
 

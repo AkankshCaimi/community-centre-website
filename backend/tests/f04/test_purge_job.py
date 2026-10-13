@@ -140,7 +140,7 @@ def test_p2_only_due_bookings_among_several_are_erased(app, make_booking, clock,
     # P5: nothing about the newer one changes except its address, long past 7 days (P4).
     after = db.execute("SELECT * FROM bookings WHERE id = %s", (newer,)).fetchone()
     assert is_erased(db, newer) is False
-    assert emptied(db, newer)[:3] == ("Person 2", "07700 900002", "person2@example.com")
+    assert emptied(db, newer)[:3] == ("Person 2", "person2@example.com", "07700 900002")
     assert len(after) == len(before)
 
 
