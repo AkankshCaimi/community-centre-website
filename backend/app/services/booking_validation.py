@@ -65,7 +65,8 @@ def months_after(moment: datetime, months: int) -> datetime:
     return moment.replace(year=year, month=month, day=day)
 
 
-def _has_control_character(text: str, allowed: str = "") -> bool:
+def has_control_character(text: str, allowed: str = "") -> bool:
+    """Whether the text holds a control character or unpaired surrogate (F01, Validation)."""
     return any(
         unicodedata.category(character) in _CONTROL_CATEGORIES and character not in allowed
         for character in text
@@ -85,13 +86,13 @@ def _check_name(value) -> tuple[str | None, str | None]:
         return None, "required"
     if len(name) > NAME_MAX:
         return None, "too_long"
-    if _has_control_character(name):
+    if has_control_character(name):
         return None, "invalid"
     return name, None
 
 
 def _email_is_valid(email: str) -> bool:
-    if _has_control_character(email):
+    if has_control_character(email):
         return False
     if any(character.isspace() for character in email):
         return False
@@ -103,7 +104,8 @@ def _email_is_valid(email: str) -> bool:
     return "." in domain and not domain.startswith(".") and not domain.endswith(".")
 
 
-def _check_email(value) -> tuple[str | None, str | None]:
+def check_email(value) -> tuple[str | None, str | None]:
+    """The trimmed email, or the code for why it is refused (V2)."""
     email = _trimmed_text(value)
     if email is None:
         return None, "required"
@@ -161,7 +163,7 @@ def _check_details(value) -> tuple[str | None, str | None]:
         return None, None
     if not isinstance(value, str):
         return None, "invalid"
-    if _has_control_character(value, allowed="\n"):
+    if has_control_character(value, allowed="\n"):
         return None, "invalid"
     if len(value) > DETAILS_MAX:
         return None, "too_long"
@@ -176,12 +178,17 @@ def _check_captcha_token(value) -> tuple[str | None, str | None]:
     return value, None
 
 
-def validate(body: dict, now_local: datetime) -> tuple[BookingRequest | None, dict[str, str]]:
+def validate(
+    body: dict, now_local: datetime, now: datetime | None = None
+) -> tuple[BookingRequest | None, dict[str, str]]:
     """Check a request body against V1 to V12.
 
-    `now_local` is the current Europe/London local time. Returns the request,
-    or the failing fields with their codes.
+    `now_local` is the current Europe/London local time and `now` the same
+    instant in UTC; if `now` is left out it is worked out from `now_local`.
+    Returns the request, or the failing fields with their codes.
     """
+    if now is None:
+        now = london_to_utc(now_local)
     errors: dict[str, str] = {}
 
     def record(field: str, result: tuple):
@@ -191,7 +198,7 @@ def validate(body: dict, now_local: datetime) -> tuple[BookingRequest | None, di
         return value
 
     name = record("name", _check_name(body.get("name")))
-    email = record("email", _check_email(body.get("email")))
+    email = record("email", check_email(body.get("email")))
     phone = record("phone", _check_phone(body.get("phone")))
     guest_count = record("guest_count", _check_guest_count(body))
     starts_at = record("starts_at", _check_time(body, "starts_at"))
@@ -200,7 +207,7 @@ def validate(body: dict, now_local: datetime) -> tuple[BookingRequest | None, di
     captcha_token = record("captcha_token", _check_captcha_token(body.get("captcha_token")))
 
     if starts_at is not None:
-        if starts_at <= london_to_utc(now_local):
+        if starts_at <= now:
             errors["starts_at"] = "in_past"
         elif starts_at > london_to_utc(months_after(now_local, MONTHS_AHEAD)):
             errors["starts_at"] = "too_far_ahead"

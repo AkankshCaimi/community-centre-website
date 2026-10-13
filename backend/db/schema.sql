@@ -103,3 +103,30 @@ CREATE INDEX IF NOT EXISTS bookings_ip_submitted
     ON bookings (client_ip, submitted_at);
 CREATE INDEX IF NOT EXISTS bookings_starts_at
     ON bookings (starts_at);
+
+-- Admin account and sessions (docs/specs/F02.md).
+
+CREATE TABLE IF NOT EXISTS admin_users (
+    id                          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email                       text        NOT NULL,
+    password_hash               text        NOT NULL,
+    password_reset_token_hash   text,
+    password_reset_created_at   timestamptz,
+    created_at                  timestamptz NOT NULL DEFAULT now(),
+
+    CONSTRAINT admin_users_reset_token_complete CHECK (
+        (password_reset_token_hash IS NULL) = (password_reset_created_at IS NULL)
+    )
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS admin_users_email_unique ON admin_users (lower(email));
+
+CREATE TABLE IF NOT EXISTS admin_sessions (
+    id             bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    admin_user_id  bigint      NOT NULL REFERENCES admin_users (id) ON DELETE CASCADE,
+    token_hash     text        NOT NULL,
+    created_at     timestamptz NOT NULL,
+    last_used_at   timestamptz NOT NULL
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS admin_sessions_token_hash_unique ON admin_sessions (token_hash);

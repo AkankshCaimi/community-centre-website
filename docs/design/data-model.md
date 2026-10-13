@@ -5,7 +5,7 @@
 - **Database:** PostgreSQL (ADR 0001)
 - **Related:** `application-state-machine.md` (state moves, jobs, and the table of rules that must never break)
 
-Two tables: `bookings` and `admin_users`. An earlier version had a third, `ip_request_log`; the author decided on 2026-10-13 (F01) to store the network address on the booking instead.
+Three tables: `bookings`, `admin_users` and `admin_sessions` (added with F02). An earlier version had a third, `ip_request_log`; the author decided on 2026-10-13 (F01) to store the network address on the booking instead.
 
 ## How the "day" is stored
 
@@ -172,8 +172,12 @@ CREATE TABLE admin_users (
     email                       text        NOT NULL,
     password_hash               text        NOT NULL,
     password_reset_token_hash   text,
-    password_reset_expires_at   timestamptz,
-    created_at                  timestamptz NOT NULL DEFAULT now()
+    password_reset_created_at   timestamptz,
+    created_at                  timestamptz NOT NULL DEFAULT now(),
+
+    CONSTRAINT admin_users_reset_token_complete CHECK (
+        (password_reset_token_hash IS NULL) = (password_reset_created_at IS NULL)
+    )
 );
 
 CREATE UNIQUE INDEX admin_users_email_unique ON admin_users (lower(email));
@@ -181,11 +185,36 @@ CREATE UNIQUE INDEX admin_users_email_unique ON admin_users (lower(email));
 
 | Column | Type | Constraint | From |
 |---|---|---|---|
-| `email` | `text` | not null; unique ignoring case | NFR1 |
-| `password_hash` | `text` | not null; the password itself is never stored | NFR1 |
-| `password_reset_token_hash`, `password_reset_expires_at` | `text`, `timestamptz` | null unless a reset is in progress | NFR1 (reset by email) |
+| `email` | `text` | not null; unique ignoring case | NFR1, F02 AU1 |
+| `password_hash` | `text` | not null; an Argon2id hash, the password itself is never stored | NFR1, F02 AU4 |
+| `password_reset_token_hash` | `text` | SHA-256 hash of the reset token; null unless a reset is in progress | F02 PR2 |
+| `password_reset_created_at` | `timestamptz` | when the token was created; set and cleared together with the hash | F02 PR4 |
 
-There is no failed-attempt counter or lockout column: no action is taken after repeated wrong passwords (NFR1). The table does not limit itself to one row; "one admin account for now" is not enforced in the database.
+There is no failed-attempt counter or lockout column: no action is taken after repeated wrong passwords (NFR1, F02 AU3). The table does not limit itself to one row; "one admin account" is enforced by the `create-admin` command (F02 CL4), not by the database.
+
+## `admin_sessions`
+
+One row per login session (F02 SE1 to SE7).
+
+```sql
+CREATE TABLE admin_sessions (
+    id             bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    admin_user_id  bigint      NOT NULL REFERENCES admin_users (id) ON DELETE CASCADE,
+    token_hash     text        NOT NULL,
+    created_at     timestamptz NOT NULL,
+    last_used_at   timestamptz NOT NULL
+);
+
+CREATE UNIQUE INDEX admin_sessions_token_hash_unique ON admin_sessions (token_hash);
+```
+
+| Column | Type | Constraint | From |
+|---|---|---|---|
+| `admin_user_id` | `bigint` | not null; the account the session belongs to | F02 SE6, PR3 |
+| `token_hash` | `text` | not null, unique; SHA-256 hash of the cookie value, never the value | F02 SE2 |
+| `last_used_at` | `timestamptz` | not null; a session is valid for less than 30 minutes after this | F02 SE3 |
+
+Logging out, and resetting the password, delete the rows (F02 SE5, PR3). Expired rows are simply never accepted again; nothing in F02 removes them.
 
 ## The 5-requests limit (NFR3)
 
@@ -217,7 +246,7 @@ Design choices I made that you have not decided, and gaps I found. None are sett
 4. **What counts as a request for the 5-a-day limit.** Only bookings that are actually created count. Submissions refused for a taken day, bad input or a failed CAPTCHA do not.
 5. **Keeping network addresses.** The address stays on the booking until the booking is erased, which is up to 6 months, although the limit only needs it for 24 hours. Whether it appears in the privacy notice is still open in R1.
 6. **Matching phone and email for the 2-slot limit.** Email is compared ignoring case. Phone is compared after removing spaces and dashes and replacing a leading `+44` with `0` (decided 2026-10-13, F01 L2), so `07700 900123`, `07700-900-123` and `+44 7700 900123` are the same person.
-7. **Password reset.** The token columns are needed for "reset by email"; how long a reset link stays valid is not decided.
+7. **Password reset.** Decided with F02: the token is valid for 30 minutes and only its hash is stored.
 8. **Multiple centres (NFR6).** There is no `centre_id`. Adding centres later means adding that column and including it in `bookings_one_per_day`.
 9. **No history of state changes.** Only the latest `state_changed_at` is kept; who changed a state and when is not recorded.
-10. **Admin sessions** (NFR2, ADR 0004) are not in this model; where sessions are stored is not decided.
+10. **Admin sessions.** Decided with F02: sessions are rows in `admin_sessions`, and the cookie holds only a random value whose hash is stored. Rows of expired sessions are never cleaned up.

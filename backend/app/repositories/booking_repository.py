@@ -5,7 +5,7 @@ from datetime import datetime
 import psycopg
 from psycopg import errors
 
-from app.models.booking import Booking, BookingRequest
+from app.models.booking import Booking, BookingDetails, BookingRequest
 
 # Any fixed number: every booking submission takes the same lock.
 _SUBMISSION_LOCK = 4601
@@ -78,3 +78,106 @@ def insert(
     except errors.ExclusionViolation as error:
         raise DayTaken from error
     return Booking(id=row[0], state=row[1], starts_at=row[2], ends_at=row[3])
+
+
+# --- admin (docs/specs/F02.md)
+
+_DETAIL_COLUMNS = """
+    id, state, client_name, client_email, client_phone, guest_count,
+    starts_at, ends_at, event_details, submitted_at
+"""
+
+# The only ORDER BY expressions a caller can choose between (LI4).
+_SORT_EXPRESSIONS = {
+    "submitted_at": "submitted_at",
+    "starts_at": "starts_at",
+    "name": "lower(client_name)",
+}
+_DIRECTIONS = {"asc": "ASC", "desc": "DESC"}
+
+# The largest ID the bookings table can hold.
+MAX_ID = 2**63 - 1
+
+
+def _details(row) -> BookingDetails:
+    return BookingDetails(*row)
+
+
+def _like_pattern(text: str) -> str:
+    """A LIKE pattern matching `text` anywhere, with its wildcards made ordinary (LI3)."""
+    escaped = text.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+    return f"%{escaped}%"
+
+
+def _filters(state, first_day, last_day, search) -> tuple[str, list]:
+    conditions, values = ["TRUE"], []
+    if state is not None:
+        conditions.append("state = %s")
+        values.append(state)
+    if first_day is not None:
+        conditions.append("(starts_at AT TIME ZONE 'Europe/London')::date >= %s")
+        values.append(first_day)
+    if last_day is not None:
+        conditions.append("(starts_at AT TIME ZONE 'Europe/London')::date <= %s")
+        values.append(last_day)
+    if search:
+        conditions.append(
+            "(client_name ILIKE %s ESCAPE '\\' OR client_email ILIKE %s ESCAPE '\\'"
+            " OR client_phone ILIKE %s ESCAPE '\\')"
+        )
+        values.extend([_like_pattern(search)] * 3)
+    return " AND ".join(conditions), values
+
+
+def count_matching(connection: psycopg.Connection, state, first_day, last_day, search) -> int:
+    where, values = _filters(state, first_day, last_day, search)
+    return connection.execute(f"SELECT count(*) FROM bookings WHERE {where}", values).fetchone()[0]
+
+
+def list_matching(
+    connection: psycopg.Connection,
+    state,
+    first_day,
+    last_day,
+    search,
+    sort: str,
+    order: str,
+    limit: int,
+    offset: int,
+) -> list[BookingDetails]:
+    """One page of the bookings that pass the filters, in the chosen order (LI1 to LI6)."""
+    where, values = _filters(state, first_day, last_day, search)
+    direction = _DIRECTIONS[order]
+    rows = connection.execute(
+        f"""
+        SELECT {_DETAIL_COLUMNS} FROM bookings
+        WHERE {where}
+        ORDER BY {_SORT_EXPRESSIONS[sort]} {direction}, id {direction}
+        LIMIT %s OFFSET %s
+        """,
+        [*values, limit, offset],
+    ).fetchall()
+    return [_details(row) for row in rows]
+
+
+def find_for_update(connection: psycopg.Connection, booking_id: int) -> BookingDetails | None:
+    """The booking, locked until the transaction ends so state changes take turns (ST11)."""
+    if booking_id > MAX_ID:
+        return None
+    row = connection.execute(
+        f"SELECT {_DETAIL_COLUMNS} FROM bookings WHERE id = %s FOR UPDATE", (booking_id,)
+    ).fetchone()
+    return None if row is None else _details(row)
+
+
+def set_state(
+    connection: psycopg.Connection, booking_id: int, state: str, changed_at: datetime
+) -> BookingDetails:
+    row = connection.execute(
+        f"""
+        UPDATE bookings SET state = %s, state_changed_at = %s WHERE id = %s
+        RETURNING {_DETAIL_COLUMNS}
+        """,
+        (state, changed_at, booking_id),
+    ).fetchone()
+    return _details(row)

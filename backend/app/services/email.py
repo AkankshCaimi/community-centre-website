@@ -1,4 +1,4 @@
-"""Emails for a new booking: rules E1 to E3 and P1 of docs/specs/F01.md.
+"""Logged emails: rules E1 to E3 and P1 of docs/specs/F01.md, ST7 and PR2 of docs/specs/F02.md.
 
 Emails are written to the log, not sent.
 """
@@ -47,4 +47,28 @@ def log_team_notification(request: BookingRequest) -> None:
         utc_to_london_text(request.starts_at),
         utc_to_london_text(request.ends_at),
         single_line(request.details or ""),
+    )
+
+
+def log_booking_accepted(client_email: str, name: str, starts_at: str, ends_at: str) -> None:
+    """The confirmation a client gets when their booking is accepted (F02 ST7)."""
+    logger.info(
+        "To: %s\nSubject: Your booking is confirmed\n\n"
+        "Dear %s,\n\n"
+        "Your booking from %s to %s has been accepted.",
+        single_line(client_email),
+        single_line(name),
+        starts_at,
+        ends_at,
+    )
+
+
+def log_password_reset(admin_email: str, token: str) -> None:
+    """The reset email for the admin, with the token on a line of its own (F02 PR2)."""
+    logger.info(
+        "To: %s\nSubject: Reset your admin password\n\n"
+        "Use this token to set a new password. It is valid for 30 minutes.\n"
+        "Token: %s",
+        single_line(admin_email),
+        token,
     )
