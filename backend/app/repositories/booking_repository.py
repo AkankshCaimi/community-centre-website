@@ -84,7 +84,7 @@ def insert(
 
 _DETAIL_COLUMNS = """
     id, state, client_name, client_email, client_phone, guest_count,
-    starts_at, ends_at, event_details, submitted_at
+    starts_at, ends_at, event_details, submitted_at, auto_declined
 """
 
 # The only ORDER BY expressions a caller can choose between (LI4).
@@ -181,3 +181,30 @@ def set_state(
         (state, changed_at, booking_id),
     ).fetchone()
     return _details(row)
+
+
+# --- auto-decline job (docs/specs/F03.md)
+
+
+def auto_decline_overdue(
+    connection: psycopg.Connection, submitted_by: datetime, now: datetime
+) -> int:
+    """Decline every booking still in 'submitted' that was submitted at or before `submitted_by`.
+
+    One statement: it changes all of them or, if anything fails, none (J8). A
+    booking another request holds at this moment is skipped, not waited for
+    (J10), which is also what stops two runs declining the same booking (J9).
+    Returns how many were declined.
+    """
+    return connection.execute(
+        """
+        UPDATE bookings
+        SET state = 'declined', auto_declined = true, state_changed_at = %(now)s
+        WHERE id IN (
+            SELECT id FROM bookings
+            WHERE state = 'submitted' AND submitted_at <= %(submitted_by)s
+            FOR UPDATE SKIP LOCKED
+        )
+        """,
+        {"now": now, "submitted_by": submitted_by},
+    ).rowcount

@@ -11,5 +11,4 @@ select = ["E", "F", "I", "B", "UP"]
 
 [tool.mutmut]
 source_paths = ["app"]
-do_not_mutate = ["app/api/health.py"]
 also_copy = ["db"]

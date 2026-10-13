@@ -6,7 +6,7 @@ from werkzeug.exceptions import HTTPException
 from app.api.admin import bp as admin_bp
 from app.api.bookings import bp as bookings_bp
 from app.api.health import bp as health_bp
-from app.cli import create_admin_command
+from app.cli import auto_decline_command, create_admin_command
 from app.config import Config
 from app.db import init_db_command
 
@@ -45,4 +45,5 @@ def create_app() -> Flask:
     app.register_error_handler(HTTPException, json_error)
     app.cli.add_command(init_db_command)
     app.cli.add_command(create_admin_command)
+    app.cli.add_command(auto_decline_command)
     return app

@@ -36,3 +36,20 @@ POST /api/v1/admin/password-reset            {"email": "admin@example.com"}
 POST /api/v1/admin/password-reset/confirm    {"token": "<token from the log>", "password": "<new password>"}
 ```
 
+## The auto-decline job
+
+A booking request left in "submitted" for 48 hours is declined automatically. This is done by a command that must be run **once an hour by a scheduler**; the application has no timer of its own, so if nothing runs the command, nothing is ever auto-declined.
+
+```
+cd backend
+.venv/bin/flask --app app auto-decline
+```
+
+With cron, for example:
+
+```
+0 * * * * cd /path/to/community-centre-website/backend && .venv/bin/flask --app app auto-decline
+```
+
+Each successful run writes the line `Auto-decline run: N declined.` to the log, and `GET /health` reports `auto_decline_last_run`, the time of the last successful run in UTC (`null` if it has never run). A last-run time more than an hour old means the job is failing or is not being run.
+

@@ -54,6 +54,14 @@ function shownTime(time) {
   return time.replace("T", " ");
 }
 
+// A booking the auto-decline job declined is labelled as such (F03 M4).
+function stateLabel(booking) {
+  if (booking.state === "declined" && booking.auto_declined) {
+    return "Auto-declined";
+  }
+  return STATE_LABELS[booking.state];
+}
+
 function LoginForm({ notice, onLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -182,7 +190,7 @@ function BookingRow({ booking, onAction }) {
       <td>{booking.guest_count}</td>
       <td>{shownTime(booking.starts_at)}</td>
       <td>{shownTime(booking.ends_at)}</td>
-      <td>{STATE_LABELS[booking.state]}</td>
+      <td>{stateLabel(booking)}</td>
       <td>{shownTime(booking.submitted_at)}</td>
       <td>{booking.details}</td>
       <td>
