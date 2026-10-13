@@ -27,3 +27,19 @@ class Booking:
     state: str
     starts_at: datetime
     ends_at: datetime
+
+
+@dataclass(frozen=True)
+class BookingDetails:
+    """A stored booking with its client details, as the admin sees it (F02 LI8)."""
+
+    id: int
+    state: str
+    name: str | None
+    email: str | None
+    phone: str | None
+    guest_count: int | None
+    starts_at: datetime
+    ends_at: datetime
+    details: str | None
+    submitted_at: datetime

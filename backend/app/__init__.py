@@ -3,8 +3,10 @@ import logging
 from flask import Flask, jsonify
 from werkzeug.exceptions import HTTPException
 
+from app.api.admin import bp as admin_bp
 from app.api.bookings import bp as bookings_bp
 from app.api.health import bp as health_bp
+from app.cli import create_admin_command
 from app.config import Config
 from app.db import init_db_command
 
@@ -39,6 +41,8 @@ def create_app() -> Flask:
     app.logger.setLevel(logging.INFO)
     app.register_blueprint(health_bp)
     app.register_blueprint(bookings_bp)
+    app.register_blueprint(admin_bp)
     app.register_error_handler(HTTPException, json_error)
     app.cli.add_command(init_db_command)
+    app.cli.add_command(create_admin_command)
     return app

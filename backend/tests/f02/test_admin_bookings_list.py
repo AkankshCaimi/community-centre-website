@@ -7,7 +7,7 @@ from datetime import timedelta
 from urllib.parse import quote
 
 import pytest
-from f02_helpers import NOW, call, iso
+from f02_helpers import NOW, call, iso, login
 
 
 def listing(client, query=""):
@@ -39,7 +39,7 @@ def three(make_booking, clock):
     """Three bookings submitted an hour apart: oldest first in this list."""
     made = []
     for index, (day, number) in enumerate([(3, 1), (1, 2), (2, 3)]):
-        clock.now = NOW + timedelta(hours=index)
+        clock.now = NOW + timedelta(minutes=index)
         made.append(make_booking(day, number))
     return made
 
@@ -83,6 +83,7 @@ def test_li8_times_are_london_local_times_in_winter_and_summer(admin_client, mak
     # Submitted in winter time; the booking itself is in summer time.
     clock.now = NOW.replace(hour=23, minute=45)
     make_booking(1, 1, starts_at="2026-04-01T00:30", ends_at="2026-04-01T02:00")
+    login(admin_client)
 
     item = listing(admin_client)["items"][0]
 

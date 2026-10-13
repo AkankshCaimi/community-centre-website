@@ -1,16 +1,14 @@
 """Submitting a booking request: the order of checks O1 of docs/specs/F01.md."""
 
 import ipaddress
-from datetime import datetime, timedelta
-
-from flask import current_app
+from datetime import timedelta
 
 from app import db
 from app.models.booking import Booking
 from app.repositories import booking_repository
 from app.repositories.booking_repository import DayTaken
-from app.services import captcha, email
-from app.services.booking_validation import LONDON, london_to_utc, normalize_phone, validate
+from app.services import captcha, clock, email
+from app.services.booking_validation import normalize_phone, validate
 
 RATE_LIMIT = 5
 RATE_WINDOW = timedelta(hours=24)
@@ -36,11 +34,6 @@ class NotAccepted(Exception):
     """The slot limit is reached or a day is taken. Deliberately one error for both (G1)."""
 
 
-def london_now() -> datetime:
-    """The current Europe/London local date and time, without a time zone."""
-    return datetime.now(LONDON).replace(tzinfo=None)
-
-
 def normalize_address(ip: str) -> str:
     """The address as stored and counted: IPv4 written in IPv6 form becomes IPv4 (spec L1)."""
     address = ipaddress.ip_address(ip)
@@ -59,11 +52,10 @@ def rate_limit_network(ip: str) -> str:
 
 def submit_booking(body: dict, ip: str) -> Booking:
     """Check a booking request and store it. Raises on the first check that fails."""
-    now_local = current_app.config.get("CLOCK", london_now)()
-    now = london_to_utc(now_local)
+    now_local, now = clock.read()
     ip = normalize_address(ip)
 
-    request, errors = validate(body, now_local)
+    request, errors = validate(body, now_local, now)
     if request is None:
         raise ValidationFailed(errors)
 
