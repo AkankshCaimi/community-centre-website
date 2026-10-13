@@ -5,6 +5,8 @@ import { useCallback, useEffect, useState } from "react";
 const API = "/api/v1/admin";
 const GENERAL_MESSAGE = "Something went wrong. Please try again later.";
 const SESSION_ENDED_MESSAGE = "Your session has ended. Please log in again.";
+const LIVE_MESSAGE =
+  "This booking is still live. Decline it first, or wait until the event is over.";
 
 const STATE_LABELS = {
   submitted: "Submitted",
@@ -60,6 +62,11 @@ function stateLabel(booking) {
     return "Auto-declined";
   }
   return STATE_LABELS[booking.state];
+}
+
+// A booking whose client data has been deleted has no name (F04 A1).
+function isErased(booking) {
+  return booking.name === null;
 }
 
 function LoginForm({ notice, onLoggedIn }) {
@@ -179,12 +186,74 @@ function DeclineDialog({ onConfirm, onCancel }) {
   );
 }
 
+function DeleteDialog({ onConfirm, onCancel }) {
+  return (
+    <div role="dialog" aria-modal="true" aria-labelledby="delete-question">
+      <p id="delete-question">Delete this client&apos;s data? This cannot be undone.</p>
+      <button type="button" onClick={onConfirm}>
+        Yes, delete
+      </button>
+      <button type="button" onClick={onCancel}>
+        Cancel
+      </button>
+    </div>
+  );
+}
+
+// The "Delete client data" section below the table (F04 W2, W3).
+function DeleteClientData({ bookings, onDelete }) {
+  const [chosenId, setChosenId] = useState("");
+  const [asking, setAsking] = useState(false);
+
+  const withData = bookings.filter((booking) => !isErased(booking));
+  // The chosen booking may have been deleted or have left the page since.
+  const chosen = withData.find((booking) => String(booking.id) === chosenId);
+
+  return (
+    <section>
+      <h3>Delete client data</h3>
+      {withData.length === 0 ? (
+        <p>No client data on this page.</p>
+      ) : (
+        <>
+          <label htmlFor="delete-booking">Booking</label>
+          <select
+            id="delete-booking"
+            value={chosen ? chosenId : ""}
+            onChange={(event) => setChosenId(event.target.value)}
+          >
+            <option value="">Choose a booking</option>
+            {withData.map((booking) => (
+              <option key={booking.id} value={booking.id}>
+                {booking.name}, {shownTime(booking.starts_at)}
+              </option>
+            ))}
+          </select>
+          <button type="button" disabled={!chosen} onClick={() => setAsking(true)}>
+            Delete data
+          </button>
+        </>
+      )}
+      {asking && chosen && (
+        <DeleteDialog
+          onCancel={() => setAsking(false)}
+          onConfirm={() => {
+            setAsking(false);
+            setChosenId("");
+            onDelete(chosen);
+          }}
+        />
+      )}
+    </section>
+  );
+}
+
 function BookingRow({ booking, onAction }) {
   // React renders every value below as text, so markup typed by a client is
   // shown, never interpreted (W11).
   return (
     <tr>
-      <td>{booking.name}</td>
+      <td>{isErased(booking) ? "Deleted" : booking.name}</td>
       <td>{booking.email}</td>
       <td>{booking.phone}</td>
       <td>{booking.guest_count}</td>
@@ -273,6 +342,26 @@ function Bookings({ onSessionEnded, onLoggedOut }) {
     }
   }
 
+  async function eraseBooking(booking) {
+    setMessage("");
+    const result = await guarded(() =>
+      callApi("POST", `/bookings/${booking.id}/erase`, { confirm: true }),
+    );
+    if (result === null) {
+      return;
+    }
+    if (result.status === 200) {
+      setList((current) => ({
+        ...current,
+        items: current.items.map((item) => (item.id === booking.id ? result.body : item)),
+      }));
+    } else if (result.status === 409) {
+      setMessage(LIVE_MESSAGE);
+    } else {
+      setMessage(GENERAL_MESSAGE);
+    }
+  }
+
   function handleAction(booking, state) {
     if (state === "declined") {
       setDeclining(booking);
@@ -340,6 +429,8 @@ function Bookings({ onSessionEnded, onLoggedOut }) {
       <button type="button" disabled={list.page >= pageCount} onClick={() => setPage(list.page + 1)}>
         Next
       </button>
+
+      <DeleteClientData bookings={list.items} onDelete={eraseBooking} />
 
       {declining && (
         <DeclineDialog

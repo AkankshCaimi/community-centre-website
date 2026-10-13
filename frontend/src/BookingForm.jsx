@@ -89,7 +89,7 @@ function Field({ label, name, error, as: Input = "input", ...inputProps }) {
   );
 }
 
-function Tick({ label, name, checked, onChange, error }) {
+function Tick({ label, name, checked, onChange, error, documentAddress, documentLink }) {
   const errorId = `${name}-error`;
   return (
     <div>
@@ -100,7 +100,11 @@ function Tick({ label, name, checked, onChange, error }) {
         onChange={(event) => onChange(event.target.checked)}
         aria-describedby={error ? errorId : undefined}
       />
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>{label}</label>{" "}
+      {/* The document opens in a new tab so the half-filled form is not lost (F04 T2). */}
+      <a href={documentAddress} target="_blank" rel="noopener noreferrer">
+        {documentLink}
+      </a>
       <FieldError id={errorId} message={error} />
     </div>
   );
@@ -196,6 +200,8 @@ export default function BookingForm({ CaptchaWidget = StandInCaptcha }) {
         checked={termsAccepted}
         onChange={setTermsAccepted}
         error={fieldErrors.terms_accepted}
+        documentAddress="/terms"
+        documentLink="Read the terms and conditions"
       />
       <Tick
         label="I have read the data and privacy notice"
@@ -203,6 +209,8 @@ export default function BookingForm({ CaptchaWidget = StandInCaptcha }) {
         checked={privacyAccepted}
         onChange={setPrivacyAccepted}
         error={fieldErrors.privacy_notice_accepted}
+        documentAddress="/privacy"
+        documentLink="Read the data and privacy notice"
       />
 
       <CaptchaWidget onToken={onToken} />
