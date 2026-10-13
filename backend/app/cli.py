@@ -1,11 +1,13 @@
 """Commands for the people who run the application."""
 
+import logging
+
 import click
 from flask.cli import with_appcontext
 
 from app import db
 from app.repositories import admin_repository
-from app.services import passwords
+from app.services import auto_decline, passwords
 from app.services.booking_validation import check_email
 from app.services.passwords import PASSWORD_MAX, PASSWORD_MIN
 
@@ -39,3 +41,27 @@ def create_admin_command(email: str):
         admin_repository.insert_admin(connection, email, passwords.hash_password(password))
 
     click.echo("Admin account created.")
+
+
+jobs_logger = logging.getLogger("app.jobs")
+
+
+@click.command("auto-decline")
+@with_appcontext
+def auto_decline_command():
+    """Decline every booking left in 'submitted' for 48 hours (docs/specs/F03.md).
+
+    Meant to be run once an hour by a scheduler. Exits with code 1 if the run fails.
+    """
+    try:
+        declined = auto_decline.run()
+    except Exception as error:
+        # Only the type: a database error's message can quote client details (F01 P1).
+        line = f"Auto-decline run failed: {type(error).__name__}."
+        jobs_logger.error(line)
+        click.echo(line)
+        raise SystemExit(1) from None
+
+    line = f"Auto-decline run: {declined} declined."
+    jobs_logger.info(line)
+    click.echo(line)

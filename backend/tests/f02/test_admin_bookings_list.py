@@ -69,6 +69,7 @@ def test_li8_item_holds_exactly_the_listed_fields(admin_client, make_booking):
             "ends_at": "2026-04-01T14:00",
             "details": "Birthday party",
             "submitted_at": iso(NOW),
+            "auto_declined": False,
         }
     ]
 

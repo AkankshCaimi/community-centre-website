@@ -49,6 +49,7 @@ def as_item(booking: BookingDetails) -> dict:
         "ends_at": utc_to_london_text(booking.ends_at),
         "details": booking.details,
         "submitted_at": utc_to_london_text(booking.submitted_at),
+        "auto_declined": booking.auto_declined,
     }
 
 

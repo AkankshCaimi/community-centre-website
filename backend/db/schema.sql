@@ -1,5 +1,6 @@
 -- Schema for docs/design/data-model.md. Applied by `flask --app app init-db`.
--- Safe to run again: nothing here changes a table that already exists.
+-- Safe to run again: nothing here changes existing data. The last section adds
+-- a column to a table that may already exist.
 
 CREATE TABLE IF NOT EXISTS bookings (
     id                          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -130,3 +131,29 @@ CREATE TABLE IF NOT EXISTS admin_sessions (
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS admin_sessions_token_hash_unique ON admin_sessions (token_hash);
+
+-- Auto-decline job (docs/specs/F03.md).
+--
+-- This file is the only schema tool the project has, so a change to an
+-- existing table is written so that it can be applied to a table that has it
+-- already and to one that does not. It never changes existing data.
+
+ALTER TABLE bookings ADD COLUMN IF NOT EXISTS auto_declined boolean NOT NULL DEFAULT false;
+
+-- Added only if it is missing, so that running this file again does not lock
+-- the table and re-check every row.
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'bookings_auto_declined_is_declined'
+    ) THEN
+        ALTER TABLE bookings ADD CONSTRAINT bookings_auto_declined_is_declined
+            CHECK (NOT auto_declined OR state = 'declined');
+    END IF;
+END;
+$$;
+
+CREATE TABLE IF NOT EXISTS job_runs (
+    job          text        PRIMARY KEY,
+    last_run_at  timestamptz NOT NULL
+);
