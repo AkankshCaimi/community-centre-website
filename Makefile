@@ -12,6 +12,7 @@ db-up:
 
 test: db-up
 	cd backend && .venv/bin/pytest
+	cd frontend && npm test
 
 lint:
 	cd backend && .venv/bin/ruff check .
