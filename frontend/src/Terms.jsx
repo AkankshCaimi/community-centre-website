@@ -3,7 +3,7 @@ import { CENTRE, LAST_UPDATED } from "./centre.js";
 // The terms and conditions (docs/specs/F04.md, T1, T4, T5).
 export default function Terms() {
   return (
-    <main>
+    <>
       <h1>Terms and conditions</h1>
       <p>Last updated: {LAST_UPDATED}</p>
 
@@ -45,6 +45,6 @@ export default function Terms() {
         How we use the details you give us is set out in our data and privacy notice, which is a
         separate document.
       </p>
-    </main>
+    </>
   );
 }

@@ -3,7 +3,7 @@ import { CENTRE, LAST_UPDATED } from "./centre.js";
 // The data and privacy notice (docs/specs/F04.md, T1, T3, T5).
 export default function Privacy() {
   return (
-    <main>
+    <>
       <h1>Data and privacy notice</h1>
       <p>Last updated: {LAST_UPDATED}</p>
 
@@ -67,6 +67,6 @@ export default function Privacy() {
         have the right to complain to the Information Commissioner&apos;s Office, at ico.org.uk
         or on 0303 123 1113.
       </p>
-    </main>
+    </>
   );
 }
