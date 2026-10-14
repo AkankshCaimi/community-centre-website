@@ -78,6 +78,22 @@ They appear on every public page: home, facilities, gallery, events, FAQ, terms 
 | A5 | The first link on every public page is "Skip to main content", which goes to the `main` region. |
 | A6 | The browser title is "<level-1 heading> – Community Centre"; on the home page it is "Community Centre". |
 
+## Styling
+
+One small stylesheet makes the pages presentable and readable. It changes how things look, never what they do.
+
+| Rule | |
+|---|---|
+| ST1 | All styling is in `frontend/src/site.css`, plain CSS of at most 200 lines, imported once by `frontend/src/main.jsx`. No framework, no new dependency, no change to the build, nothing loaded from another site. No component gains a class: rules select elements, roles and attributes, and the one class that already exists, `skip-link`. Nothing is hidden, added or reordered, so every test passes unchanged. |
+| ST2 | **Base.** The system's own sans-serif font, at the browser's default size, with a line height of 1.5. Colours are set once, as custom properties on `:root`: background `--background`, text `--text`, quieter text `--muted`, links `--link`, error messages `--error`, and the shaded background `--shade`. Each of `--text`, `--muted`, `--link` and `--error` has a contrast ratio of at least 4.5 to 1 against both `--background` and `--shade` (WCAG 2.2 AA). |
+| ST3 | **Width.** The content of the header, the main region and the footer is at most 60rem wide, centred, with 1rem of space at each side. The admin page, whose table has ten columns, may be up to 80rem wide. |
+| ST4 | **Header.** The navigation links sit in a row that wraps on a narrow screen, without bullets. The link of the current page (`aria-current="page"`) is bold. A line separates the header from the page. |
+| ST5 | **Footer.** A line separates it from the page; its text is smaller and in `--muted`. |
+| ST6 | **Skip link.** It is out of sight until it has keyboard focus, and then shows at the top left of the page. It is never removed with `display: none` or `visibility: hidden`, which would take it away from the keyboard and from screen readers too. |
+| ST7 | **Forms.** Each field sits on its own row with space below it. A label that comes before its field stands on its own line above it; a tick box keeps its label beside it. Text fields, text areas and lists use the page's font, have a visible border and padding, and are at most 30rem wide. Error messages (`role="alert"`) are in `--error`. Buttons have padding and a border; a disabled button looks disabled. The browser's focus outline is never removed; every link, button and field shows a clear outline when it has keyboard focus. |
+| ST8 | **Admin table.** Cells have a 1px border and padding, the borders collapse into single lines, headings are left-aligned on `--shade`. The decline and delete questions (`role="dialog"`) have a border and padding, so they stand out from the page. |
+| ST9 | **Images.** No picture is wider than its container, and pictures keep their proportions. In the gallery the pictures and captions form a grid whose columns are at least 16rem wide, as many as fit; the heading and the note span the full width. Captions are smaller and in `--muted`. |
+
 ## Images
 
 Six pictures supplied by the author on 2026-10-14, kept in `frontend/src/images/`. **They are stand-ins: illustrations of the kind of place the centre is, not photographs of the centre.**
@@ -114,6 +130,7 @@ In `frontend/src/PublicPages.test.jsx`. Small: each page renders with its headin
 - **The map link sends the visitor to Google Maps.** Nothing is sent until they follow it.
 - **An unknown address shows the home page**, not a "not found" page.
 - **Keyboard use is checked by structure** (links, buttons, order), not by a person tabbing through a browser.
+- **The styling is checked by reading the stylesheet**, not in a browser: the tests check its size, colours, contrast and what it must never do (ST1, ST2, ST6, ST7). How the pages look at each screen width is checked by eye.
 
 ## Where this differs
 
@@ -155,4 +172,4 @@ Not yet confirmed by the author; all of these come from the follow-up to the fir
 - The sentence of I2 coming before the first picture.
 - The exact text of the nine answers (Q2), including "We will contact you" in the first, the sentence about midnight in the sixth, and the whole of the last.
 - The sentence added to the privacy notice (F04 T3), and the wording added to FR5 and FR18 of `docs/requirements.md`.
-- `frontend/src/site.css`, which makes a picture no wider than the screen. No rule of this spec describes styling.
+- The styling rules ST1 to ST9, which replace the unspecified `site.css` of the first version, and their colours.
