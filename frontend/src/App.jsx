@@ -18,9 +18,10 @@ const PAGES = [
   ["/privacy", "Data and privacy notice", Privacy],
 ];
 
+// An address matches when written exactly, or with one "/" at its end (R1).
 function isAt(address) {
   const path = window.location.pathname;
-  return path === address || path.startsWith(`${address}/`);
+  return path === address || path === `${address}/`;
 }
 
 export default function App() {

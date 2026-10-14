@@ -13,8 +13,8 @@ export default function Facilities() {
         <li>Main stage</li>
         <li>Seating for up to 250 guests</li>
       </ul>
-      <Decoration picture={KITCHEN} />
       <p>{NOTE}</p>
+      <Decoration picture={KITCHEN} />
     </>
   );
 }
