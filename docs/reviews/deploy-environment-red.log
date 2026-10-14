@@ -1,0 +1,19 @@
+PASS  the file compiles without a warning
+PASS  Z9 there is exactly one Container Apps environment
+FAIL  Z9 its mode is WorkloadProfiles, set explicitly, not Express
+FAIL  Z9 its one workload profile is Consumption
+PASS  Z6 Z9 its logs go to Log Analytics
+PASS  Z6 Z9 the workspace is log-community-centre
+PASS  Z9 the environment is named cae-community-centre
+PASS  Z1 there is one website
+PASS  Z4 the jobs are declared
+PASS  Z4 three jobs: auto-decline at minute 0, purge at minute 30, init-db by hand
+PASS  Z9 containerApps use the one environment
+FAIL  Z9 containerApps name the Consumption profile
+PASS  Z9 jobs use the one environment
+FAIL  Z9 jobs name the Consumption profile
+FAIL  Z9 managedEnvironments are declared with API version 2026-07-01 (2024-03-01)
+FAIL  Z9 containerApps are declared with API version 2026-07-01 (2024-03-01)
+FAIL  Z9 jobs are declared with API version 2026-07-01 (2024-03-01)
+
+10 passed, 7 failed

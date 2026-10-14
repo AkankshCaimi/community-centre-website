@@ -127,10 +127,16 @@ resource database 'Microsoft.DBforPostgreSQL/flexibleServers@2024-08-01' = {
   }
 }
 
-resource environment 'Microsoft.App/managedEnvironments@2024-03-01' = {
+// Z9: a workspace environment. The mode is set explicitly: left out, Azure created
+// an express environment, and express environments do not support jobs.
+resource environment 'Microsoft.App/managedEnvironments@2026-07-01' = {
   name: 'cae-community-centre'
   location: location
   properties: {
+    environmentMode: 'WorkloadProfiles'
+    workloadProfiles: [
+      { name: 'Consumption', workloadProfileType: 'Consumption' }
+    ]
     appLogsConfiguration: {
       destination: 'log-analytics'
       logAnalyticsConfiguration: {
@@ -142,7 +148,7 @@ resource environment 'Microsoft.App/managedEnvironments@2024-03-01' = {
 }
 
 // Z1, Z2
-resource website 'Microsoft.App/containerApps@2024-03-01' = if (deployApps) {
+resource website 'Microsoft.App/containerApps@2026-07-01' = if (deployApps) {
   name: 'ca-community-centre'
   location: location
   identity: {
@@ -151,6 +157,7 @@ resource website 'Microsoft.App/containerApps@2024-03-01' = if (deployApps) {
   }
   properties: {
     environmentId: environment.id
+    workloadProfileName: 'Consumption'
     configuration: {
       activeRevisionsMode: 'Single'
       ingress: {
@@ -183,7 +190,7 @@ resource website 'Microsoft.App/containerApps@2024-03-01' = if (deployApps) {
 }
 
 // Z4
-resource scheduled 'Microsoft.App/jobs@2024-03-01' = [
+resource scheduled 'Microsoft.App/jobs@2026-07-01' = [
   for job in jobs: if (deployApps) {
     name: job.name
     location: location
@@ -193,6 +200,7 @@ resource scheduled 'Microsoft.App/jobs@2024-03-01' = [
     }
     properties: {
       environmentId: environment.id
+      workloadProfileName: 'Consumption'
       configuration: {
         triggerType: empty(job.schedule) ? 'Manual' : 'Schedule'
         replicaTimeout: 300
