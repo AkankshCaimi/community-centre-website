@@ -8,13 +8,13 @@ CI_PORT=15432
 CI_PROJECT=community-centre-ci
 
 usage() {
-    echo "Usage: scripts/ci.sh install|lint|test|all" >&2
+    echo "Usage: scripts/ci.sh install|lint|test|image|all" >&2
     exit 2
 }
 
 [ $# -eq 1 ] || usage
 case "$1" in
-    install | lint | test | all) ;;
+    install | lint | test | image | all) ;;
     *) usage ;;
 esac
 
@@ -45,6 +45,11 @@ run_test() {
     return "$result"
 }
 
+# Build only: nothing is pushed or deployed (S10).
+build_image() {
+    docker build --tag community-centre:ci .
+}
+
 report() {
     if [ "$2" -eq 0 ]; then echo "$1: passed"; else echo "$1: FAILED"; fi
 }
@@ -53,15 +58,19 @@ case "$1" in
     install) make install || exit 1 ;;
     lint) make lint || exit 1 ;;
     test) run_test || exit 1 ;;
+    image) build_image || exit 1 ;;
     all)
         make install || exit 1
         make lint
         lint=$?
         run_test
         test=$?
+        build_image
+        image=$?
         echo
         report lint "$lint"
         report test "$test"
-        [ "$lint" -eq 0 ] && [ "$test" -eq 0 ] || exit 1
+        report image "$image"
+        [ "$lint" -eq 0 ] && [ "$test" -eq 0 ] && [ "$image" -eq 0 ] || exit 1
         ;;
 esac

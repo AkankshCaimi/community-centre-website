@@ -1,8 +1,9 @@
 import logging
 
 from flask import Flask, jsonify
-from werkzeug.exceptions import HTTPException
+from werkzeug.exceptions import HTTPException, NotFound
 
+from app import frontend
 from app.api.admin import bp as admin_bp
 from app.api.bookings import bp as bookings_bp
 from app.api.health import bp as health_bp
@@ -15,6 +16,11 @@ def json_error(error: HTTPException):
     """Answer HTTP errors in JSON, never HTML (spec F01, S4, A9 and A10)."""
     name = error.name.lower().replace(" ", "_")
     return jsonify(error=name), error.code
+
+
+def not_found(error: NotFound):
+    """Answer with the built frontend where it is switched on (spec deploy, G3 and G4)."""
+    return frontend.answer() or json_error(error)
 
 
 class Application(Flask):
@@ -43,6 +49,7 @@ def create_app() -> Flask:
     app.register_blueprint(bookings_bp)
     app.register_blueprint(admin_bp)
     app.register_error_handler(HTTPException, json_error)
+    app.register_error_handler(NotFound, not_found)
     app.cli.add_command(init_db_command)
     app.cli.add_command(create_admin_command)
     app.cli.add_command(auto_decline_command)

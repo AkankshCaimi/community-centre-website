@@ -1,0 +1,999 @@
+........FFFFFFFFFFFFFFFF........F............FFFFFFFFFFFFFFFFFFFFF.F     [100%]
+=================================== FAILURES ===================================
+_______________ test_g2_a_script_is_served_with_its_content_type _______________
+
+site = <FlaskClient <Application 'app'>>
+
+    def test_g2_a_script_is_served_with_its_content_type(site):
+        response = site.get("/assets/app-abc123.js")
+    
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+
+tests/deploy/test_serve_frontend.py:71: AssertionError
+______________ test_g2_a_file_in_the_top_of_the_folder_is_served _______________
+
+site = <FlaskClient <Application 'app'>>
+
+    def test_g2_a_file_in_the_top_of_the_folder_is_served(site):
+        response = site.get("/favicon.ico")
+    
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+
+tests/deploy/test_serve_frontend.py:79: AssertionError
+_________________ test_g2_index_html_can_be_asked_for_by_name __________________
+
+site = <FlaskClient <Application 'app'>>
+
+    def test_g2_index_html_can_be_asked_for_by_name(site):
+>       assert is_index(site.get("/index.html"))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/index.html')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:84: AssertionError
+_____________ test_g3_an_address_without_a_file_gets_index_html[/] _____________
+
+site = <FlaskClient <Application 'app'>>, path = '/'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+________ test_g3_an_address_without_a_file_gets_index_html[/facilities] ________
+
+site = <FlaskClient <Application 'app'>>, path = '/facilities'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/facilities')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+_________ test_g3_an_address_without_a_file_gets_index_html[/gallery] __________
+
+site = <FlaskClient <Application 'app'>>, path = '/gallery'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/gallery')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+__________ test_g3_an_address_without_a_file_gets_index_html[/events] __________
+
+site = <FlaskClient <Application 'app'>>, path = '/events'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/events')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+___________ test_g3_an_address_without_a_file_gets_index_html[/faq] ____________
+
+site = <FlaskClient <Application 'app'>>, path = '/faq'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/faq')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+__________ test_g3_an_address_without_a_file_gets_index_html[/terms] ___________
+
+site = <FlaskClient <Application 'app'>>, path = '/terms'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/terms')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+_________ test_g3_an_address_without_a_file_gets_index_html[/privacy] __________
+
+site = <FlaskClient <Application 'app'>>, path = '/privacy'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/privacy')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+__________ test_g3_an_address_without_a_file_gets_index_html[/admin] ___________
+
+site = <FlaskClient <Application 'app'>>, path = '/admin'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/admin')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+_______ test_g3_an_address_without_a_file_gets_index_html[/no-such-page] _______
+
+site = <FlaskClient <Application 'app'>>, path = '/no-such-page'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/no-such-page')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+_______ test_g3_an_address_without_a_file_gets_index_html[/facilities/x] _______
+
+site = <FlaskClient <Application 'app'>>, path = '/facilities/x'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/facilities/x')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+__ test_g3_an_address_without_a_file_gets_index_html[/assets/no-such-file.js] __
+
+site = <FlaskClient <Application 'app'>>, path = '/assets/no-such-file.js'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/assets/no-such-file.js')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+_________ test_g3_an_address_without_a_file_gets_index_html[/healthy] __________
+
+site = <FlaskClient <Application 'app'>>, path = '/healthy'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/",
+            "/facilities",
+            "/gallery",
+            "/events",
+            "/faq",
+            "/terms",
+            "/privacy",
+            "/admin",
+            "/no-such-page",
+            "/facilities/x",
+            "/assets/no-such-file.js",
+            "/healthy",
+        ],
+    )
+    def test_g3_an_address_without_a_file_gets_index_html(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/healthy')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:108: AssertionError
+_________________ test_g3_the_query_string_makes_no_difference _________________
+
+site = <FlaskClient <Application 'app'>>
+
+    def test_g3_the_query_string_makes_no_difference(site):
+>       assert is_index(site.get("/facilities?from=home"))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/facilities?from=home')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:112: AssertionError
+_______________ test_g5_head_is_answered_like_get_without_a_body _______________
+
+site = <FlaskClient <Application 'app'>>
+
+    def test_g5_head_is_answered_like_get_without_a_body(site):
+        response = site.head("/facilities")
+    
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+
+tests/deploy/test_serve_frontend.py:147: AssertionError
+_ test_g6_an_address_that_leaves_the_folder_never_gets_the_file[/../secret.txt] _
+
+site = <FlaskClient <Application 'app'>>, path = '/../secret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/assets/../../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/assets/%2e%2e/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "//secret.txt",
+        ],
+    )
+    def test_g6_an_address_that_leaves_the_folder_never_gets_the_file(site, path):
+        response = site.get(path)
+    
+        assert SECRET not in response.get_data()
+>       assert is_index(response)
+E       assert False
+E        +  where False = is_index(<WrapperTestResponse 22 bytes [404 NOT FOUND]>)
+
+tests/deploy/test_serve_frontend.py:176: AssertionError
+_ test_g6_an_address_that_leaves_the_folder_never_gets_the_file[/assets/../../secret.txt] _
+
+site = <FlaskClient <Application 'app'>>, path = '/assets/../../secret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/assets/../../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/assets/%2e%2e/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "//secret.txt",
+        ],
+    )
+    def test_g6_an_address_that_leaves_the_folder_never_gets_the_file(site, path):
+        response = site.get(path)
+    
+        assert SECRET not in response.get_data()
+>       assert is_index(response)
+E       assert False
+E        +  where False = is_index(<WrapperTestResponse 22 bytes [404 NOT FOUND]>)
+
+tests/deploy/test_serve_frontend.py:176: AssertionError
+_ test_g6_an_address_that_leaves_the_folder_never_gets_the_file[/%2e%2e/secret.txt] _
+
+site = <FlaskClient <Application 'app'>>, path = '/%2e%2e/secret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/assets/../../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/assets/%2e%2e/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "//secret.txt",
+        ],
+    )
+    def test_g6_an_address_that_leaves_the_folder_never_gets_the_file(site, path):
+        response = site.get(path)
+    
+        assert SECRET not in response.get_data()
+>       assert is_index(response)
+E       assert False
+E        +  where False = is_index(<WrapperTestResponse 22 bytes [404 NOT FOUND]>)
+
+tests/deploy/test_serve_frontend.py:176: AssertionError
+_ test_g6_an_address_that_leaves_the_folder_never_gets_the_file[/assets/%2e%2e/%2e%2e/secret.txt] _
+
+site = <FlaskClient <Application 'app'>>
+path = '/assets/%2e%2e/%2e%2e/secret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/assets/../../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/assets/%2e%2e/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "//secret.txt",
+        ],
+    )
+    def test_g6_an_address_that_leaves_the_folder_never_gets_the_file(site, path):
+        response = site.get(path)
+    
+        assert SECRET not in response.get_data()
+>       assert is_index(response)
+E       assert False
+E        +  where False = is_index(<WrapperTestResponse 22 bytes [404 NOT FOUND]>)
+
+tests/deploy/test_serve_frontend.py:176: AssertionError
+_ test_g6_an_address_that_leaves_the_folder_never_gets_the_file[/..%2fsecret.txt] _
+
+site = <FlaskClient <Application 'app'>>, path = '/..%2fsecret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/assets/../../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/assets/%2e%2e/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "//secret.txt",
+        ],
+    )
+    def test_g6_an_address_that_leaves_the_folder_never_gets_the_file(site, path):
+        response = site.get(path)
+    
+        assert SECRET not in response.get_data()
+>       assert is_index(response)
+E       assert False
+E        +  where False = is_index(<WrapperTestResponse 22 bytes [404 NOT FOUND]>)
+
+tests/deploy/test_serve_frontend.py:176: AssertionError
+_ test_g6_an_address_that_leaves_the_folder_never_gets_the_file[//secret.txt] __
+
+site = <FlaskClient <Application 'app'>>, path = '//secret.txt'
+
+    @pytest.mark.parametrize(
+        "path",
+        [
+            "/../secret.txt",
+            "/assets/../../secret.txt",
+            "/%2e%2e/secret.txt",
+            "/assets/%2e%2e/%2e%2e/secret.txt",
+            "/..%2fsecret.txt",
+            "//secret.txt",
+        ],
+    )
+    def test_g6_an_address_that_leaves_the_folder_never_gets_the_file(site, path):
+        response = site.get(path)
+    
+        assert SECRET not in response.get_data()
+>       assert is_index(response)
+E       assert False
+E        +  where False = is_index(<WrapperTestResponse 22 bytes [404 NOT FOUND]>)
+
+tests/deploy/test_serve_frontend.py:176: AssertionError
+____________________ test_g6_an_absolute_path_is_not_served ____________________
+
+site = <FlaskClient <Application 'app'>>
+dist = PosixPath('/private/var/folders/4c/hdnf965d51x0bs3_v3p_zm280000gn/T/pytest-of-akanksh/pytest-0/test_g6_an_absolute_path_is_no0/dist')
+
+    def test_g6_an_absolute_path_is_not_served(site, dist):
+        outside = dist.parent / "secret.txt"
+    
+        response = site.get(f"/{outside}")
+    
+        assert SECRET not in response.get_data()
+>       assert is_index(response)
+E       assert False
+E        +  where False = is_index(<WrapperTestResponse 22 bytes [404 NOT FOUND]>)
+
+tests/deploy/test_serve_frontend.py:185: AssertionError
+___________________ test_g6_a_folder_is_not_a_file[/assets] ____________________
+
+site = <FlaskClient <Application 'app'>>, path = '/assets'
+
+    @pytest.mark.parametrize("path", ["/assets", "/assets/"])
+    def test_g6_a_folder_is_not_a_file(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/assets')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:190: AssertionError
+___________________ test_g6_a_folder_is_not_a_file[/assets/] ___________________
+
+site = <FlaskClient <Application 'app'>>, path = '/assets/'
+
+    @pytest.mark.parametrize("path", ["/assets", "/assets/"])
+    def test_g6_a_folder_is_not_a_file(site, path):
+>       assert is_index(site.get(path))
+E       AssertionError: assert False
+E        +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E        +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/assets/')
+E        +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:190: AssertionError
+_____________________ test_g7_index_html_is_not_cached[/] ______________________
+
+site = <FlaskClient <Application 'app'>>, path = '/'
+
+    @pytest.mark.parametrize("path", ["/", "/facilities", "/index.html", "/no-such-page"])
+    def test_g7_index_html_is_not_cached(site, path):
+>       assert site.get(path).headers["Cache-Control"] == "no-cache"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:198: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'Cache-Control'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+________________ test_g7_index_html_is_not_cached[/facilities] _________________
+
+site = <FlaskClient <Application 'app'>>, path = '/facilities'
+
+    @pytest.mark.parametrize("path", ["/", "/facilities", "/index.html", "/no-such-page"])
+    def test_g7_index_html_is_not_cached(site, path):
+>       assert site.get(path).headers["Cache-Control"] == "no-cache"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:198: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'Cache-Control'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+________________ test_g7_index_html_is_not_cached[/index.html] _________________
+
+site = <FlaskClient <Application 'app'>>, path = '/index.html'
+
+    @pytest.mark.parametrize("path", ["/", "/facilities", "/index.html", "/no-such-page"])
+    def test_g7_index_html_is_not_cached(site, path):
+>       assert site.get(path).headers["Cache-Control"] == "no-cache"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:198: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'Cache-Control'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+_______________ test_g7_index_html_is_not_cached[/no-such-page] ________________
+
+site = <FlaskClient <Application 'app'>>, path = '/no-such-page'
+
+    @pytest.mark.parametrize("path", ["/", "/facilities", "/index.html", "/no-such-page"])
+    def test_g7_index_html_is_not_cached(site, path):
+>       assert site.get(path).headers["Cache-Control"] == "no-cache"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:198: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'Cache-Control'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+________________ test_g7_files_under_assets_are_cached_for_good ________________
+
+site = <FlaskClient <Application 'app'>>
+
+    def test_g7_files_under_assets_are_cached_for_good(site):
+>       assert site.get("/assets/app-abc123.js").headers["Cache-Control"] == FOREVER
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:202: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'Cache-Control'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+______________________ test_g7_other_files_are_not_cached ______________________
+
+site = <FlaskClient <Application 'app'>>
+
+    def test_g7_other_files_are_not_cached(site):
+>       assert site.get("/favicon.ico").headers["Cache-Control"] == "no-cache"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:206: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'Cache-Control'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+__________ test_g7_a_missing_file_under_assets_is_not_cached_for_good __________
+
+site = <FlaskClient <Application 'app'>>
+
+    def test_g7_a_missing_file_under_assets_is_not_cached_for_good(site):
+>       assert site.get("/assets/no-such-file.js").headers["Cache-Control"] == "no-cache"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:210: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'Cache-Control'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+___________________ test_g8_every_answer_carries_nosniff[/] ____________________
+
+site = <FlaskClient <Application 'app'>>, path = '/'
+
+    @pytest.mark.parametrize("path", ["/", "/facilities", "/assets/app-abc123.js", "/favicon.ico"])
+    def test_g8_every_answer_carries_nosniff(site, path):
+>       assert site.get(path).headers["X-Content-Type-Options"] == "nosniff"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:218: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'X-Content-Type-Options'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+______________ test_g8_every_answer_carries_nosniff[/facilities] _______________
+
+site = <FlaskClient <Application 'app'>>, path = '/facilities'
+
+    @pytest.mark.parametrize("path", ["/", "/facilities", "/assets/app-abc123.js", "/favicon.ico"])
+    def test_g8_every_answer_carries_nosniff(site, path):
+>       assert site.get(path).headers["X-Content-Type-Options"] == "nosniff"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:218: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'X-Content-Type-Options'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+_________ test_g8_every_answer_carries_nosniff[/assets/app-abc123.js] __________
+
+site = <FlaskClient <Application 'app'>>, path = '/assets/app-abc123.js'
+
+    @pytest.mark.parametrize("path", ["/", "/facilities", "/assets/app-abc123.js", "/favicon.ico"])
+    def test_g8_every_answer_carries_nosniff(site, path):
+>       assert site.get(path).headers["X-Content-Type-Options"] == "nosniff"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:218: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'X-Content-Type-Options'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+______________ test_g8_every_answer_carries_nosniff[/favicon.ico] ______________
+
+site = <FlaskClient <Application 'app'>>, path = '/favicon.ico'
+
+    @pytest.mark.parametrize("path", ["/", "/facilities", "/assets/app-abc123.js", "/favicon.ico"])
+    def test_g8_every_answer_carries_nosniff(site, path):
+>       assert site.get(path).headers["X-Content-Type-Options"] == "nosniff"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_serve_frontend.py:218: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:87: in __getitem__
+    return self._get_key(key)
+           ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers([('Content-Type', 'application/json'), ('Content-Length', '22')])
+key = 'X-Content-Type-Options'
+
+    def _get_key(self, key: str) -> str:
+        ikey = key.lower()
+    
+        for k, v in self._list:
+            if k.lower() == ikey:
+                return v
+    
+>       raise BadRequestKeyError(key)
+E       werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+.venv/lib/python3.14/site-packages/werkzeug/datastructures/headers.py:101: BadRequestKeyError
+_____________ test_g9_without_index_html_the_answer_is_a_json_404 ______________
+
+site = <FlaskClient <Application 'app'>>
+dist = PosixPath('/private/var/folders/4c/hdnf965d51x0bs3_v3p_zm280000gn/T/pytest-of-akanksh/pytest-0/test_g9_without_index_html_the0/dist')
+
+    def test_g9_without_index_html_the_answer_is_a_json_404(site, dist):
+        (dist / "index.html").unlink()
+    
+        assert is_json_404(site.get("/"))
+        assert is_json_404(site.get("/facilities"))
+>       assert site.get("/assets/app-abc123.js").get_data() == SCRIPT
+E       assert b'{"error":"not_found"}\n' == b"console.log('app');"
+E         
+E         At index 0 diff: b'{' != b'c'
+E         Use -v to get more diff
+
+tests/deploy/test_serve_frontend.py:229: AssertionError
+_____________ test_g10_serving_reads_no_database_and_logs_nothing ______________
+
+app = <Application 'app'>, site = <FlaskClient <Application 'app'>>
+caplog = <_pytest.logging.LogCaptureFixture object at 0x10cadb4d0>
+
+    def test_g10_serving_reads_no_database_and_logs_nothing(app, site, caplog):
+        app.config["DATABASE_URL"] = "postgresql://nobody:nothing@127.0.0.1:1/nowhere"
+        caplog.clear()
+    
+        with caplog.at_level(logging.DEBUG):
+>           assert is_index(site.get("/"))
+E           AssertionError: assert False
+E            +  where False = is_index(<WrapperTestResponse streamed [404 NOT FOUND]>)
+E            +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/')
+E            +      where get = <FlaskClient <Application 'app'>>.get
+
+tests/deploy/test_serve_frontend.py:246: AssertionError
+=========================== short test summary info ============================
+FAILED tests/deploy/test_serve_frontend.py::test_g2_a_script_is_served_with_its_content_type
+FAILED tests/deploy/test_serve_frontend.py::test_g2_a_file_in_the_top_of_the_folder_is_served
+FAILED tests/deploy/test_serve_frontend.py::test_g2_index_html_can_be_asked_for_by_name
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/facilities]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/gallery]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/events]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/faq]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/terms]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/privacy]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/admin]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/no-such-page]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/facilities/x]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/assets/no-such-file.js]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_an_address_without_a_file_gets_index_html[/healthy]
+FAILED tests/deploy/test_serve_frontend.py::test_g3_the_query_string_makes_no_difference
+FAILED tests/deploy/test_serve_frontend.py::test_g5_head_is_answered_like_get_without_a_body
+FAILED tests/deploy/test_serve_frontend.py::test_g6_an_address_that_leaves_the_folder_never_gets_the_file[/../secret.txt]
+FAILED tests/deploy/test_serve_frontend.py::test_g6_an_address_that_leaves_the_folder_never_gets_the_file[/assets/../../secret.txt]
+FAILED tests/deploy/test_serve_frontend.py::test_g6_an_address_that_leaves_the_folder_never_gets_the_file[/%2e%2e/secret.txt]
+FAILED tests/deploy/test_serve_frontend.py::test_g6_an_address_that_leaves_the_folder_never_gets_the_file[/assets/%2e%2e/%2e%2e/secret.txt]
+FAILED tests/deploy/test_serve_frontend.py::test_g6_an_address_that_leaves_the_folder_never_gets_the_file[/..%2fsecret.txt]
+FAILED tests/deploy/test_serve_frontend.py::test_g6_an_address_that_leaves_the_folder_never_gets_the_file[//secret.txt]
+FAILED tests/deploy/test_serve_frontend.py::test_g6_an_absolute_path_is_not_served
+FAILED tests/deploy/test_serve_frontend.py::test_g6_a_folder_is_not_a_file[/assets]
+FAILED tests/deploy/test_serve_frontend.py::test_g6_a_folder_is_not_a_file[/assets/]
+FAILED tests/deploy/test_serve_frontend.py::test_g7_index_html_is_not_cached[/]
+FAILED tests/deploy/test_serve_frontend.py::test_g7_index_html_is_not_cached[/facilities]
+FAILED tests/deploy/test_serve_frontend.py::test_g7_index_html_is_not_cached[/index.html]
+FAILED tests/deploy/test_serve_frontend.py::test_g7_index_html_is_not_cached[/no-such-page]
+FAILED tests/deploy/test_serve_frontend.py::test_g7_files_under_assets_are_cached_for_good
+FAILED tests/deploy/test_serve_frontend.py::test_g7_other_files_are_not_cached
+FAILED tests/deploy/test_serve_frontend.py::test_g7_a_missing_file_under_assets_is_not_cached_for_good
+FAILED tests/deploy/test_serve_frontend.py::test_g8_every_answer_carries_nosniff[/]
+FAILED tests/deploy/test_serve_frontend.py::test_g8_every_answer_carries_nosniff[/facilities]
+FAILED tests/deploy/test_serve_frontend.py::test_g8_every_answer_carries_nosniff[/assets/app-abc123.js]
+FAILED tests/deploy/test_serve_frontend.py::test_g8_every_answer_carries_nosniff[/favicon.ico]
+FAILED tests/deploy/test_serve_frontend.py::test_g9_without_index_html_the_answer_is_a_json_404
+FAILED tests/deploy/test_serve_frontend.py::test_g10_serving_reads_no_database_and_logs_nothing
+39 failed, 29 passed in 0.51s

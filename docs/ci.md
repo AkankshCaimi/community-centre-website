@@ -13,15 +13,17 @@ A red pull request only ever means one thing: a deliberate checkpoint-2 red, whe
 1. `make install`
 2. `make lint`
 3. `make test`, on a database created from nothing and removed afterwards
+4. `docker build`, to prove the image of the site still builds; nothing is pushed or deployed
 
-Lint and test both run even if lint fails, as the two jobs on GitHub do. The last lines say which passed:
+Lint, test and the image build all run even if an earlier one fails, as the three jobs on GitHub do. The last lines say which passed:
 
 ```
 lint: passed
 test: passed
+image: passed
 ```
 
-One stage can be run alone: `scripts/ci.sh install`, `scripts/ci.sh lint` or `scripts/ci.sh test`.
+One stage can be run alone: `scripts/ci.sh install`, `scripts/ci.sh lint`, `scripts/ci.sh test` or `scripts/ci.sh image`.
 
 ## What it needs
 

@@ -15,5 +15,7 @@ class Config:
     TEAM_EMAIL = os.environ.get("TEAM_EMAIL")
     # Number of trusted proxies in front of the application (spec F01, L6).
     TRUSTED_PROXY_HOPS = int(os.environ.get("TRUSTED_PROXY_HOPS", "0"))
+    # Folder of the built frontend; it is served only when this is set (spec deploy, G1).
+    FRONTEND_DIST = os.environ.get("FRONTEND_DIST")
     # Largest request body accepted, in bytes (spec F01, B2).
     MAX_CONTENT_LENGTH = 64 * 1024

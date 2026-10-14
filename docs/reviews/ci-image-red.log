@@ -1,0 +1,23 @@
+FAIL  S10 image runs one docker build and nothing else (want exit 0, got 2; calls: ;)
+FAIL  S10 the build runs from the repository root
+FAIL  S10 S6 a Dockerfile that does not build fails the stage (want exit 1, got 2; calls: ;)
+PASS  S1 'images' is refused and runs nothing (exit 2)
+FAIL  S1 the usage line names the image stage (stderr: Usage: scripts/ci.sh install|lint|test|all)
+FAIL  S5 all: install, lint, test, then image (want exit 0, got 0; calls: make install;make lint;docker compose down --volumes --remove-orphans;make test;docker compose down --volumes --remove-orphans;)
+FAIL  S6 all ends with lint, test and image passed, in that order (stdout: ;lint: passed;test: passed;)
+FAIL  S6 all exits 1 when only the image fails (want exit 1, got 0; calls: make install;make lint;docker compose down --volumes --remove-orphans;make test;docker compose down --volumes --remove-orphans;)
+FAIL  S6 all reports 'image: FAILED' (stdout: ;lint: passed;test: passed;)
+FAIL  S5 all still builds the image after a lint that fails (want exit 1, got 1; calls: make install;make lint;docker compose down --volumes --remove-orphans;make test;docker compose down --volumes --remove-orphans;)
+FAIL  S6 all reports the failed lint and the passed image (stdout: ;lint: FAILED;test: passed;)
+FAIL  S5 all still builds the image after tests that fail (want exit 1, got 1; calls: make install;make lint;docker compose down --volumes --remove-orphans;make test;docker compose down --volumes --remove-orphans;)
+FAIL  S6 all reports the failed tests and the passed image (stdout: ;lint: passed;test: FAILED;)
+PASS  S5 all builds no image after an install that fails (exit 1)
+PASS  S10 image pushes, deploys or logs in nowhere
+PASS  S10 all pushes, deploys or logs in nowhere
+PASS  S10 the workflow pushes, deploys or logs in nowhere
+PASS  S10 the script pushes, deploys or logs in nowhere
+FAIL  S9 the image job runs scripts/ci.sh image and no other command (runs: )
+FAIL  S9 the workflow runs the five commands of its three jobs and no other (runs: scripts/ci.sh install;scripts/ci.sh lint;scripts/ci.sh install;scripts/ci.sh test;)
+PASS  S10 the Dockerfile is in the repository root
+
+7 passed, 14 failed

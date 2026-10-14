@@ -79,3 +79,7 @@ A client asks by phone or email. On the admin page, under "Delete client data", 
 The booking form links to `/terms` and `/privacy`. Both show the centre's name, address, phone and email from `frontend/src/centre.js`, which holds placeholders. **Fill in the real details, and have the text checked, before the site goes live.**
 
 
+
+## Deployment
+
+The site runs on Azure as one container image that serves the built frontend and the API. The commands for a first run and a redeploy are in `infra/README.md`; the rules are in `docs/specs/deploy.md`.

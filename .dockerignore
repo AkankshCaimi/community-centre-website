@@ -1,0 +1,21 @@
+# Nothing local, secret or test-only goes into the image (docs/specs/deploy.md, M1).
+.env
+.env.*
+.git
+.github
+.claude
+docs
+infra
+tests
+images
+**/node_modules
+**/dist
+**/.venv
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.ruff_cache
+backend/tests
+backend/mutants
+frontend/src/**/*.test.jsx
+frontend/src/test-setup.js
