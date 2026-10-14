@@ -72,6 +72,7 @@ All in one resource group, defined in `infra/main.bicep`.
 | Z6 | A Log Analytics workspace receives the logs and keeps them 30 days, the shortest it allows. |
 | Z7 | The database password, `SECRET_KEY` and `TEAM_EMAIL` are passed to the deployment as secure parameters and held as Container Apps secrets. They appear in no file of the repository and in no deployment output. |
 | Z8 | A monthly budget on the resource group, 25 in the subscription's billing currency, emails the author at 50%, 80% and 100% of actual cost and at 100% of forecast cost. It can be left out with a parameter, for a subscription that does not support budgets. |
+| Z9 | One Container Apps environment, `cae-community-centre`, holds the website and all three jobs. It is a workspace environment, not an express one: its `environmentMode` is `WorkloadProfiles`, set explicitly, with the one workload profile `Consumption`, and its logs go to the Log Analytics workspace of Z6. Express environments do not support jobs. The website and the jobs name the `Consumption` profile. The environment, the website and the jobs are declared with API version `2026-07-01`, the first checked against Azure's reference instead of written from memory. |
 
 ## Running it
 
@@ -83,6 +84,10 @@ All in one resource group, defined in `infra/main.bicep`.
 | U2 | The admin account is created once with `flask --app app create-admin`, run inside the website's container, so the password is typed at a hidden prompt (F02 CL1). |
 | U3 | A redeploy builds a new image tagged with the commit and points the website and the three jobs at it. It needs no secret. |
 | U4 | The smoke test checks `/health`, that both jobs have run, and **that the rate limit tells visitors apart**: after one network address has used its 5 requests of the day (NFR3), a request from a second network must still be accepted, and a request from the first that claims another address in an `X-Forwarded-For` header must still be refused. |
+
+## What the first deployment taught
+
+On 2026-10-14 the first real deployment failed at the jobs with "Job resources are not supported on express environments". The environment had been declared with API version `2024-03-01` and no mode, and Azure created it in express mode. Z9 now sets the mode. The resources were created in `francecentral`, not in `uksouth` as first decided. The subscription (Azure for Students) does not permit ACR Tasks, so the image is built on the author's machine and pushed; and its deployments need a name each. `infra/README.md` gives the commands for all of this under "Notes from the first deployment".
 
 ## Known limits
 

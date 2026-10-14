@@ -42,6 +42,7 @@ Open http://localhost:8000. The admin login does not work over plain HTTP, becau
 
 ```
 RG=rg-community-centre
+LOC=francecentral
 TEAM_EMAIL=<address that should receive booking notifications>
 ALERT_EMAIL=Akanksh.Caimi@warwick.ac.uk
 
@@ -55,13 +56,13 @@ TAG=$(git rev-parse --short HEAD)
 ### 2. Resource group, registry, database, logs and budget
 
 ```
-az group create -n $RG -l uksouth
+az group create -n $RG -l $LOC
 
-az deployment group validate -g $RG -f infra/main.bicep \
+az deployment group validate -g $RG -n base -f infra/main.bicep \
   -p deployApps=false dbPassword=$DB_PASSWORD secretKey=$SECRET_KEY \
      teamEmail=$TEAM_EMAIL alertEmail=$ALERT_EMAIL
 
-az deployment group create -g $RG -f infra/main.bicep \
+az deployment group create -g $RG -n base -f infra/main.bicep \
   -p deployApps=false dbPassword=$DB_PASSWORD secretKey=$SECRET_KEY \
      teamEmail=$TEAM_EMAIL alertEmail=$ALERT_EMAIL
 ```
@@ -70,19 +71,31 @@ The database takes several minutes.
 
 If this fails on the budget (some subscriptions, Azure for Students among them, may not support budgets), add `deployBudget=false` to this command and to the one in step 4, and watch the credit balance on the Azure sponsorship page instead.
 
-If it fails because the region is not allowed for your subscription, delete the group (`az group delete -n $RG`) and start step 2 again with another region in place of `uksouth`.
+If it fails because the region is not allowed for your subscription, delete the group (`az group delete -n $RG`), set `LOC` to another region and start step 2 again.
 
-### 3. Build the image in Azure
+### 3. Build the image and push it
+
+The image is built on your machine, for the processor Azure runs on, and pushed to the registry. Docker must be running (`colima start`).
 
 ```
 ACR=$(az acr list -g $RG --query "[0].name" -o tsv)
-az acr build -r $ACR -t community-centre:$TAG .
+IMAGE=$ACR.azurecr.io/community-centre:$TAG
+
+az acr login -n $ACR
+docker buildx build --platform linux/amd64 --load -t $IMAGE .
+docker push $IMAGE
 ```
+
+On an Apple-silicon Mac the build is emulated and takes a few minutes.
 
 ### 4. The website and the three jobs
 
 ```
-az deployment group create -g $RG -f infra/main.bicep \
+az deployment group validate -g $RG -n apps -f infra/main.bicep \
+  -p deployApps=true imageTag=$TAG dbPassword=$DB_PASSWORD secretKey=$SECRET_KEY \
+     teamEmail=$TEAM_EMAIL alertEmail=$ALERT_EMAIL
+
+az deployment group create -g $RG -n apps -f infra/main.bicep \
   -p deployApps=true imageTag=$TAG dbPassword=$DB_PASSWORD secretKey=$SECRET_KEY \
      teamEmail=$TEAM_EMAIL alertEmail=$ALERT_EMAIL
 ```
@@ -185,7 +198,9 @@ ACR=$(az acr list -g $RG --query "[0].name" -o tsv)
 TAG=$(git rev-parse --short HEAD)
 IMAGE=$ACR.azurecr.io/community-centre:$TAG
 
-az acr build -r $ACR -t community-centre:$TAG .
+az acr login -n $ACR
+docker buildx build --platform linux/amd64 --load -t $IMAGE .
+docker push $IMAGE
 
 az containerapp update -g $RG -n ca-community-centre --image $IMAGE
 az containerapp job update -g $RG -n job-auto-decline --image $IMAGE
@@ -198,6 +213,42 @@ az containerapp job start -g $RG -n job-init-db
 Then repeat "The site is up" from the smoke test.
 
 A change to `infra/main.bicep` itself needs step 4 of the first run again, and that needs the two secrets. If you no longer have them, make new ones as in step 1: the deployment then changes the database password and the stored secrets together.
+
+## Notes from the first deployment
+
+What the first real deployment, on an Azure for Students subscription, ran into. The commands above already allow for all of it.
+
+### The environment must not be an express environment
+
+The first deployment failed at the three jobs with "Job resources are not supported on express environments". Azure had created the Container Apps environment in express mode, which has no jobs. `infra/main.bicep` now sets `environmentMode: 'WorkloadProfiles'` with the `Consumption` profile (spec Z9).
+
+An environment that already exists in express mode has to go first, with the website in it. Whether Azure would change the mode of an existing environment in place is not known, so remove both and let step 4 create them again. The database, the registry and the logs are not touched; the site gets a new address.
+
+```
+az containerapp delete -g $RG -n ca-community-centre --yes
+az containerapp env delete -g $RG -n cae-community-centre --yes
+```
+
+Then run step 4 of the first run. To see the mode of an environment:
+
+```
+az rest --method get --url "$(az containerapp env show -g $RG -n cae-community-centre --query id -o tsv)?api-version=2026-07-01" \
+  --query properties.environmentMode -o tsv
+```
+
+Expected after the fix: `WorkloadProfiles`.
+
+### ACR Tasks are not permitted
+
+`az acr build` is refused on this subscription. The image is therefore built locally with `docker buildx build --platform linux/amd64 --load` and pushed with `docker push`, after `az acr login` (step 3 and "Redeploy"). `--platform linux/amd64` matters on an Apple-silicon Mac: without it the image is built for the wrong processor and the container does not start in Azure.
+
+### Each deployment phase needs its own name
+
+Without `-n`, both phases are named `main` after the file, and the second collides with the first. The commands name them: `-n base` for step 2 and `-n apps` for step 4.
+
+### The region
+
+The resources are in `francecentral`. `LOC` in step 1 sets it.
 
 ## Reading the logs
 
