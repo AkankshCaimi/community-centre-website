@@ -1,0 +1,311 @@
+
+ RUN  v4.1.11 /Users/akanksh/Downloads/community-centre-website/frontend
+
+ ✓ src/ThemeContrast.test.js > T6: the focus ring > --ring has at least 3:1 against --background 1ms
+ ✓ src/ThemeContrast.test.js > T6: the focus ring > --ring has at least 3:1 against --card 0ms
+ ✓ src/ThemeContrast.test.js > T6: the focus ring > --ring has at least 3:1 against --muted 0ms
+ × src/ThemeContrast.test.js > T6: the focus ring > the ring is never faded with an opacity, anywhere 2ms
+   → expected '\n@import "tailwindcss";\n\n:root {\n…' not to match /ring-ring\/\d+/\d+
+ × src/ThemeContrast.test.js > T6: the focus ring > site.css draws the ring for anything with keyboard focus, 2px wide with a 2px gap 0ms
+   → expected '\n    @apply ring-[3px] ring-ring/50;…' to match /\bring-2\b/
+ × src/ThemeContrast.test.js > T6: the focus ring > every class list that draws a focus ring draws it 2px wide, in --ring, with a 2px gap 0ms
+   → AdminPage.jsx: expected '"h-9 rounded-md border border-input b…' to match /focus-visible:ring-2\b/
+ × src/ThemeContrast.test.js > T7: field edges > --input has at least 3:1 against --background 0ms
+   → expected 1.48470221380943 to be greater than or equal to 3
+ × src/ThemeContrast.test.js > T7: field edges > --input has at least 3:1 against --card 0ms
+   → expected 1.48470221380943 to be greater than or equal to 3
+ ✓ src/ThemeContrast.test.js > T7: field edges > text fields, text areas and lists are bordered in --input 0ms
+ × src/ThemeContrast.test.js > T8: the colour pairs in use > --destructive-foreground on --destructive has at least 4.5:1 0ms
+   → .toMatch() expects to receive a string, but got undefined
+ ✓ src/ThemeContrast.test.js > T8: the colour pairs in use > --primary on --muted has at least 4.5:1 0ms
+ ✓ src/ThemeContrast.test.js > T8: the colour pairs in use > --foreground on --muted has at least 4.5:1 0ms
+ ✓ src/ThemeContrast.test.js > T8: the colour pairs in use > --primary-foreground on --primary at 90 percent over --background (hover) has at least 4.5:1 0ms
+ × src/ThemeContrast.test.js > T8: the colour pairs in use > --destructive-foreground on --destructive at 90 percent over --background (hover) has at least 4.5:1 0ms
+   → .toMatch() expects to receive a string, but got undefined
+ × src/ThemeContrast.test.js > T8: the colour pairs in use > no colour is written into a component directly 0ms
+   → components/ui/button.jsx: expected '// shadcn/ui Button, copied into the …' not to match /\b(text|bg|border)-(white|black)\b|#[…/
+ × src/ThemeContrast.test.js > T8: the colour pairs in use > the red buttons use --destructive-foreground 0ms
+   → expected '// shadcn/ui Button, copied into the …' to match /bg-destructive text-destructive-foreg…/
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/ThemeContrast.test.js > T6: the focus ring > the ring is never faded with an opacity, anywhere
+AssertionError: expected '\n@import "tailwindcss";\n\n:root {\n…' not to match /ring-ring\/\d+/\d+
+
+- Expected:
+/ring-ring\/\d+/
+
++ Received:
+"
+@import \"tailwindcss\";
+
+:root {
+  --radius: 0.625rem;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --primary: #1d4ed8;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #475569;
+  --accent: #eff6ff;
+  --accent-foreground: #1e3a8a;
+  --destructive: #b91c1c;
+  --border: #e2e8f0;
+  --input: #cbd5e1;
+  --ring: #2563eb;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    line-height: 1.6;
+  }
+
+  
+  a {
+    @apply text-primary underline underline-offset-2;
+  }
+
+  :focus-visible {
+    @apply ring-[3px] ring-ring/50;
+  }
+
+  main h1 {
+    @apply mb-4 text-3xl font-bold tracking-tight;
+  }
+
+  main h2 {
+    @apply mt-8 mb-2 text-xl font-semibold tracking-tight;
+  }
+
+  main p {
+    @apply my-3;
+  }
+
+  main ul:not([class]) {
+    @apply my-3 list-disc pl-6;
+  }
+}
+"
+
+ ❯ src/ThemeContrast.test.js:59:21
+     57|
+     58|   test("the ring is never faded with an opacity, anywhere", () => {
+     59|     expect(CSS).not.toMatch(/ring-ring\/\d+/);
+       |                     ^
+     60|     for (const [file, source] of SOURCES) {
+     61|       expect(source, file).not.toMatch(/ring-ring\/\d+/);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  src/ThemeContrast.test.js > T6: the focus ring > site.css draws the ring for anything with keyboard focus, 2px wide with a 2px gap
+AssertionError: expected '\n    @apply ring-[3px] ring-ring/50;…' to match /\bring-2\b/
+
+- Expected:
+/\bring-2\b/
+
++ Received:
+"
+    @apply ring-[3px] ring-ring/50;
+  "
+
+ ❯ src/ThemeContrast.test.js:68:21
+     66|     const rule = CSS.match(/:focus-visible\s*\{([^}]*)\}/);
+     67|     expect(rule).not.toBeNull();
+     68|     expect(rule[1]).toMatch(/\bring-2\b/);
+       |                     ^
+     69|     expect(rule[1]).toMatch(/\bring-ring\b/);
+     70|     expect(rule[1]).toMatch(/\bring-offset-2\b/);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  src/ThemeContrast.test.js > T6: the focus ring > every class list that draws a focus ring draws it 2px wide, in --ring, with a 2px gap
+AssertionError: AdminPage.jsx: expected '"h-9 rounded-md border border-input b…' to match /focus-visible:ring-2\b/
+
+- Expected:
+/focus-visible:ring-2\b/
+
++ Received:
+"\"h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-[3px] focus-visible:ring-ring/50\""
+
+ ❯ src/ThemeContrast.test.js:79:31
+     77|       for (const classes of source.match(/["`][^"`]*focus-visible:ring…
+     78|         seen += 1;
+     79|         expect(classes, file).toMatch(/focus-visible:ring-2\b/);
+       |                               ^
+     80|         expect(classes, file).toMatch(/focus-visible:ring-ring\b/);
+     81|         expect(classes, file).toMatch(/focus-visible:ring-offset-2\b/);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  src/ThemeContrast.test.js > T7: field edges > --input has at least 3:1 against --background
+ FAIL  src/ThemeContrast.test.js > T7: field edges > --input has at least 3:1 against --card
+AssertionError: expected 1.48470221380943 to be greater than or equal to 3
+ ❯ src/ThemeContrast.test.js:91:61
+     89| describe("T7: field edges", () => {
+     90|   test.each(["--background", "--card"])("--input has at least 3:1 agai…
+     91|     expect(contrast(colour("--input"), colour(background))).toBeGreate…
+       |                                                             ^
+     92|   });
+     93|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  src/ThemeContrast.test.js > T8: the colour pairs in use > --destructive-foreground on --destructive has at least 4.5:1
+TypeError: .toMatch() expects to receive a string, but got undefined
+ ❯ colour src/ThemeContrast.test.js:49:23
+     47| function colour(name) {
+     48|   const value = colours()[name];
+     49|   expect(value, name).toMatch(/^#[0-9a-fA-F]{6}$/);
+       |                       ^
+     50|   return rgb(value);
+     51| }
+ ❯ src/ThemeContrast.test.js:110:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  src/ThemeContrast.test.js > T8: the colour pairs in use > --destructive-foreground on --destructive at 90 percent over --background (hover) has at least 4.5:1
+TypeError: .toMatch() expects to receive a string, but got undefined
+ ❯ colour src/ThemeContrast.test.js:49:23
+     47| function colour(name) {
+     48|   const value = colours()[name];
+     49|   expect(value, name).toMatch(/^#[0-9a-fA-F]{6}$/);
+       |                       ^
+     50|   return rgb(value);
+     51| }
+ ❯ src/ThemeContrast.test.js:118:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  src/ThemeContrast.test.js > T8: the colour pairs in use > no colour is written into a component directly
+AssertionError: components/ui/button.jsx: expected '// shadcn/ui Button, copied into the …' not to match /\b(text|bg|border)-(white|black)\b|#[…/
+
+- Expected:
+/\b(text|bg|border)-(white|black)\b|#[0-9a-fA-F]{3,6}\b/
+
++ Received:
+"// shadcn/ui Button, copied into the repository (ADR 0005), without the Radix
+// Slot part, which this site does not use (docs/specs/ui-theme.md, D1).
+import { cva } from \"class-variance-authority\";
+
+import { cn } from \"@/lib/utils\";
+
+const buttonVariants = cva(
+  \"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring\",
+  {
+    variants: {
+      variant: {
+        default: \"bg-primary text-primary-foreground shadow-xs hover:bg-primary/90\",
+        destructive: \"bg-destructive text-white shadow-xs hover:bg-destructive/90\",
+        outline: \"border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground\",
+        secondary: \"bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80\",
+        ghost: \"hover:bg-accent hover:text-accent-foreground\",
+      },
+      size: {
+        default: \"h-9 px-4 py-2\",
+        sm: \"h-8 rounded-md px-3\",
+      },
+    },
+    defaultVariants: { variant: \"default\", size: \"default\" },
+  },
+);
+
+export function Button({ className, variant, size, ...props }) {
+  return <button data-slot=\"button\" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
+}
+"
+
+ ❯ src/ThemeContrast.test.js:123:32
+    121|   test("no colour is written into a component directly", () => {
+    122|     for (const [file, source] of SOURCES) {
+    123|       expect(source, file).not.toMatch(/\b(text|bg|border)-(white|blac…
+       |                                ^
+    124|     }
+    125|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  src/ThemeContrast.test.js > T8: the colour pairs in use > the red buttons use --destructive-foreground
+AssertionError: expected '// shadcn/ui Button, copied into the …' to match /bg-destructive text-destructive-foreg…/
+
+- Expected:
+/bg-destructive text-destructive-foreground/
+
++ Received:
+"// shadcn/ui Button, copied into the repository (ADR 0005), without the Radix
+// Slot part, which this site does not use (docs/specs/ui-theme.md, D1).
+import { cva } from \"class-variance-authority\";
+
+import { cn } from \"@/lib/utils\";
+
+const buttonVariants = cva(
+  \"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring\",
+  {
+    variants: {
+      variant: {
+        default: \"bg-primary text-primary-foreground shadow-xs hover:bg-primary/90\",
+        destructive: \"bg-destructive text-white shadow-xs hover:bg-destructive/90\",
+        outline: \"border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground\",
+        secondary: \"bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80\",
+        ghost: \"hover:bg-accent hover:text-accent-foreground\",
+      },
+      size: {
+        default: \"h-9 px-4 py-2\",
+        sm: \"h-8 rounded-md px-3\",
+      },
+    },
+    defaultVariants: { variant: \"default\", size: \"default\" },
+  },
+);
+
+export function Button({ className, variant, size, ...props }) {
+  return <button data-slot=\"button\" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
+}
+"
+
+ ❯ src/ThemeContrast.test.js:129:20
+    127|   test("the red buttons use --destructive-foreground", () => {
+    128|     const button = SOURCES.find(([file]) => file.endsWith("ui/button.j…
+    129|     expect(button).toMatch(/bg-destructive text-destructive-foreground…
+       |                    ^
+    130|   });
+    131| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  9 failed | 7 passed (16)
+   Start at  13:10:42
+   Duration  793ms (transform 16ms, setup 125ms, import 10ms, tests 7ms, environment 525ms)
+

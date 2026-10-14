@@ -1,0 +1,478 @@
+
+ RUN  v4.1.11 /Users/akanksh/Downloads/community-centre-website/frontend
+
+ × src/UiTheme.test.jsx > D1: the dependencies > dependencies: React and the three the shadcn components need, nothing else 9ms
+   → expected [ 'react', 'react-dom' ] to deeply equal [ 'class-variance-authority', …(4) ]
+ × src/UiTheme.test.jsx > D1: the dependencies > development dependencies: those before the theme, plus Tailwind and its Vite plugin 1ms
+   → expected [ '@eslint/js', …(11) ] to deeply equal [ '@eslint/js', …(13) ]
+ ✓ src/UiTheme.test.jsx > D1: the dependencies > no Radix package, icon library or other component library 0ms
+ × src/UiTheme.test.jsx > D2: the shadcn setup > components.json, lib/utils.js and the components, in JavaScript 0ms
+   → expected false to be true // Object.is equality
+ × src/UiTheme.test.jsx > D2: the shadcn setup > Vite has the Tailwind plugin and the @ alias 0ms
+   → expected 'import react from "@vitejs/plugin-rea…' to match /from "@tailwindcss\/vite"/vite"
+ ✓ src/UiTheme.test.jsx > T5: exactly one stylesheet loads > main.jsx imports site.css, once, and no other stylesheet 0ms
+ ✓ src/UiTheme.test.jsx > T5: exactly one stylesheet loads > no other source file imports a stylesheet 1ms
+ × src/UiTheme.test.jsx > T5: exactly one stylesheet loads > the only import in site.css is @import "tailwindcss" 0ms
+   → expected null to deeply equal [ '@import "tailwindcss";' ]
+ ✓ src/UiTheme.test.jsx > T5: exactly one stylesheet loads > index.html links no stylesheet 0ms
+ ✓ src/UiTheme.test.jsx > T1: a light theme only > no dark variant, no .dark class, no prefers-color-scheme 0ms
+ × src/UiTheme.test.jsx > T2: the theme colours > every colour of the theme is written in hex on :root 1ms
+   → .toMatch() expects to receive a string, but got undefined
+ × src/UiTheme.test.jsx > T2: the theme colours > --foreground on --background has a contrast of at least 4.5 to 1 0ms
+   → Cannot read properties of undefined (reading 'replace')
+ × src/UiTheme.test.jsx > T2: the theme colours > --card-foreground on --card has a contrast of at least 4.5 to 1 0ms
+   → Cannot read properties of undefined (reading 'replace')
+ × src/UiTheme.test.jsx > T2: the theme colours > --primary-foreground on --primary has a contrast of at least 4.5 to 1 0ms
+   → Cannot read properties of undefined (reading 'replace')
+ × src/UiTheme.test.jsx > T2: the theme colours > --primary on --background has a contrast of at least 4.5 to 1 0ms
+   → Cannot read properties of undefined (reading 'replace')
+ × src/UiTheme.test.jsx > T2: the theme colours > --secondary-foreground on --secondary has a contrast of at least 4.5 to 1 0ms
+   → Cannot read properties of undefined (reading 'replace')
+ × src/UiTheme.test.jsx > T2: the theme colours > --muted-foreground on --background has a contrast of at least 4.5 to 1 0ms
+   → Cannot read properties of undefined (reading 'replace')
+ × src/UiTheme.test.jsx > T2: the theme colours > --muted-foreground on --muted has a contrast of at least 4.5 to 1 0ms
+   → Cannot read properties of undefined (reading 'replace')
+ × src/UiTheme.test.jsx > T2: the theme colours > --accent-foreground on --accent has a contrast of at least 4.5 to 1 0ms
+   → Cannot read properties of undefined (reading 'replace')
+ × src/UiTheme.test.jsx > T2: the theme colours > --destructive on --background has a contrast of at least 4.5 to 1 0ms
+   → Cannot read properties of undefined (reading 'replace')
+ ✓ src/UiTheme.test.jsx > T3: no font is loaded > no @font-face and nothing fetched from anywhere 0ms
+ ✓ src/UiTheme.test.jsx > T4: the focus ring is never taken away > site.css never removes an outline 0ms
+ × src/UiTheme.test.jsx > T4: the focus ring is never taken away > every class list in the components that removes the outline puts a ring in its place 0ms
+   → ENOENT: no such file or directory, scandir '/Users/akanksh/Downloads/community-centre-website/frontend/src/components/ui'
+ × src/UiTheme.test.jsx > H2: the components are the native elements, styled > button.jsx renders a <Button> 0ms
+   → Unknown variable dynamic import: ./components/ui/button.jsx
+ × src/UiTheme.test.jsx > H2: the components are the native elements, styled > input.jsx renders a <Input> 0ms
+   → Unknown variable dynamic import: ./components/ui/input.jsx
+ × src/UiTheme.test.jsx > H2: the components are the native elements, styled > textarea.jsx renders a <Textarea> 0ms
+   → Unknown variable dynamic import: ./components/ui/textarea.jsx
+ × src/UiTheme.test.jsx > H2: the components are the native elements, styled > label.jsx renders a <Label> 0ms
+   → Unknown variable dynamic import: ./components/ui/label.jsx
+ × src/UiTheme.test.jsx > H2: the components are the native elements, styled > the booking form keeps native tick boxes, styled fields and a styled button 22ms
+   → expected null to be 'input' // Object.is equality
+ × src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L1: the navigation is a wrapping row; the current page is marked by more than colour 43ms
+   → expected '' to match /\bflex\b/
+ × src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L1, L2: the header and the footer are styled bands 4ms
+   → expected '' to match /\bborder-b\b|\bbg-/
+ × src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L3: the content is at most about 64rem wide 3ms
+   → expected '' to match /\bmax-w-(5xl|\[64rem\])\b/
+ × src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L4: /facilities shows its items as cards in a wrapping grid 4ms
+   → expected '' to match /\bgrid\b/
+ × src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L4: /events shows its items as cards in a wrapping grid 5ms
+   → expected '' to match /\bgrid\b/
+ × src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L5: the gallery is a grid of columns at least 16rem wide 4ms
+   → expected '' to match /\bgrid\b/
+ × src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L8: the skip link is hidden until it has keyboard focus 12ms
+   → expected 'skip-link' to match /\bsr-only\b/
+ × src/UiTheme.test.jsx > L6, L7: the admin page > L6: the login form sits in a card, with styled fields and button 6ms
+   → expected null not to be null
+ × src/UiTheme.test.jsx > L6, L7: the admin page > L7: the bookings table scrolls sideways in its own box 11ms
+   → expected null to be 'table' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 30 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/UiTheme.test.jsx > D1: the dependencies > dependencies: React and the three the shadcn components need, nothing else
+AssertionError: expected [ 'react', 'react-dom' ] to deeply equal [ 'class-variance-authority', …(4) ]
+
+- Expected
++ Received
+
+  [
+-   "class-variance-authority",
+-   "clsx",
+    "react",
+    "react-dom",
+-   "tailwind-merge",
+  ]
+
+ ❯ src/UiTheme.test.jsx:38:50
+     36|
+     37|   test("dependencies: React and the three the shadcn components need, …
+     38|     expect(Object.keys(pkg.dependencies).sort()).toEqual(
+       |                                                  ^
+     39|       ["class-variance-authority", "clsx", "react", "react-dom", "tail…
+     40|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > D1: the dependencies > development dependencies: those before the theme, plus Tailwind and its Vite plugin
+AssertionError: expected [ '@eslint/js', …(11) ] to deeply equal [ '@eslint/js', …(13) ]
+
+- Expected
++ Received
+
+  [
+    "@eslint/js",
+-   "@tailwindcss/vite",
+    "@testing-library/jest-dom",
+    "@testing-library/react",
+    "@testing-library/user-event",
+    "@vitejs/plugin-react",
+    "eslint",
+    "eslint-plugin-react-hooks",
+    "eslint-plugin-react-refresh",
+    "globals",
+    "jsdom",
+-   "tailwindcss",
+    "vite",
+    "vitest",
+  ]
+
+ ❯ src/UiTheme.test.jsx:44:53
+     42|
+     43|   test("development dependencies: those before the theme, plus Tailwin…
+     44|     expect(Object.keys(pkg.devDependencies).sort()).toEqual(
+       |                                                     ^
+     45|       [
+     46|         "@eslint/js",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > D2: the shadcn setup > components.json, lib/utils.js and the components, in JavaScript
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/UiTheme.test.jsx:72:59
+     70| describe("D2: the shadcn setup", () => {
+     71|   test("components.json, lib/utils.js and the components, in JavaScrip…
+     72|     expect(existsSync(join(FRONTEND, "components.json"))).toBe(true);
+       |                                                           ^
+     73|     expect(JSON.parse(read("components.json")).tsx).toBe(false);
+     74|     expect(read("src/lib/utils.js")).toMatch(/export function cn\(/);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > D2: the shadcn setup > Vite has the Tailwind plugin and the @ alias
+AssertionError: expected 'import react from "@vitejs/plugin-rea…' to match /from "@tailwindcss\/vite"/vite"
+
+- Expected:
+/from "@tailwindcss\/vite"/
+
++ Received:
+"import react from \"@vitejs/plugin-react\";
+import { defineConfig } from \"vite\";
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    // During development the form talks to the Flask backend.
+    proxy: { \"/api\": \"http://127.0.0.1:5000\" },
+  },
+  test: {
+    environment: \"jsdom\",
+    setupFiles: [\"./src/test-setup.js\"],
+  },
+});
+"
+
+ ❯ src/UiTheme.test.jsx:82:20
+     80|   test("Vite has the Tailwind plugin and the @ alias", () => {
+     81|     const config = read("vite.config.js");
+     82|     expect(config).toMatch(/from "@tailwindcss\/vite"/);
+       |                    ^
+     83|     expect(config).toMatch(/tailwindcss\(\)/);
+     84|     expect(config).toMatch(/"@"\s*:/);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > T5: exactly one stylesheet loads > the only import in site.css is @import "tailwindcss"
+AssertionError: expected null to deeply equal [ '@import "tailwindcss";' ]
+
+- Expected:
+[
+  "@import \"tailwindcss\";",
+]
+
++ Received:
+null
+
+ ❯ src/UiTheme.test.jsx:106:43
+    104|
+    105|   test('the only import in site.css is @import "tailwindcss"', () => {
+    106|     expect(CSS().match(/@import[^;]*;/g)).toEqual(['@import "tailwindc…
+       |                                           ^
+    107|   });
+    108|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > T2: the theme colours > every colour of the theme is written in hex on :root
+TypeError: .toMatch() expects to receive a string, but got undefined
+ ❯ src/UiTheme.test.jsx:157:35
+    155|     const colours = rootColours();
+    156|     for (const name of new Set(PAIRS.flat())) {
+    157|       expect(colours[name], name).toMatch(/^#[0-9a-fA-F]{6}$/);
+       |                                   ^
+    158|     }
+    159|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > T2: the theme colours > --foreground on --background has a contrast of at least 4.5 to 1
+ FAIL  src/UiTheme.test.jsx > T2: the theme colours > --card-foreground on --card has a contrast of at least 4.5 to 1
+ FAIL  src/UiTheme.test.jsx > T2: the theme colours > --primary-foreground on --primary has a contrast of at least 4.5 to 1
+ FAIL  src/UiTheme.test.jsx > T2: the theme colours > --primary on --background has a contrast of at least 4.5 to 1
+ FAIL  src/UiTheme.test.jsx > T2: the theme colours > --secondary-foreground on --secondary has a contrast of at least 4.5 to 1
+ FAIL  src/UiTheme.test.jsx > T2: the theme colours > --muted-foreground on --background has a contrast of at least 4.5 to 1
+ FAIL  src/UiTheme.test.jsx > T2: the theme colours > --muted-foreground on --muted has a contrast of at least 4.5 to 1
+ FAIL  src/UiTheme.test.jsx > T2: the theme colours > --accent-foreground on --accent has a contrast of at least 4.5 to 1
+ FAIL  src/UiTheme.test.jsx > T2: the theme colours > --destructive on --background has a contrast of at least 4.5 to 1
+TypeError: Cannot read properties of undefined (reading 'replace')
+ ❯ luminance src/UiTheme.test.jsx:122:21
+    120| // WCAG 2.2 relative luminance and contrast ratio.
+    121| function luminance(hex) {
+    122|   const value = hex.replace("#", "");
+       |                     ^
+    123|   const full = value.length === 3 ? [...value].map((c) => c + c).join(…
+    124|   const [r, g, b] = [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2)…
+ ❯ contrast src/UiTheme.test.jsx:130:26
+ ❯ src/UiTheme.test.jsx:163:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > T4: the focus ring is never taken away > every class list in the components that removes the outline puts a ring in its place
+Error: ENOENT: no such file or directory, scandir '/Users/akanksh/Downloads/community-centre-website/frontend/src/components/ui'
+ ❯ src/UiTheme.test.jsx:181:24
+    179|   test("every class list in the components that removes the outline pu…
+    180|     const folder = join(SRC, "components", "ui");
+    181|     for (const file of readdirSync(folder)) {
+       |                        ^
+    182|       const source = readFileSync(join(folder, file), "utf8");
+    183|       for (const classes of source.match(/"[^"]*outline-none[^"]*"/g) …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -2, code: 'ENOENT', syscall: 'scandir', path: '/Users/akanksh/Downloads/community-centre-website/frontend/src/components/ui' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > H2: the components are the native elements, styled > button.jsx renders a <Button>
+Error: Unknown variable dynamic import: ./components/ui/button.jsx
+ ❯  vite/dynamic-import-helper.js:5:106
+ ❯  vite/dynamic-import-helper.js:4:9
+ ❯ src/UiTheme.test.jsx:199:26
+    197|     ["label", "Label", "LABEL"],
+    198|   ])("%s.jsx renders a <%s>", async (file, name, tag) => {
+    199|     const module = await import(`./components/ui/${file}.jsx`);
+       |                          ^
+    200|     const Component = module[name];
+    201|     const { container } = render(<Component data-testid="it" />);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > H2: the components are the native elements, styled > input.jsx renders a <Input>
+Error: Unknown variable dynamic import: ./components/ui/input.jsx
+ ❯  vite/dynamic-import-helper.js:5:106
+ ❯  vite/dynamic-import-helper.js:4:9
+ ❯ src/UiTheme.test.jsx:199:26
+    197|     ["label", "Label", "LABEL"],
+    198|   ])("%s.jsx renders a <%s>", async (file, name, tag) => {
+    199|     const module = await import(`./components/ui/${file}.jsx`);
+       |                          ^
+    200|     const Component = module[name];
+    201|     const { container } = render(<Component data-testid="it" />);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > H2: the components are the native elements, styled > textarea.jsx renders a <Textarea>
+Error: Unknown variable dynamic import: ./components/ui/textarea.jsx
+ ❯  vite/dynamic-import-helper.js:5:106
+ ❯  vite/dynamic-import-helper.js:4:9
+ ❯ src/UiTheme.test.jsx:199:26
+    197|     ["label", "Label", "LABEL"],
+    198|   ])("%s.jsx renders a <%s>", async (file, name, tag) => {
+    199|     const module = await import(`./components/ui/${file}.jsx`);
+       |                          ^
+    200|     const Component = module[name];
+    201|     const { container } = render(<Component data-testid="it" />);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > H2: the components are the native elements, styled > label.jsx renders a <Label>
+Error: Unknown variable dynamic import: ./components/ui/label.jsx
+ ❯  vite/dynamic-import-helper.js:5:106
+ ❯  vite/dynamic-import-helper.js:4:9
+ ❯ src/UiTheme.test.jsx:199:26
+    197|     ["label", "Label", "LABEL"],
+    198|   ])("%s.jsx renders a <%s>", async (file, name, tag) => {
+    199|     const module = await import(`./components/ui/${file}.jsx`);
+       |                          ^
+    200|     const Component = module[name];
+    201|     const { container } = render(<Component data-testid="it" />);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > H2: the components are the native elements, styled > the booking form keeps native tick boxes, styled fields and a styled button
+AssertionError: expected null to be 'input' // Object.is equality
+
+- Expected:
+"input"
+
++ Received:
+null
+
+ ❯ src/UiTheme.test.jsx:209:69
+    207|
+    208|     expect(screen.getByLabelText("I agree to the terms and conditions"…
+    209|     expect(screen.getByLabelText("Name").getAttribute("data-slot")).to…
+       |                                                                     ^
+    210|     expect(screen.getByLabelText("Additional details").getAttribute("d…
+    211|     expect(screen.getByRole("button", { name: "Send booking request" }…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L1: the navigation is a wrapping row; the current page is marked by more than colour
+AssertionError: expected '' to match /\bflex\b/
+
+- Expected:
+/\bflex\b/
+
++ Received:
+""
+
+ ❯ src/UiTheme.test.jsx:222:27
+    220|
+    221|     const list = within(screen.getByRole("navigation", { name: "Main" …
+    222|     expect(classOf(list)).toMatch(/\bflex\b/);
+       |                           ^
+    223|     expect(classOf(list)).toMatch(/\bflex-wrap\b/);
+    224|     expect(classOf(screen.getByRole("link", { name: "Facilities" }))).…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L1, L2: the header and the footer are styled bands
+AssertionError: expected '' to match /\bborder-b\b|\bbg-/
+
+- Expected:
+/\bborder-b\b|\bbg-/
+
++ Received:
+""
+
+ ❯ src/UiTheme.test.jsx:232:55
+    230|     openAt("/");
+    231|
+    232|     expect(classOf(document.querySelector("header"))).toMatch(/\bborde…
+       |                                                       ^
+    233|     expect(classOf(screen.getByRole("contentinfo"))).toMatch(/\bborder…
+    234|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L3: the content is at most about 64rem wide
+AssertionError: expected '' to match /\bmax-w-(5xl|\[64rem\])\b/
+
+- Expected:
+/\bmax-w-(5xl|\[64rem\])\b/
+
++ Received:
+""
+
+ ❯ src/UiTheme.test.jsx:239:47
+    237|     openAt("/faq");
+    238|
+    239|     expect(classOf(screen.getByRole("main"))).toMatch(/\bmax-w-(5xl|\[…
+       |                                               ^
+    240|   });
+    241|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L4: /facilities shows its items as cards in a wrapping grid
+ FAIL  src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L4: /events shows its items as cards in a wrapping grid
+AssertionError: expected '' to match /\bgrid\b/
+
+- Expected:
+/\bgrid\b/
+
++ Received:
+""
+
+ ❯ src/UiTheme.test.jsx:246:45
+    244|
+    245|     const items = within(screen.getByRole("main")).getAllByRole("listi…
+    246|     expect(classOf(items[0].parentElement)).toMatch(/\bgrid\b/);
+       |                                             ^
+    247|     for (const item of items) {
+    248|       expect(item.getAttribute("data-slot") ?? item.querySelector("[da…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L5: the gallery is a grid of columns at least 16rem wide
+AssertionError: expected '' to match /\bgrid\b/
+
+- Expected:
+/\bgrid\b/
+
++ Received:
+""
+
+ ❯ src/UiTheme.test.jsx:258:27
+    256|
+    257|     const grid = screen.getAllByRole("figure")[0].parentElement;
+    258|     expect(classOf(grid)).toMatch(/\bgrid\b/);
+       |                           ^
+    259|     expect(classOf(grid)).toMatch(/grid-cols-\[repeat\(auto-fill,minma…
+    260|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > L1 to L5, L8: the public pages > L8: the skip link is hidden until it has keyboard focus
+AssertionError: expected 'skip-link' to match /\bsr-only\b/
+
+- Expected:
+/\bsr-only\b/
+
++ Received:
+"skip-link"
+
+ ❯ src/UiTheme.test.jsx:266:27
+    264|
+    265|     const skip = screen.getByRole("link", { name: "Skip to main conten…
+    266|     expect(classOf(skip)).toMatch(/\bsr-only\b/);
+       |                           ^
+    267|     expect(classOf(skip)).toMatch(/\bfocus:not-sr-only\b/);
+    268|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > L6, L7: the admin page > L6: the login form sits in a card, with styled fields and button
+AssertionError: expected null not to be null
+ ❯ src/UiTheme.test.jsx:280:51
+    278|
+    279|     const email = await screen.findByLabelText("Email");
+    280|     expect(email.closest("[data-slot=card]")).not.toBeNull();
+       |                                                   ^
+    281|     expect(email.getAttribute("data-slot")).toBe("input");
+    282|     expect(screen.getByRole("button", { name: "Log in" }).getAttribute…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/30]⎯
+
+ FAIL  src/UiTheme.test.jsx > L6, L7: the admin page > L7: the bookings table scrolls sideways in its own box
+AssertionError: expected null to be 'table' // Object.is equality
+
+- Expected:
+"table"
+
++ Received:
+null
+
+ ❯ src/UiTheme.test.jsx:309:45
+    307|     await waitFor(() => expect(screen.getByRole("table")).toBeInTheDoc…
+    308|     const table = screen.getByRole("table");
+    309|     expect(table.getAttribute("data-slot")).toBe("table");
+       |                                             ^
+    310|     expect(classOf(table.parentElement)).toMatch(/\boverflow-x-auto\b/…
+    311|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/30]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  30 failed | 7 passed (37)
+   Start at  12:44:19
+   Duration  922ms (transform 76ms, setup 93ms, import 74ms, tests 130ms, environment 515ms)
+

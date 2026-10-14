@@ -1,194 +1,84 @@
-/* The site's one stylesheet (docs/specs/public-pages.md, ST1 to ST9).
-   It changes how things look, never what they do. */
+/* The site's one stylesheet (docs/specs/ui-theme.md, T1 to T5): Tailwind, and
+   the light theme of shadcn/ui in hex. No dark variant. */
+@import "tailwindcss";
 
-/* ST2: colours, each at least 4.5:1 against both backgrounds */
 :root {
+  --radius: 0.625rem;
   --background: #ffffff;
-  --text: #1f2328;
-  --muted: #57606a;
-  --link: #0b5cad;
-  --error: #b42318;
-  --shade: #f2f4f7;
-  --line: #d0d7de;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --primary: #1d4ed8;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #475569;
+  --accent: #eff6ff;
+  --accent-foreground: #1e3a8a;
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #64748b;
+  --ring: #2563eb;
 }
 
-* {
-  box-sizing: border-box;
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-body {
-  margin: 0;
-  background: var(--background);
-  color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-}
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-a {
-  color: var(--link);
-}
+  body {
+    @apply bg-background text-foreground antialiased;
+    line-height: 1.6;
+  }
 
-/* ST7: a clear outline for whatever has keyboard focus */
-:focus-visible {
-  outline: 3px solid var(--link);
-  outline-offset: 2px;
-}
+  /* Links in text keep an underline, so they are told apart by more than colour. */
+  a {
+    @apply text-primary underline underline-offset-2;
+  }
 
-/* ST3: content at most 60rem wide; the admin page, alone in the root, 80rem */
-header nav,
-main,
-footer {
-  max-width: 60rem;
-  margin: 0 auto;
-  padding: 1rem 1rem 2rem;
-}
+  /* T6: a full-strength ring with a gap in the background colour. */
+  :focus-visible {
+    @apply ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
 
-#root > main:only-child {
-  max-width: 80rem;
-}
+  main h1 {
+    @apply mb-4 text-3xl font-bold tracking-tight;
+  }
 
-/* ST6: out of sight until it has focus, never removed */
-.skip-link {
-  position: absolute;
-  left: 0.5rem;
-  top: -10rem;
-  padding: 0.5rem 1rem;
-  background: var(--background);
-  color: var(--link);
-  border: 2px solid var(--link);
-  z-index: 1;
-}
+  main h2 {
+    @apply mt-8 mb-2 text-xl font-semibold tracking-tight;
+  }
 
-.skip-link:focus {
-  top: 0.5rem;
-}
+  main p {
+    @apply my-3;
+  }
 
-/* ST4: header and navigation */
-header {
-  border-bottom: 1px solid var(--line);
-}
-
-header nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1.25rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-header nav a[aria-current="page"] {
-  font-weight: bold;
-  color: var(--text);
-}
-
-/* ST5: footer */
-footer {
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-/* ST7: forms */
-form > div {
-  margin-bottom: 1rem;
-}
-
-form > div > label:first-child {
-  display: block;
-  margin-bottom: 0.25rem;
-  font-weight: 600;
-}
-
-input:not([type="checkbox"]),
-textarea,
-select {
-  width: 100%;
-  max-width: 30rem;
-  padding: 0.4rem 0.5rem;
-  border: 1px solid var(--muted);
-  border-radius: 4px;
-  font: inherit;
-  color: inherit;
-}
-
-input[type="checkbox"] {
-  margin-right: 0.4rem;
-}
-
-button {
-  padding: 0.45rem 1rem;
-  border: 1px solid var(--link);
-  border-radius: 4px;
-  background: var(--link);
-  color: var(--background);
-  font: inherit;
-  cursor: pointer;
-}
-
-button:disabled {
-  border-color: var(--line);
-  background: var(--shade);
-  color: var(--muted);
-  cursor: not-allowed;
-}
-
-[role="alert"] {
-  color: var(--error);
-}
-
-/* ST8: admin table and its two questions */
-table {
-  border-collapse: collapse;
-  margin: 1rem 0;
-  font-size: 0.9rem;
-}
-
-th,
-td {
-  border: 1px solid var(--line);
-  padding: 0.4rem 0.6rem;
-  text-align: left;
-  vertical-align: top;
-}
-
-th {
-  background: var(--shade);
-}
-
-[role="dialog"] {
-  margin: 1rem 0;
-  padding: 1rem;
-  border: 2px solid var(--text);
-  border-radius: 4px;
-  background: var(--shade);
-}
-
-/* ST9: pictures, and the gallery as a grid */
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-
-main:has(> figure) {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-  gap: 1rem;
-  align-items: start;
-}
-
-main:has(> figure) > :not(figure) {
-  grid-column: 1 / -1;
-}
-
-figure {
-  margin: 0;
-}
-
-figcaption {
-  margin-top: 0.4rem;
-  color: var(--muted);
-  font-size: 0.9rem;
+  main ul:not([class]) {
+    @apply my-3 list-disc pl-6;
+  }
 }

@@ -11,9 +11,17 @@ export default function StandInCaptcha({ onToken }) {
   }
 
   return (
-    <div>
-      <input id="captcha" type="checkbox" checked={ticked} onChange={handleChange} />
-      <label htmlFor="captcha">I am not a robot</label>
+    <div className="flex items-center gap-2">
+      <input
+        id="captcha"
+        type="checkbox"
+        checked={ticked}
+        onChange={handleChange}
+        className="size-4 accent-primary"
+      />
+      <label htmlFor="captcha" className="text-sm">
+        I am not a robot
+      </label>
     </div>
   );
 }

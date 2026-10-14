@@ -1,5 +1,10 @@
 import { useCallback, useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+
 import StandInCaptcha from "./StandInCaptcha.jsx";
 
 // Messages from docs/specs/F01.md, "Messages".
@@ -72,18 +77,19 @@ function FieldError({ id, message }) {
     return null;
   }
   return (
-    <p id={id} role="alert">
+    <p id={id} role="alert" className="mt-1 text-sm text-destructive">
       {message}
     </p>
   );
 }
 
-function Field({ label, name, error, as: Input = "input", ...inputProps }) {
+function Field({ label, name, error, as = "input", ...inputProps }) {
   const errorId = `${name}-error`;
+  const Control = as === "textarea" ? Textarea : Input;
   return (
-    <div>
-      <label htmlFor={name}>{label}</label>
-      <Input id={name} name={name} aria-describedby={error ? errorId : undefined} {...inputProps} />
+    <div className="space-y-2">
+      <Label htmlFor={name}>{label}</Label>
+      <Control id={name} name={name} aria-describedby={error ? errorId : undefined} {...inputProps} />
       <FieldError id={errorId} message={error} />
     </div>
   );
@@ -92,13 +98,14 @@ function Field({ label, name, error, as: Input = "input", ...inputProps }) {
 function Tick({ label, name, checked, onChange, error, documentAddress, documentLink }) {
   const errorId = `${name}-error`;
   return (
-    <div>
+    <div className="text-sm">
       <input
         id={name}
         type="checkbox"
         checked={checked}
         onChange={(event) => onChange(event.target.checked)}
         aria-describedby={error ? errorId : undefined}
+        className="mr-2 size-4 align-middle accent-primary"
       />
       <label htmlFor={name}>{label}</label>{" "}
       {/* The document opens in a new tab so the half-filled form is not lost (F04 T2). */}
@@ -178,7 +185,7 @@ export default function BookingForm({ CaptchaWidget = StandInCaptcha }) {
   const canSubmit = termsAccepted && privacyAccepted && captchaToken !== "" && !sending;
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit} noValidate className="space-y-5">
       <Field label="Name" type="text" maxLength={100} {...field("name")} />
       <Field label="Email" type="email" maxLength={254} {...field("email")} />
       <Field label="Phone" type="tel" maxLength={30} {...field("phone")} />
@@ -216,11 +223,15 @@ export default function BookingForm({ CaptchaWidget = StandInCaptcha }) {
       <CaptchaWidget onToken={onToken} />
       <FieldError id="captcha_token-error" message={fieldErrors.captcha_token} />
 
-      {message && <p role="alert">{message}</p>}
+      {message && (
+        <p role="alert" className="text-sm text-destructive">
+          {message}
+        </p>
+      )}
 
-      <button type="submit" disabled={!canSubmit}>
+      <Button type="submit" disabled={!canSubmit}>
         Send booking request
-      </button>
+      </Button>
     </form>
   );
 }

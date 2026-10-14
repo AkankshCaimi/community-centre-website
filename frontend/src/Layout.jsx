@@ -24,27 +24,42 @@ export default function Layout({ title, current, children }) {
 
   return (
     <>
-      <a className="skip-link" href="#main">
+      <a
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-background focus:px-4 focus:py-2 focus:shadow-md"
+        href="#main"
+      >
         Skip to main content
       </a>
-      <header>
-        <nav aria-label="Main">
-          <ul>
+      <header className="border-b bg-background/95">
+        <nav aria-label="Main" className="mx-auto max-w-5xl px-4 py-4">
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
             {NAVIGATION.map(([name, address]) => (
               <li key={address}>
-                <a href={address} aria-current={address === current ? "page" : undefined}>
+                <a
+                  href={address}
+                  aria-current={address === current ? "page" : undefined}
+                  className="text-foreground no-underline hover:text-primary hover:underline aria-[current=page]:font-semibold aria-[current=page]:text-primary aria-[current=page]:underline"
+                >
                   {name}
                 </a>
               </li>
             ))}
             <li>
-              <a href="/#booking">Request a booking</a>
+              <a
+                href="/#booking"
+                className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground no-underline hover:bg-primary/90"
+              >
+                Request a booking
+              </a>
             </li>
           </ul>
         </nav>
       </header>
-      <main id="main">{children}</main>
-      <footer>
+      <main id="main" className="mx-auto max-w-5xl px-4 py-8">
+        {children}
+      </main>
+      <footer className="border-t bg-muted text-sm text-muted-foreground">
+        <div className="mx-auto max-w-5xl space-y-1 px-4 py-8">
         <p>{CENTRE.address}</p>
         <p>
           <a href={MAP} target="_blank" rel="noopener noreferrer">
@@ -58,6 +73,7 @@ export default function Layout({ title, current, children }) {
           <a href="/terms">Terms and conditions</a> ·{" "}
           <a href="/privacy">Data and privacy notice</a>
         </p>
+        </div>
       </footer>
     </>
   );

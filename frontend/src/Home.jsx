@@ -26,7 +26,7 @@ export default function Home() {
         </p>
       </section>
 
-      <section id="booking">
+      <section id="booking" className="mt-12 scroll-mt-4 rounded-xl border bg-card p-6 shadow-sm [&>h2:first-child]:mt-0">
         <h2>Booking request</h2>
         <BookingForm />
       </section>
