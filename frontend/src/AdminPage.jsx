@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+
 // The admin page of docs/specs/F02.md (W1 to W11).
 
 const API = "/api/v1/admin";
@@ -7,6 +13,13 @@ const GENERAL_MESSAGE = "Something went wrong. Please try again later.";
 const SESSION_ENDED_MESSAGE = "Your session has ended. Please log in again.";
 const LIVE_MESSAGE =
   "This booking is still live. Decline it first, or wait until the event is over.";
+
+// Native lists keep their own behaviour; they only take the look of shadcn's Input
+// (docs/specs/ui-theme.md, H2).
+const LIST_CLASSES =
+  "h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+const ALERT_CLASSES = "text-sm text-destructive";
+const DIALOG_CLASSES = "my-4 space-y-3 rounded-xl border-2 border-foreground/20 bg-muted p-4 shadow-sm";
 
 const STATE_LABELS = {
   submitted: "Submitted",
@@ -92,28 +105,34 @@ function LoginForm({ notice, onLoggedIn }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      <div>
-        <label htmlFor="admin-email">Email</label>
-        <input
+    <Card className="max-w-sm">
+    <form onSubmit={handleSubmit} noValidate className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="admin-email">Email</Label>
+        <Input
           id="admin-email"
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="admin-password">Password</label>
-        <input
+      <div className="space-y-2">
+        <Label htmlFor="admin-password">Password</Label>
+        <Input
           id="admin-password"
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
       </div>
-      {message && <p role="alert">{message}</p>}
-      <button type="submit">Log in</button>
+      {message && (
+        <p role="alert" className={ALERT_CLASSES}>
+          {message}
+        </p>
+      )}
+      <Button type="submit">Log in</Button>
     </form>
+    </Card>
   );
 }
 
@@ -134,9 +153,10 @@ function Filters({ onApply }) {
         event.preventDefault();
         onApply(draft);
       }}
+      className="my-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm"
     >
-      <label htmlFor="filter-state">State</label>
-      <select {...control("state")}>
+      <Label htmlFor="filter-state">State</Label>
+      <select className={LIST_CLASSES} {...control("state")}>
         <option value="">All</option>
         {Object.entries(STATE_LABELS).map(([state, label]) => (
           <option key={state} value={state}>
@@ -145,43 +165,47 @@ function Filters({ onApply }) {
         ))}
       </select>
 
-      <label htmlFor="filter-from">From</label>
-      <input type="date" {...control("from")} />
+      <Label htmlFor="filter-from">From</Label>
+      <Input type="date" className="w-auto" {...control("from")} />
 
-      <label htmlFor="filter-to">To</label>
-      <input type="date" {...control("to")} />
+      <Label htmlFor="filter-to">To</Label>
+      <Input type="date" className="w-auto" {...control("to")} />
 
-      <label htmlFor="filter-search">Search</label>
-      <input type="search" maxLength={100} {...control("search")} />
+      <Label htmlFor="filter-search">Search</Label>
+      <Input type="search" maxLength={100} className="w-48" {...control("search")} />
 
-      <label htmlFor="filter-sort">Sort by</label>
-      <select {...control("sort")}>
+      <Label htmlFor="filter-sort">Sort by</Label>
+      <select className={LIST_CLASSES} {...control("sort")}>
         <option value="submitted_at">Submitted</option>
         <option value="starts_at">Start</option>
         <option value="name">Name</option>
       </select>
 
-      <label htmlFor="filter-order">Order</label>
-      <select {...control("order")}>
+      <Label htmlFor="filter-order">Order</Label>
+      <select className={LIST_CLASSES} {...control("order")}>
         <option value="desc">Newest first</option>
         <option value="asc">Oldest first</option>
       </select>
 
-      <button type="submit">Apply</button>
+      <Button type="submit" size="sm">
+        Apply
+      </Button>
     </form>
   );
 }
 
 function DeclineDialog({ onConfirm, onCancel }) {
   return (
-    <div role="dialog" aria-modal="true" aria-labelledby="decline-question">
-      <p id="decline-question">Decline this booking? This cannot be undone.</p>
-      <button type="button" onClick={onConfirm}>
+    <div role="dialog" aria-modal="true" aria-labelledby="decline-question" className={DIALOG_CLASSES}>
+      <p id="decline-question" className="font-medium">
+        Decline this booking? This cannot be undone.
+      </p>
+      <Button type="button" variant="destructive" className="mr-2" onClick={onConfirm}>
         Yes, decline
-      </button>
-      <button type="button" onClick={onCancel}>
+      </Button>
+      <Button type="button" variant="outline" onClick={onCancel}>
         Cancel
-      </button>
+      </Button>
     </div>
   );
 }
@@ -192,15 +216,17 @@ function optionText(booking) {
 
 function DeleteDialog({ booking, onConfirm, onCancel }) {
   return (
-    <div role="dialog" aria-modal="true" aria-labelledby="delete-question">
-      <p id="delete-question">Delete this client&apos;s data? This cannot be undone.</p>
+    <div role="dialog" aria-modal="true" aria-labelledby="delete-question" className={DIALOG_CLASSES}>
+      <p id="delete-question" className="font-medium">
+        Delete this client&apos;s data? This cannot be undone.
+      </p>
       <p>{optionText(booking)}</p>
-      <button type="button" onClick={onConfirm}>
+      <Button type="button" variant="destructive" className="mr-2" onClick={onConfirm}>
         Yes, delete
-      </button>
-      <button type="button" onClick={onCancel}>
+      </Button>
+      <Button type="button" variant="outline" onClick={onCancel}>
         Cancel
-      </button>
+      </Button>
     </div>
   );
 }
@@ -217,15 +243,18 @@ function DeleteClientData({ bookings, onDelete }) {
   const chosen = withData.find((booking) => String(booking.id) === chosenId);
 
   return (
-    <section>
-      <h3>Delete client data</h3>
+    <section className="mt-10 space-y-3 rounded-xl border bg-card p-6 shadow-sm">
+      <h3 className="text-lg font-semibold">Delete client data</h3>
       {withData.length === 0 ? (
         <p>No client data on this page.</p>
       ) : (
         <>
-          <label htmlFor="delete-booking">Booking</label>
+          <Label htmlFor="delete-booking" className="mr-3">
+            Booking
+          </Label>
           <select
             id="delete-booking"
+            className={`${LIST_CLASSES} mr-3`}
             value={chosen ? chosenId : ""}
             onChange={(event) => {
               setChosenId(event.target.value);
@@ -239,9 +268,9 @@ function DeleteClientData({ bookings, onDelete }) {
               </option>
             ))}
           </select>
-          <button type="button" disabled={!chosen} onClick={() => setAskingId(chosenId)}>
+          <Button type="button" variant="destructive" disabled={!chosen} onClick={() => setAskingId(chosenId)}>
             Delete data
-          </button>
+          </Button>
         </>
       )}
       {chosen && askingId === chosenId && (
@@ -263,30 +292,37 @@ function BookingRow({ booking, onAction }) {
   // React renders every value below as text, so markup typed by a client is
   // shown, never interpreted (W11).
   return (
-    <tr>
-      <td>{isErased(booking) ? "Deleted" : booking.name}</td>
-      <td>{booking.email}</td>
-      <td>{booking.phone}</td>
-      <td>{booking.guest_count}</td>
-      <td>{shownTime(booking.starts_at)}</td>
-      <td>{shownTime(booking.ends_at)}</td>
-      <td>{stateLabel(booking)}</td>
-      <td>{shownTime(booking.submitted_at)}</td>
-      <td>{booking.details}</td>
-      <td>
+    <TableRow>
+      <TableCell>{isErased(booking) ? "Deleted" : booking.name}</TableCell>
+      <TableCell>{booking.email}</TableCell>
+      <TableCell>{booking.phone}</TableCell>
+      <TableCell>{booking.guest_count}</TableCell>
+      <TableCell>{shownTime(booking.starts_at)}</TableCell>
+      <TableCell>{shownTime(booking.ends_at)}</TableCell>
+      <TableCell>{stateLabel(booking)}</TableCell>
+      <TableCell>{shownTime(booking.submitted_at)}</TableCell>
+      <TableCell>{booking.details}</TableCell>
+      <TableCell>
         {booking.state === "declined" ? (
-          <span>Declined (final)</span>
+          <span className="text-muted-foreground">Declined (final)</span>
         ) : (
           Object.keys(ACTION_LABELS)
             .filter((state) => state !== booking.state)
             .map((state) => (
-              <button key={state} type="button" onClick={() => onAction(booking, state)}>
+              <Button
+                key={state}
+                type="button"
+                variant="outline"
+                size="sm"
+                className="mr-1 mb-1"
+                onClick={() => onAction(booking, state)}
+              >
                 {ACTION_LABELS[state]}
-              </button>
+              </Button>
             ))
         )}
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   );
 }
 
@@ -389,16 +425,22 @@ function Bookings({ onSessionEnded, onLoggedOut }) {
   }
 
   if (list === null) {
-    return message ? <p role="alert">{message}</p> : <p>Loading…</p>;
+    return message ? (
+      <p role="alert" className={ALERT_CLASSES}>
+        {message}
+      </p>
+    ) : (
+      <p>Loading…</p>
+    );
   }
 
   const pageCount = Math.max(1, Math.ceil(list.total / list.page_size));
 
   return (
     <div>
-      <button type="button" onClick={logOut}>
+      <Button type="button" variant="outline" size="sm" onClick={logOut}>
         Log out
-      </button>
+      </Button>
 
       <Filters
         onApply={(applied) => {
@@ -409,37 +451,54 @@ function Bookings({ onSessionEnded, onLoggedOut }) {
         }}
       />
 
-      {message && <p role="alert">{message}</p>}
+      {message && (
+        <p role="alert" className={ALERT_CLASSES}>
+          {message}
+        </p>
+      )}
 
-      <table>
-        <thead>
-          <tr>
+      <Table>
+        <TableHeader>
+          <TableRow>
             {["Name", "Email", "Phone", "Guests", "Start", "End", "State", "Submitted", "Details", "Actions"].map(
               (heading) => (
-                <th key={heading} scope="col">
+                <TableHead key={heading} scope="col">
                   {heading}
-                </th>
+                </TableHead>
               ),
             )}
-          </tr>
-        </thead>
-        <tbody>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {list.items.map((booking) => (
             <BookingRow key={booking.id} booking={booking} onAction={handleAction} />
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
       {list.items.length === 0 && <p>No bookings found.</p>}
 
       <p>
         Page {list.page} of {pageCount}
       </p>
-      <button type="button" disabled={list.page <= 1} onClick={() => setPage(list.page - 1)}>
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        className="mr-2"
+        disabled={list.page <= 1}
+        onClick={() => setPage(list.page - 1)}
+      >
         Previous
-      </button>
-      <button type="button" disabled={list.page >= pageCount} onClick={() => setPage(list.page + 1)}>
+      </Button>
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        disabled={list.page >= pageCount}
+        onClick={() => setPage(list.page + 1)}
+      >
         Next
-      </button>
+      </Button>
 
       <DeleteClientData bookings={list.items} onDelete={eraseBooking} />
 

@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-10-14
-- **Sources:** the author's instructions of 2026-10-14
+- **Sources:** the author's instructions of 2026-10-14; the reason for rejecting hand-written CSS was given by the author on the same day, after the review of the implementation
 
 ## Context
 
@@ -14,7 +14,7 @@ The site is styled by one hand-written stylesheet, `frontend/src/site.css` (rule
 |---|---|
 | Tailwind CSS with shadcn/ui | shadcn components are copied into the repository: owned code, not a black-box dependency. D2C uses Vue; Tailwind transfers. |
 | MUI and Bootstrap | rejected — installing and using a library as it ships means the component code is not owned or reviewable in this repository, and both carry a heavier visual signature that fights the minimal brief.. |
-| Hand-written CSS | None recorded |
+| Hand-written CSS | Rejected because a hand-rolled design system is slower to iterate and easier to drift than a utility framework with copied components. |
 
 ## Decision
 

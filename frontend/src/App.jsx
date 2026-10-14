@@ -27,7 +27,7 @@ function isAt(address) {
 export default function App() {
   if (isAt("/admin")) {
     return (
-      <main>
+      <main className="mx-auto max-w-7xl px-4 py-8">
         <h1>Community Centre</h1>
         <h2>Bookings</h2>
         <AdminPage />
