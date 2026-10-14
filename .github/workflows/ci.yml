@@ -16,8 +16,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - run: make install
-      - run: make lint
+      - run: scripts/ci.sh install
+      - run: scripts/ci.sh lint
 
   test:
     runs-on: ubuntu-latest
@@ -29,6 +29,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - run: cp .env.example .env
-      - run: make install
-      - run: make test
+      - run: scripts/ci.sh install
+      - run: scripts/ci.sh test
