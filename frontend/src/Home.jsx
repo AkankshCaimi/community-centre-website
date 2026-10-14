@@ -11,6 +11,7 @@ export default function Home() {
 
       <section>
         <h2>About the centre</h2>
+        <p>{NOTE}</p>
         <Decoration picture={EXTERIOR} />
         <p>
           We have one hall for hire, for one event per day. It hosts up to 250 guests, and the
@@ -23,7 +24,6 @@ export default function Home() {
         <p>
           <a href="/events">See the events we host</a>
         </p>
-        <p>{NOTE}</p>
       </section>
 
       <section id="booking">

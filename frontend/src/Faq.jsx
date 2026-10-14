@@ -8,13 +8,13 @@ export default function Faq() {
       <h2>How do I book the hall?</h2>
       <p>
         Send us a <a href="/#booking">booking request</a>. A request is not a booking until we
-        accept it. We will phone you to discuss your event.
+        accept it. We will contact you to discuss your event.
       </p>
 
       <h2>How much does it cost?</h2>
       <p>
-        The price depends on your event, and we agree it with you by phone. No payment is taken
-        through this website.
+        The price depends on the length of the event, the number of guests and the facilities
+        you need. We agree it with you by phone. No payment is taken on this website.
       </p>
 
       <h2>How many guests can the hall hold?</h2>
@@ -27,12 +27,14 @@ export default function Faq() {
       <p>An event can last between 1 and 12 hours.</p>
 
       <h2>Can two events take place on the same day?</h2>
-      <p>No. The hall hosts one event per day.</p>
+      <p>
+        No. The hall hosts one event per day. An event that runs past midnight takes both days.
+      </p>
 
       <h2>What happens if I do not hear back?</h2>
       <p>
-        If we have not answered a request within 48 hours, it lapses and its date is released.
-        You are welcome to send a new request.
+        If we have not answered a request within 48 hours, it lapses and its date is released,
+        without further notice to you. You are welcome to send a new request.
       </p>
 
       <h2>When is the centre open?</h2>
@@ -40,8 +42,9 @@ export default function Faq() {
 
       <h2>How do I have my details deleted?</h2>
       <p>
-        Call us and we will delete them. Our <a href="/privacy">data and privacy notice</a> says
-        more.
+        Ask us by phone or email, using the details at the foot of this page. If your event is
+        still to come, we decline your request first, because we cannot hold a date without your
+        details. Our <a href="/privacy">data and privacy notice</a> says more.
       </p>
     </>
   );

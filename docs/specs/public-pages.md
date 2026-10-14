@@ -28,7 +28,7 @@ Each rule has a number; tests cite it.
 
 | Rule | |
 |---|---|
-| R1 | Each address above shows its page. Any other address shows the home page, as today. |
+| R1 | Each address above shows its page, written exactly so or with one `/` at its end (`/facilities/`). Any other address shows the home page. That includes an address that only begins with one of them: `/facilities/x`, `/faq/1`, `/terms/old` and `/admin/x` all show the home page. |
 | R2 | The booking form stays at `/` (F02: "The public form of F01 stays at `/`"), under the level-2 heading "Booking request", in a section with the id `booking`. |
 | R3 | Every link between pages is an ordinary link (`<a href>`) that loads the page. |
 
@@ -53,7 +53,19 @@ They appear on every public page: home, facilities, gallery, events, FAQ, terms 
 | G1 | **Gallery.** The note of I2, then all six pictures in the order of the table under Images, each with its caption shown under it and its text alternative (I4). |
 | V1 | **Events.** A list of exactly these three: "Weddings", "Parties", "Cultural gatherings", followed by the sentence "Planning something else? Send us a request and we will call you." No picture. |
 | Q1 | **FAQ.** Each question is a level-2 heading, followed by its answer. The questions, in order: "How do I book the hall?", "How much does it cost?", "How many guests can the hall hold?", "How far ahead can I book?", "How long can an event last?", "Can two events take place on the same day?", "What happens if I do not hear back?", "When is the centre open?", "How do I have my details deleted?" |
-| Q2 | Every answer states only what is already decided elsewhere: a request is not a booking until we accept it and we will phone; the price is agreed by phone and no payment is taken on the website; up to 250 guests; at most six months ahead; between 1 and 12 hours; one event per day; an unanswered request lapses after 48 hours and its date is released; open 24 hours; call us to have details deleted, with a link to the privacy notice. |
+| Q2 | Each answer is one paragraph with exactly the text below. It states only what is decided elsewhere; the source is named beside it. In the first answer "booking request" is a link to `/#booking`; in the last, "data and privacy notice" is a link to `/privacy`. |
+
+| Question | Answer | Decided in |
+|---|---|---|
+| How do I book the hall? | Send us a booking request. A request is not a booking until we accept it. We will contact you to discuss your event. | F04 T4 |
+| How much does it cost? | The price depends on the length of the event, the number of guests and the facilities you need. We agree it with you by phone. No payment is taken on this website. | `docs/brief.md`, F04 T4 |
+| How many guests can the hall hold? | The hall hosts up to 250 guests. | FR2 |
+| How far ahead can I book? | You can send a request at most six months ahead of your event. | FR13 |
+| How long can an event last? | An event can last between 1 and 12 hours. | FR13 |
+| Can two events take place on the same day? | No. The hall hosts one event per day. An event that runs past midnight takes both days. | FR10 |
+| What happens if I do not hear back? | If we have not answered a request within 48 hours, it lapses and its date is released, without further notice to you. You are welcome to send a new request. | FR12, FR17, F04 T4 |
+| When is the centre open? | The centre is open 24 hours. | FR14 |
+| How do I have my details deleted? | Ask us by phone or email, using the details at the foot of this page. If your event is still to come, we decline your request first, because we cannot hold a date without your details. Our data and privacy notice says more. | F04 T3, F04 D4 |
 
 ## Accessibility
 
@@ -72,8 +84,8 @@ Six pictures supplied by the author on 2026-10-14, kept in `frontend/src/images/
 
 | Rule | |
 |---|---|
-| I1 | No caption, text alternative or sentence says or suggests that a picture shows the centre itself. |
-| I2 | Every page that shows a picture carries this sentence, as ordinary text: "The pictures on this site are illustrations and do not show our centre." |
+| I1 | Nothing says or suggests that a picture shows the centre itself. So that this can be checked: every caption begins with "A ", as in "A foyer", never "The foyer" or "Our foyer"; no caption or text alternative contains "the centre", "our", "we" or "us"; and apart from the sentence of I2, no text on a page with a picture mentions a picture, photo, photograph, image or illustration. |
+| I2 | Every page that shows a picture carries this sentence, as ordinary text: "The pictures on this site are illustrations and do not show our centre." It comes before the first picture on the page, so a visitor reads it before seeing one. |
 | I3 | On the home and facilities pages the pictures are decoration: they add nothing the text does not say, so each has an empty text alternative (`alt=""`) and no caption. |
 | I4 | In the gallery the pictures are the content. Each has the caption and the text alternative below. The text alternative describes what is in the picture and does not repeat the caption, so a screen reader does not read the same words twice. |
 
@@ -111,13 +123,15 @@ In `frontend/src/PublicPages.test.jsx`. Small: each page renders with its headin
 | FR5: a "booking request page" | The form is the last section of the home page, at `/#booking`; it has no page of its own. |
 | F04 T1: `/terms` and `/privacy` are pages of their own | They are, and now also carry the header and footer. |
 
+## Changed after the first review
+
+On 2026-10-14, after the review of the first version: R1 no longer lets an address match by its beginning; I1 is written so that it can be tested, and I2 puts the sentence before the first picture; Q2 gives the exact text of every answer, so that tests take their expected values from here and not from the built page. The deletion answer now agrees with the privacy notice (by phone or email, F04 T3) and says what F04 D4 means for a client whose event is still to come.
+
 ## Confirmed by the author
 
-On 2026-10-14: the home page at `/` with the booking form as its last section (R2); "Open 24 hours" in the footer (L3); the pictures, that they are stand-ins to be described as illustrations, and the removal of the two that showed people, leaving six.
+On 2026-10-14, before the pages were built: the home page at `/` with the booking form as its last section (R2); "Open 24 hours" in the footer (L3); the pictures, that they are stand-ins to be described as illustrations, and the removal of the two that showed people, leaving six.
 
-## Proposed by the implementer
-
-Not yet confirmed by the author:
+On 2026-10-14, after the pages were built, the author confirmed every proposal of the first version:
 
 - The addresses, link names, headings and browser titles.
 - The header and footer on the terms and privacy pages, and not on the admin page.
@@ -125,7 +139,20 @@ Not yet confirmed by the author:
 - Phone and email in the footer as plain text, not `tel:` and `mailto:` links, while they are placeholders.
 - Which picture goes on which page, and every caption and text alternative (I4).
 - The sentence of I2, and showing it on every page that has a picture.
-- Treating the pictures outside the gallery as decoration with an empty text alternative (I3). The author asked that a picture which only repeats its caption gets a minimal or empty one; outside the gallery a stand-in adds nothing to the text beside it, and inside the gallery the text alternatives were rewritten so none repeats its caption.
+- Treating the pictures outside the gallery as decoration with an empty text alternative (I3).
 - The nine FAQ questions (Q1) and the limit of their answers to decided facts (Q2).
-- The skip link (A5) and the browser titles (A6).
-- An unknown address still showing the home page.
+- The skip link (A5).
+- An unknown address showing the home page.
+
+On the same day the author decided that an event lasts at most 12 hours. Until then the maximum stood only in F01 V9 and the terms; it is now in FR13 of `docs/requirements.md`, and the FAQ answer "An event can last between 1 and 12 hours." rests on it.
+
+## Proposed by the implementer
+
+Not yet confirmed by the author; all of these come from the follow-up to the first review:
+
+- An address matching only when written exactly or with one `/` at its end, and this applying to `/admin/x` as well (R1).
+- The form of I1 that can be tested: captions beginning with "A ", the words a caption or text alternative may not contain, and no other text mentioning a picture.
+- The sentence of I2 coming before the first picture.
+- The exact text of the nine answers (Q2), including "We will contact you" in the first, the sentence about midnight in the sixth, and the whole of the last.
+- The sentence added to the privacy notice (F04 T3), and the wording added to FR5 and FR18 of `docs/requirements.md`.
+- `frontend/src/site.css`, which makes a picture no wider than the screen. No rule of this spec describes styling.

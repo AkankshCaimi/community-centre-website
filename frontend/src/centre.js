@@ -8,4 +8,4 @@ export const CENTRE = {
   email: "[Centre email]",
 };
 
-export const LAST_UPDATED = "13 October 2026";
+export const LAST_UPDATED = "14 October 2026";

@@ -1,0 +1,349 @@
+
+ RUN  v4.1.11 /Users/akanksh/Downloads/community-centre-website/frontend
+
+ × src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /facilities/x shows the home page 81ms
+   → expected 'Facilities' to be 'Community Centre' // Object.is equality
+ × src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /gallery/anything shows the home page 10ms
+   → expected 'Gallery' to be 'Community Centre' // Object.is equality
+ × src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /events/1 shows the home page 5ms
+   → expected 'Events' to be 'Community Centre' // Object.is equality
+ × src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /faq/1 shows the home page 5ms
+   → expected 'Frequently asked questions' to be 'Community Centre' // Object.is equality
+ × src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /terms/old shows the home page 4ms
+   → expected 'Terms and conditions' to be 'Community Centre' // Object.is equality
+ × src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /privacy/2025 shows the home page 4ms
+   → expected 'Data and privacy notice' to be 'Community Centre' // Object.is equality
+ × src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /facilities/x/ shows the home page 2ms
+   → expected 'Facilities' to be 'Community Centre' // Object.is equality
+ ✓ src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /facilitiesx shows the home page 22ms
+ × src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /admin/x shows the home page, not the admin page 5ms
+   → Unable to find an accessible element with the role "button" and name "Send booking request"
+
+Here are the accessible roles:
+
+  main:
+
+  Name "":
+  ...
+
+  --------------------------------------------------
+  heading:
+
+  Name "Community Centre":
+  ...
+
+  Name "Bookings":
+  ...
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  ...
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+...
+ ✓ src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /facilities/, with one / at its end, still shows its page 3ms
+ ✓ src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /gallery/, with one / at its end, still shows its page 3ms
+ ✓ src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /events/, with one / at its end, still shows its page 2ms
+ ✓ src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /faq/, with one / at its end, still shows its page 3ms
+ ✓ src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /terms/, with one / at its end, still shows its page 2ms
+ ✓ src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /privacy/, with one / at its end, still shows its page 3ms
+ ✓ src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /admin/ still shows the admin page 1ms
+ × src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /: the note comes before the first picture 5ms
+   → expected +0 to be truthy
+ × src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /facilities: the note comes before the first picture 2ms
+   → expected +0 to be truthy
+ ✓ src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /gallery: the note comes before the first picture 3ms
+ ✓ src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /: no other text mentions a picture 5ms
+ ✓ src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /facilities: no other text mentions a picture 2ms
+ ✓ src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /gallery: no other text mentions a picture 2ms
+ ✓ src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > every caption begins with A 3ms
+ ✓ src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /: no caption or text alternative says the centre, our, we or us 3ms
+ ✓ src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /facilities: no caption or text alternative says the centre, our, we or us 1ms
+ ✓ src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /gallery: no caption or text alternative says the centre, our, we or us 3ms
+ × src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > How do I book the hall? 5ms
+   → expected 'Send us a booking request. A request …' to be 'Send us a booking request. A request …' // Object.is equality
+ × src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > How much does it cost? 4ms
+   → expected 'The price depends on your event, and …' to be 'The price depends on the length of th…' // Object.is equality
+ ✓ src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > How many guests can the hall hold? 3ms
+ ✓ src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > How far ahead can I book? 5ms
+ ✓ src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > How long can an event last? 3ms
+ × src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > Can two events take place on the same day? 3ms
+   → expected 'No. The hall hosts one event per day.' to be 'No. The hall hosts one event per day.…' // Object.is equality
+ × src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > What happens if I do not hear back? 3ms
+   → expected 'If we have not answered a request wit…' to be 'If we have not answered a request wit…' // Object.is equality
+ ✓ src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > When is the centre open? 3ms
+ × src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > How do I have my details deleted? 3ms
+   → expected 'Call us and we will delete them. Our …' to be 'Ask us by phone or email, using the d…' // Object.is equality
+ ✓ src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > each answer is one paragraph: the next element is the next question 9ms
+ ✓ src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > the links in the first and last answers 7ms
+ × src/PublicPagesFollowup.test.jsx > F04 T3: how to ask, in the privacy notice > says what happens when the event is still to come, under How to ask 4ms
+   → expected ' Contact us by phone or email, using …' to contain 'If you ask us to erase your details w…'
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /facilities/x shows the home page
+ FAIL  src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /facilities/x/ shows the home page
+AssertionError: expected 'Facilities' to be 'Community Centre' // Object.is equality
+
+Expected: "Community Centre"
+Received: "Facilities"
+
+ ❯ src/PublicPagesFollowup.test.jsx:40:26
+     38|     openAt(path);
+     39|
+     40|     expect(topHeading()).toBe("Community Centre");
+       |                          ^
+     41|     expect(screen.getByRole("button", { name: "Send booking request" }…
+     42|     expect(document.title).toBe("Community Centre");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /gallery/anything shows the home page
+AssertionError: expected 'Gallery' to be 'Community Centre' // Object.is equality
+
+Expected: "Community Centre"
+Received: "Gallery"
+
+ ❯ src/PublicPagesFollowup.test.jsx:40:26
+     38|     openAt(path);
+     39|
+     40|     expect(topHeading()).toBe("Community Centre");
+       |                          ^
+     41|     expect(screen.getByRole("button", { name: "Send booking request" }…
+     42|     expect(document.title).toBe("Community Centre");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /events/1 shows the home page
+AssertionError: expected 'Events' to be 'Community Centre' // Object.is equality
+
+Expected: "Community Centre"
+Received: "Events"
+
+ ❯ src/PublicPagesFollowup.test.jsx:40:26
+     38|     openAt(path);
+     39|
+     40|     expect(topHeading()).toBe("Community Centre");
+       |                          ^
+     41|     expect(screen.getByRole("button", { name: "Send booking request" }…
+     42|     expect(document.title).toBe("Community Centre");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /faq/1 shows the home page
+AssertionError: expected 'Frequently asked questions' to be 'Community Centre' // Object.is equality
+
+Expected: "Community Centre"
+Received: "Frequently asked questions"
+
+ ❯ src/PublicPagesFollowup.test.jsx:40:26
+     38|     openAt(path);
+     39|
+     40|     expect(topHeading()).toBe("Community Centre");
+       |                          ^
+     41|     expect(screen.getByRole("button", { name: "Send booking request" }…
+     42|     expect(document.title).toBe("Community Centre");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /terms/old shows the home page
+AssertionError: expected 'Terms and conditions' to be 'Community Centre' // Object.is equality
+
+Expected: "Community Centre"
+Received: "Terms and conditions"
+
+ ❯ src/PublicPagesFollowup.test.jsx:40:26
+     38|     openAt(path);
+     39|
+     40|     expect(topHeading()).toBe("Community Centre");
+       |                          ^
+     41|     expect(screen.getByRole("button", { name: "Send booking request" }…
+     42|     expect(document.title).toBe("Community Centre");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /privacy/2025 shows the home page
+AssertionError: expected 'Data and privacy notice' to be 'Community Centre' // Object.is equality
+
+Expected: "Community Centre"
+Received: "Data and privacy notice"
+
+ ❯ src/PublicPagesFollowup.test.jsx:40:26
+     38|     openAt(path);
+     39|
+     40|     expect(topHeading()).toBe("Community Centre");
+       |                          ^
+     41|     expect(screen.getByRole("button", { name: "Send booking request" }…
+     42|     expect(document.title).toBe("Community Centre");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > R1: an address shows its page only when written exactly > /admin/x shows the home page, not the admin page
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name "Send booking request"
+
+Here are the accessible roles:
+
+  main:
+
+  Name "":
+  ...
+
+  --------------------------------------------------
+  heading:
+
+  Name "Community Centre":
+  ...
+
+  Name "Bookings":
+  ...
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  ...
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/PublicPagesFollowup.test.jsx:49:19
+     47|     openAt("/admin/x");
+     48|
+     49|     expect(screen.getByRole("button", { name: "Send booking request" }…
+       |                   ^
+     50|     expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+     51|     expect(screen.queryByRole("heading", { level: 2, name: "Bookings" …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /: the note comes before the first picture
+ FAIL  src/PublicPagesFollowup.test.jsx > I1, I2: nothing suggests a picture shows the centre > /facilities: the note comes before the first picture
+AssertionError: expected +0 to be truthy
+
+- Expected:
+true
+
++ Received:
+0
+
+ ❯ src/PublicPagesFollowup.test.jsx:84:84
+     82|     const note = screen.getByText(NOTE);
+     83|     const first = document.querySelector("img");
+     84|     expect(note.compareDocumentPosition(first) & Node.DOCUMENT_POSITIO…
+       |                                                                                    ^
+     85|   });
+     86|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > How do I book the hall?
+AssertionError: expected 'Send us a booking request. A request …' to be 'Send us a booking request. A request …' // Object.is equality
+
+Expected: "Send us a booking request. A request is not a booking until we accept it. We will contact you to discuss your event."
+Received: "Send us a booking request. A request is not a booking until we accept it. We will phone you to discuss your event."
+
+ ❯ src/PublicPagesFollowup.test.jsx:160:63
+    158|     const paragraph = answerTo(question);
+    159|     expect(paragraph.tagName).toBe("P");
+    160|     expect(paragraph.textContent.replace(/\s+/g, " ").trim()).toBe(ans…
+       |                                                               ^
+    161|   });
+    162|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > How much does it cost?
+AssertionError: expected 'The price depends on your event, and …' to be 'The price depends on the length of th…' // Object.is equality
+
+Expected: "The price depends on the length of the event, the number of guests and the facilities you need. We agree it with you by phone. No payment is taken on this website."
+Received: "The price depends on your event, and we agree it with you by phone. No payment is taken through this website."
+
+ ❯ src/PublicPagesFollowup.test.jsx:160:63
+    158|     const paragraph = answerTo(question);
+    159|     expect(paragraph.tagName).toBe("P");
+    160|     expect(paragraph.textContent.replace(/\s+/g, " ").trim()).toBe(ans…
+       |                                                               ^
+    161|   });
+    162|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > Can two events take place on the same day?
+AssertionError: expected 'No. The hall hosts one event per day.' to be 'No. The hall hosts one event per day.…' // Object.is equality
+
+Expected: "No. The hall hosts one event per day. An event that runs past midnight takes both days."
+Received: "No. The hall hosts one event per day."
+
+ ❯ src/PublicPagesFollowup.test.jsx:160:63
+    158|     const paragraph = answerTo(question);
+    159|     expect(paragraph.tagName).toBe("P");
+    160|     expect(paragraph.textContent.replace(/\s+/g, " ").trim()).toBe(ans…
+       |                                                               ^
+    161|   });
+    162|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > What happens if I do not hear back?
+AssertionError: expected 'If we have not answered a request wit…' to be 'If we have not answered a request wit…' // Object.is equality
+
+Expected: "If we have not answered a request within 48 hours, it lapses and its date is released, without further notice to you. You are welcome to send a new request."
+Received: "If we have not answered a request within 48 hours, it lapses and its date is released. You are welcome to send a new request."
+
+ ❯ src/PublicPagesFollowup.test.jsx:160:63
+    158|     const paragraph = answerTo(question);
+    159|     expect(paragraph.tagName).toBe("P");
+    160|     expect(paragraph.textContent.replace(/\s+/g, " ").trim()).toBe(ans…
+       |                                                               ^
+    161|   });
+    162|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > Q2: every FAQ answer has exactly the text of the spec > How do I have my details deleted?
+AssertionError: expected 'Call us and we will delete them. Our …' to be 'Ask us by phone or email, using the d…' // Object.is equality
+
+Expected: "Ask us by phone or email, using the details at the foot of this page. If your event is still to come, we decline your request first, because we cannot hold a date without your details. Our data and privacy notice says more."
+Received: "Call us and we will delete them. Our data and privacy notice says more."
+
+ ❯ src/PublicPagesFollowup.test.jsx:160:63
+    158|     const paragraph = answerTo(question);
+    159|     expect(paragraph.tagName).toBe("P");
+    160|     expect(paragraph.textContent.replace(/\s+/g, " ").trim()).toBe(ans…
+       |                                                               ^
+    161|   });
+    162|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/16]⎯
+
+ FAIL  src/PublicPagesFollowup.test.jsx > F04 T3: how to ask, in the privacy notice > says what happens when the event is still to come, under How to ask
+AssertionError: expected ' Contact us by phone or email, using …' to contain 'If you ask us to erase your details w…'
+
+Expected: "If you ask us to erase your details while your event is still to come, we decline your request first, because we cannot hold a date without your details."
+Received: " Contact us by phone or email, using the details above. It is free of charge, and we will answer within one month."
+
+ ❯ src/PublicPagesFollowup.test.jsx:206:18
+    204|     }
+    205|     text = text.replace(/\s+/g, " ");
+    206|     expect(text).toContain(
+       |                  ^
+    207|       "If you ask us to erase your details while your event is still t…
+    208|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/16]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  16 failed | 22 passed (38)
+   Start at  02:00:38
+   Duration  1.05s (transform 62ms, setup 92ms, import 61ms, tests 237ms, environment 447ms)
+

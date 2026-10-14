@@ -60,6 +60,10 @@ export default function Privacy() {
         Contact us by phone or email, using the details above. It is free of charge, and we will
         answer within one month.
       </p>
+      <p>
+        If you ask us to erase your details while your event is still to come, we decline your
+        request first, because we cannot hold a date without your details.
+      </p>
 
       <h2>How to complain</h2>
       <p>
