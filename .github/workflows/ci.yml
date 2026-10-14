@@ -31,3 +31,10 @@ jobs:
           node-version: "24"
       - run: scripts/ci.sh install
       - run: scripts/ci.sh test
+
+  # Build only: nothing is pushed or deployed (docs/specs/make-ci.md, S10).
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: scripts/ci.sh image

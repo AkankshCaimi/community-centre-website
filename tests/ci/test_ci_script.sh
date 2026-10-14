@@ -115,7 +115,8 @@ check "S5 all: install, lint, then test with its fresh database" 0 "make install
 make lint
 $DOWN
 make test
-$DOWN"
+$DOWN
+docker build --tag community-centre:ci ."
 
 # --- S6: one line per check at the end of all
 case "$out" in
@@ -151,7 +152,8 @@ check "S5 all still runs test after a lint that fails, and exits 1" 1 "make inst
 make lint
 $DOWN
 make test
-$DOWN"
+$DOWN
+docker build --tag community-centre:ci ."
 case "$out" in
     *"lint: FAILED"*"test: passed"*) ok "S6 all reports 'lint: FAILED' and 'test: passed'" ;;
     *) no "S6 all reports 'lint: FAILED' and 'test: passed' (stdout: $out)" ;;
@@ -161,7 +163,8 @@ check "S6 all exits 1 when only test fails" 1 "make install
 make lint
 $DOWN
 make test
-$DOWN"
+$DOWN
+docker build --tag community-centre:ci ."
 case "$out" in
     *"lint: passed"*"test: FAILED"*) ok "S6 all reports 'lint: passed' and 'test: FAILED'" ;;
     *) no "S6 all reports 'lint: passed' and 'test: FAILED' (stdout: $out)" ;;
@@ -223,7 +226,7 @@ fi
 # --- S9: the commands of the workflow
 WORKFLOW="$REPO_ROOT/.github/workflows/ci.yml"
 commands="$(grep -E '^ +- run:' "$WORKFLOW" | sed -E 's/^ +- run: *//' | tr '\n' ';')"
-want="scripts/ci.sh install;scripts/ci.sh lint;scripts/ci.sh install;scripts/ci.sh test;"
+want="scripts/ci.sh install;scripts/ci.sh lint;scripts/ci.sh install;scripts/ci.sh test;scripts/ci.sh image;"
 if [ "$commands" = "$want" ]; then
     ok "S9 the workflow runs install+lint and install+test through the script"
 else

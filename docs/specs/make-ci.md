@@ -8,19 +8,20 @@ A pull request should not be the first place a failure shows up. `make ci` runs 
 
 ## One script
 
-`scripts/ci.sh` holds the steps. `make ci` and `.github/workflows/ci.yml` both call it, so the two cannot drift apart. The workflow keeps its two jobs, `lint` and `test`, and its tool versions (Python 3.14, Node 24).
+`scripts/ci.sh` holds the steps. `make ci` and `.github/workflows/ci.yml` both call it, so the two cannot drift apart. The workflow has three jobs, `lint`, `test` and `image`, and its tool versions (Python 3.14, Node 24).
 
 | Rule | |
 |---|---|
-| S1 | `scripts/ci.sh <stage>` takes exactly one stage: `install`, `lint`, `test` or `all`. Anything else (no stage, an unknown stage, more than one) prints a usage line on standard error, runs nothing and exits with code 2. |
+| S1 | `scripts/ci.sh <stage>` takes exactly one stage: `install`, `lint`, `test`, `image` or `all`. Anything else (no stage, an unknown stage, more than one) prints a usage line on standard error, runs nothing and exits with code 2. |
 | S2 | `install` runs `make install` and nothing else. |
 | S3 | `lint` runs `make lint` and nothing else. |
 | S4 | `test` removes the CI database with its data, runs `make test`, then removes the CI database again (D1 to D3). |
-| S5 | `all` runs `install`, then `lint`, then `test`, in that order. If `install` fails, nothing else runs. If `lint` fails, `test` still runs, as the two jobs of the workflow both run; the result is then a failure. |
-| S6 | The exit code is 0 only if every step of the stage succeeded, otherwise 1. `all` ends with one line per check: `lint: passed` or `lint: FAILED`, and the same for `test`. |
+| S5 | `all` runs `install`, then `lint`, then `test`, then `image`, in that order. If `install` fails, nothing else runs. If `lint` or `test` fails, the later ones still run, as the jobs of the workflow all run; the result is then a failure. |
+| S6 | The exit code is 0 only if every step of the stage succeeded, otherwise 1. `all` ends with one line per check, in this order: `lint: passed` or `lint: FAILED`, then the same for `test` and for `image`. |
 | S7 | The script works from any directory: it finds the repository from its own location and runs every step from the repository root. |
 | S8 | `make ci` runs `scripts/ci.sh all`. |
-| S9 | In the workflow, the `lint` job runs `scripts/ci.sh install` then `scripts/ci.sh lint`, and the `test` job runs `scripts/ci.sh install` then `scripts/ci.sh test`. The workflow runs no other command. |
+| S9 | In the workflow, the `lint` job runs `scripts/ci.sh install` then `scripts/ci.sh lint`, the `test` job runs `scripts/ci.sh install` then `scripts/ci.sh test`, and the `image` job runs `scripts/ci.sh image` alone: the image installs what it needs inside its own build. The workflow runs no other command. |
+| S10 | `image` builds the Docker image of `docs/specs/deploy.md` and nothing else: it runs `docker build --tag community-centre:ci .` from the repository root. It is a build only. Nothing is pushed to a registry, nothing is deployed, and no step of the script or the workflow logs in anywhere. A `Dockerfile` that does not build fails the stage, so it fails the pull request before any deployment. |
 
 ## Environment
 
@@ -60,6 +61,10 @@ A pull request should not be the first place a failure shows up. `make ci` runs 
 ## Tests
 
 `tests/ci/test_ci_script.sh` runs the script in a made-up repository with stand-ins for `make` and `docker` that record how they were called and with what environment. It also checks S8 and S9 against the real `Makefile` and workflow. Run it with `bash tests/ci/test_ci_script.sh`.
+
+## Added on 2026-10-14
+
+At the author's request: the `image` stage and job (S1, S5, S6, S9, S10). The tag `community-centre:ci` and the job running without `install` are the implementer's choices.
 
 ## Proposed by the implementer
 
