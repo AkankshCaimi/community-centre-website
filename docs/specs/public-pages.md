@@ -80,7 +80,7 @@ They appear on every public page: home, facilities, gallery, events, FAQ, terms 
 
 ## Styling
 
-One small stylesheet makes the pages presentable and readable. It changes how things look, never what they do.
+**ST1 to ST9 retired by ADR 0005; `SiteCss.test.js` retired with them.** The styling rules are now in `docs/specs/ui-theme.md`. The retired rules are kept below for the record.
 
 | Rule | |
 |---|---|
