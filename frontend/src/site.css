@@ -1,4 +1,194 @@
+/* The site's one stylesheet (docs/specs/public-pages.md, ST1 to ST9).
+   It changes how things look, never what they do. */
+
+/* ST2: colours, each at least 4.5:1 against both backgrounds */
+:root {
+  --background: #ffffff;
+  --text: #1f2328;
+  --muted: #57606a;
+  --link: #0b5cad;
+  --error: #b42318;
+  --shade: #f2f4f7;
+  --line: #d0d7de;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--link);
+}
+
+/* ST7: a clear outline for whatever has keyboard focus */
+:focus-visible {
+  outline: 3px solid var(--link);
+  outline-offset: 2px;
+}
+
+/* ST3: content at most 60rem wide; the admin page, alone in the root, 80rem */
+header nav,
+main,
+footer {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1rem 1rem 2rem;
+}
+
+#root > main:only-child {
+  max-width: 80rem;
+}
+
+/* ST6: out of sight until it has focus, never removed */
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -10rem;
+  padding: 0.5rem 1rem;
+  background: var(--background);
+  color: var(--link);
+  border: 2px solid var(--link);
+  z-index: 1;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* ST4: header and navigation */
+header {
+  border-bottom: 1px solid var(--line);
+}
+
+header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header nav a[aria-current="page"] {
+  font-weight: bold;
+  color: var(--text);
+}
+
+/* ST5: footer */
+footer {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ST7: forms */
+form > div {
+  margin-bottom: 1rem;
+}
+
+form > div > label:first-child {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+input:not([type="checkbox"]),
+textarea,
+select {
+  width: 100%;
+  max-width: 30rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--muted);
+  border-radius: 4px;
+  font: inherit;
+  color: inherit;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.4rem;
+}
+
+button {
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--link);
+  border-radius: 4px;
+  background: var(--link);
+  color: var(--background);
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  border-color: var(--line);
+  background: var(--shade);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+[role="alert"] {
+  color: var(--error);
+}
+
+/* ST8: admin table and its two questions */
+table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+th,
+td {
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--shade);
+}
+
+[role="dialog"] {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 2px solid var(--text);
+  border-radius: 4px;
+  background: var(--shade);
+}
+
+/* ST9: pictures, and the gallery as a grid */
 img {
+  display: block;
   max-width: 100%;
   height: auto;
+  border-radius: 4px;
+}
+
+main:has(> figure) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+main:has(> figure) > :not(figure) {
+  grid-column: 1 / -1;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption {
+  margin-top: 0.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
