@@ -1,4 +1,4 @@
-.PHONY: install test lint db-up
+.PHONY: install test lint db-up ci
 
 VENV := backend/.venv
 
@@ -17,3 +17,7 @@ test: db-up
 lint:
 	cd backend && .venv/bin/ruff check .
 	cd frontend && npm run lint
+
+# The checks GitHub Actions runs, on a fresh database. See docs/ci.md.
+ci:
+	scripts/ci.sh all
