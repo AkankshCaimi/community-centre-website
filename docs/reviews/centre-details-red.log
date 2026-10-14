@@ -1,0 +1,372 @@
+
+ RUN  v4.1.11 /Users/akanksh/Downloads/community-centre-website/frontend
+
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /terms shows the name, address, phone and email 20ms
+   → expected 'Skip to main contentHomeFacilitiesGal…' to contain 'Lakeside Community Centre'
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /privacy shows the name, address, phone and email 4ms
+   → expected 'Skip to main contentHomeFacilitiesGal…' to contain 'Lakeside Community Centre'
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /: the footer shows the address, phone and email 59ms
+   → expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  12 Heronbrook Lane, Coventry CV1 9ZZ
+Received:
+  [Centre address]Find us on the mapPhone: [Centre phone]Email: [Centre email]Open 24 hoursTerms and conditions · Data and privacy notice
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /facilities: the footer shows the address, phone and email 4ms
+   → expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  12 Heronbrook Lane, Coventry CV1 9ZZ
+Received:
+  [Centre address]Find us on the mapPhone: [Centre phone]Email: [Centre email]Open 24 hoursTerms and conditions · Data and privacy notice
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /gallery: the footer shows the address, phone and email 3ms
+   → expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  12 Heronbrook Lane, Coventry CV1 9ZZ
+Received:
+  [Centre address]Find us on the mapPhone: [Centre phone]Email: [Centre email]Open 24 hoursTerms and conditions · Data and privacy notice
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /events: the footer shows the address, phone and email 3ms
+   → expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  12 Heronbrook Lane, Coventry CV1 9ZZ
+Received:
+  [Centre address]Find us on the mapPhone: [Centre phone]Email: [Centre email]Open 24 hoursTerms and conditions · Data and privacy notice
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /faq: the footer shows the address, phone and email 3ms
+   → expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  12 Heronbrook Lane, Coventry CV1 9ZZ
+Received:
+  [Centre address]Find us on the mapPhone: [Centre phone]Email: [Centre email]Open 24 hoursTerms and conditions · Data and privacy notice
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /terms: the footer shows the address, phone and email 2ms
+   → expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  12 Heronbrook Lane, Coventry CV1 9ZZ
+Received:
+  [Centre address]Find us on the mapPhone: [Centre phone]Email: [Centre email]Open 24 hoursTerms and conditions · Data and privacy notice
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /privacy: the footer shows the address, phone and email 3ms
+   → expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  12 Heronbrook Lane, Coventry CV1 9ZZ
+Received:
+  [Centre address]Find us on the mapPhone: [Centre phone]Email: [Centre email]Open 24 hoursTerms and conditions · Data and privacy notice
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /: the map link is built from the address 11ms
+   → expect(element).toHaveAttribute("href", "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ") // element.getAttribute("href") === "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+
+Expected the element to have attribute:
+  href="https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+Received:
+  href="https://www.google.com/maps/search/?api=1&query=%5BCentre%20address%5D"
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /facilities: the map link is built from the address 5ms
+   → expect(element).toHaveAttribute("href", "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ") // element.getAttribute("href") === "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+
+Expected the element to have attribute:
+  href="https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+Received:
+  href="https://www.google.com/maps/search/?api=1&query=%5BCentre%20address%5D"
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /gallery: the map link is built from the address 4ms
+   → expect(element).toHaveAttribute("href", "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ") // element.getAttribute("href") === "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+
+Expected the element to have attribute:
+  href="https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+Received:
+  href="https://www.google.com/maps/search/?api=1&query=%5BCentre%20address%5D"
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /events: the map link is built from the address 4ms
+   → expect(element).toHaveAttribute("href", "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ") // element.getAttribute("href") === "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+
+Expected the element to have attribute:
+  href="https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+Received:
+  href="https://www.google.com/maps/search/?api=1&query=%5BCentre%20address%5D"
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /faq: the map link is built from the address 6ms
+   → expect(element).toHaveAttribute("href", "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ") // element.getAttribute("href") === "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+
+Expected the element to have attribute:
+  href="https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+Received:
+  href="https://www.google.com/maps/search/?api=1&query=%5BCentre%20address%5D"
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /terms: the map link is built from the address 4ms
+   → expect(element).toHaveAttribute("href", "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ") // element.getAttribute("href") === "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+
+Expected the element to have attribute:
+  href="https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+Received:
+  href="https://www.google.com/maps/search/?api=1&query=%5BCentre%20address%5D"
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /privacy: the map link is built from the address 4ms
+   → expect(element).toHaveAttribute("href", "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ") // element.getAttribute("href") === "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+
+Expected the element to have attribute:
+  href="https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+Received:
+  href="https://www.google.com/maps/search/?api=1&query=%5BCentre%20address%5D"
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /: no placeholder of the form [Centre …] remains 4ms
+   → expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /facilities: no placeholder of the form [Centre …] remains 2ms
+   → expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /gallery: no placeholder of the form [Centre …] remains 3ms
+   → expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /events: no placeholder of the form [Centre …] remains 1ms
+   → expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /faq: no placeholder of the form [Centre …] remains 2ms
+   → expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /terms: no placeholder of the form [Centre …] remains 2ms
+   → expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /privacy: no placeholder of the form [Centre …] remains 3ms
+   → expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+ ✓ src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /admin: no placeholder of the form [Centre …] remains 1ms
+ × src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > the phone number is in the range reserved for fiction 2ms
+   → expected null not to be null
+ × src/CentreDetails.test.jsx > F04 T3: backups, in the privacy notice > the sentence is under How long we keep it 15ms
+   → expected ' We keep your details for six months …' to contain 'Deleted records may persist in secure…'
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 25 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /terms shows the name, address, phone and email
+AssertionError: expected 'Skip to main contentHomeFacilitiesGal…' to contain 'Lakeside Community Centre'
+
+Expected: "Lakeside Community Centre"
+Received: "Skip to main contentHomeFacilitiesGalleryEventsFAQRequest a bookingTerms and conditionsLast updated: 14 October 2026These terms apply to booking requests made through this website to [Centre name], [Centre address]. You can reach us on [Centre phone] or at [Centre email].A request is not a bookingSending the form makes a booking request. It is not a booking until we accept it. We will contact you to discuss your event, and we may decline a request.Price and detailsThe price depends on the length of the event, the number of guests and the facilities you need. The price and the final details are agreed with you by phone before we accept a request. No payment is taken through this website.What can be requestedThe hall hosts one event per day.An event can last at most 12 hours.A request can be made at most six months ahead of the event.You can have at most two requests at a time.If you do not hear from usA request holds its date from the moment it is sent. If we have not answered a request within 48 hours, it lapses and its date is released, without further notice to you. You are welcome to send a new request.Your informationHow we use the details you give us is set out in our data and privacy notice, which is a separate document.[Centre address]Find us on the mapPhone: [Centre phone]Email: [Centre email]Open 24 hoursTerms and conditions · Data and privacy notice"
+
+ ❯ src/CentreDetails.test.jsx:34:20
+     32|
+     33|     for (const detail of [NAME, ADDRESS, PHONE, EMAIL]) {
+     34|       expect(text).toContain(detail);
+       |                    ^
+     35|     }
+     36|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /privacy shows the name, address, phone and email
+AssertionError: expected 'Skip to main contentHomeFacilitiesGal…' to contain 'Lakeside Community Centre'
+
+Expected: "Lakeside Community Centre"
+Received: "Skip to main contentHomeFacilitiesGalleryEventsFAQRequest a bookingData and privacy noticeLast updated: 14 October 2026Who we are[Centre name], [Centre address], is responsible for the information you give us through this website. You can reach us on [Centre phone] or at [Centre email].What we collectWhen you send a booking request we collect your name, email address, phone number, the number of guests, the date and times of your event, and any event details you choose to give. We also record the network address of the device the request came from.Why, and our legal basisWe use your details to handle your booking request and to contact you about it. The law allows this because these are steps taken at your request before entering a contract with you.We use the network address only to limit how many requests one connection can send in a day. The law allows this because we have a legitimate interest in protecting the form from abuse.How long we keep itWe keep your details for six months from the day your request is submitted. They are then deleted automatically, leaving only the date and the outcome of the request, which do not identify you.We keep the network address for 7 days and then delete it.Who sees itYour details are seen by our management team and are stored by the company that hosts this website for us. We do not sell your details or pass them to anyone else.Your rightsYou have the right to:ask for a copy of the details we hold about you;ask us to correct details that are wrong;ask us to erase your details before the six months are up;ask us to restrict how we use your details, or object to our using them.How to askContact us by phone or email, using the details above. It is free of charge, and we will answer within one month.If you ask us to erase your details while your event is still to come, we decline your request first, because we cannot hold a date without your details.How to complainIf you are unhappy with how we have used your details, please tell us first. You also have the right to complain to the Information Commissioner's Office, at ico.org.uk or on 0303 123 1113.[Centre address]Find us on the mapPhone: [Centre phone]Email: [Centre email]Open 24 hoursTerms and conditions · Data and privacy notice"
+
+ ❯ src/CentreDetails.test.jsx:34:20
+     32|
+     33|     for (const detail of [NAME, ADDRESS, PHONE, EMAIL]) {
+     34|       expect(text).toContain(detail);
+       |                    ^
+     35|     }
+     36|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /: the footer shows the address, phone and email
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /facilities: the footer shows the address, phone and email
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /gallery: the footer shows the address, phone and email
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /events: the footer shows the address, phone and email
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /faq: the footer shows the address, phone and email
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /terms: the footer shows the address, phone and email
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /privacy: the footer shows the address, phone and email
+Error: expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  12 Heronbrook Lane, Coventry CV1 9ZZ
+Received:
+  [Centre address]Find us on the mapPhone: [Centre phone]Email: [Centre email]Open 24 hoursTerms and conditions · Data and privacy notice
+ ❯ src/CentreDetails.test.jsx:43:22
+     41|     const footer = screen.getByRole("contentinfo");
+     42|     for (const detail of [ADDRESS, PHONE, EMAIL]) {
+     43|       expect(footer).toHaveTextContent(detail);
+       |                      ^
+     44|     }
+     45|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /: the map link is built from the address
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /facilities: the map link is built from the address
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /gallery: the map link is built from the address
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /events: the map link is built from the address
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /faq: the map link is built from the address
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /terms: the map link is built from the address
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /privacy: the map link is built from the address
+Error: expect(element).toHaveAttribute("href", "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ") // element.getAttribute("href") === "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+
+Expected the element to have attribute:
+  href="https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ"
+Received:
+  href="https://www.google.com/maps/search/?api=1&query=%5BCentre%20address%5D"
+ ❯ src/CentreDetails.test.jsx:52:7
+     50|     expect(
+     51|       within(screen.getByRole("contentinfo")).getByRole("link", { name…
+     52|     ).toHaveAttribute(
+       |       ^
+     53|       "href",
+     54|       "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /: no placeholder of the form [Centre …] remains
+AssertionError: expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+
+- Expected:
+/\[Centre|%5BCentre/
+
++ Received:
+"<div><a class=\"skip-link\" href=\"#main\">Skip to main content</a><header><nav aria-label=\"Main\"><ul><li><a href=\"/\" aria-current=\"page\">Home</a></li><li><a href=\"/facilities\">Facilities</a></li><li><a href=\"/gallery\">Gallery</a></li><li><a href=\"/events\">Events</a></li><li><a href=\"/faq\">FAQ</a></li><li><a href=\"/#booking\">Request a booking</a></li></ul></nav></header><main id=\"main\"><h1>Community Centre</h1><section><h2>About the centre</h2><p>The pictures on this site are illustrations and do not show our centre.</p><img alt=\"\" width=\"1536\" height=\"864\" src=\"/src/images/hero-exterior.jpg\"><p>We have one hall for hire, for one event per day. It hosts up to 250 guests, and the centre is open 24 hours.</p><img alt=\"\" width=\"1536\" height=\"864\" src=\"/src/images/hero-hall.jpg\"><p><a href=\"/facilities\">See the facilities</a></p><p><a href=\"/events\">See the events we host</a></p></section><section id=\"booking\"><h2>Booking request</h2><form novalidate=\"\"><div><label for=\"name\">Name</label><input id=\"name\" maxlength=\"100\" type=\"text\" value=\"\" name=\"name\"></div><div><label for=\"email\">Email</label><input id=\"email\" maxlength=\"254\" type=\"email\" value=\"\" name=\"email\"></div><div><label for=\"phone\">Phone</label><input id=\"phone\" maxlength=\"30\" type=\"tel\" value=\"\" name=\"phone\"></div><div><label for=\"guest_count\">Number of guests</label><input id=\"guest_count\" min=\"1\" max=\"250\" step=\"1\" type=\"number\" value=\"\" name=\"guest_count\"></div><div><label for=\"starts_at\">Start</label><input id=\"starts_at\" type=\"datetime-local\" value=\"\" name=\"starts_at\"></div><div><label for=\"ends_at\">End</label><input id=\"ends_at\" type=\"datetime-local\" value=\"\" name=\"ends_at\"></div><div><label for=\"details\">Additional details</label><textarea id=\"details\" name=\"details\" maxlength=\"2000\"></textarea></div><div><input id=\"terms_accepted\" type=\"checkbox\"><label for=\"terms_accepted\">I agree to the terms and conditions</label> <a href=\"/terms\" target=\"_blank\" rel=\"noopener noreferrer\">Read the terms and conditions</a></div><div><input id=\"privacy_notice_accepted\" type=\"checkbox\"><label for=\"privacy_notice_accepted\">I have read the data and privacy notice</label> <a href=\"/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Read the data and privacy notice</a></div><div><input id=\"captcha\" type=\"checkbox\"><label for=\"captcha\">I am not a robot</label></div><button type=\"submit\" disabled=\"\">Send booking request</button></form></section></main><footer><p>[Centre address]</p><p><a href=\"https://www.google.com/maps/search/?api=1&amp;query=%5BCentre%20address%5D\" target=\"_blank\" rel=\"noopener noreferrer\">Find us on the map</a></p><p>Phone: [Centre phone]</p><p>Email: [Centre email]</p><p>Open 24 hours</p><p><a href=\"/terms\">Terms and conditions</a> · <a href=\"/privacy\">Data and privacy notice</a></p></footer></div>"
+
+ ❯ src/CentreDetails.test.jsx:61:41
+     59|     openAt(path);
+     60|
+     61|     expect(document.body.innerHTML).not.toMatch(/\[Centre|%5BCentre/);
+       |                                         ^
+     62|   });
+     63|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /facilities: no placeholder of the form [Centre …] remains
+AssertionError: expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+
+- Expected:
+/\[Centre|%5BCentre/
+
++ Received:
+"<div><a class=\"skip-link\" href=\"#main\">Skip to main content</a><header><nav aria-label=\"Main\"><ul><li><a href=\"/\">Home</a></li><li><a href=\"/facilities\" aria-current=\"page\">Facilities</a></li><li><a href=\"/gallery\">Gallery</a></li><li><a href=\"/events\">Events</a></li><li><a href=\"/faq\">FAQ</a></li><li><a href=\"/#booking\">Request a booking</a></li></ul></nav></header><main id=\"main\"><h1>Facilities</h1><ul><li>A/V system</li><li>On-site parking</li><li>Catering kitchen</li><li>Main stage</li><li>Seating for up to 250 guests</li></ul><p>The pictures on this site are illustrations and do not show our centre.</p><img alt=\"\" width=\"1536\" height=\"864\" src=\"/src/images/hero-kitchen.jpg\"></main><footer><p>[Centre address]</p><p><a href=\"https://www.google.com/maps/search/?api=1&amp;query=%5BCentre%20address%5D\" target=\"_blank\" rel=\"noopener noreferrer\">Find us on the map</a></p><p>Phone: [Centre phone]</p><p>Email: [Centre email]</p><p>Open 24 hours</p><p><a href=\"/terms\">Terms and conditions</a> · <a href=\"/privacy\">Data and privacy notice</a></p></footer></div>"
+
+ ❯ src/CentreDetails.test.jsx:61:41
+     59|     openAt(path);
+     60|
+     61|     expect(document.body.innerHTML).not.toMatch(/\[Centre|%5BCentre/);
+       |                                         ^
+     62|   });
+     63|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /gallery: no placeholder of the form [Centre …] remains
+AssertionError: expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+
+- Expected:
+/\[Centre|%5BCentre/
+
++ Received:
+"<div><a class=\"skip-link\" href=\"#main\">Skip to main content</a><header><nav aria-label=\"Main\"><ul><li><a href=\"/\">Home</a></li><li><a href=\"/facilities\">Facilities</a></li><li><a href=\"/gallery\" aria-current=\"page\">Gallery</a></li><li><a href=\"/events\">Events</a></li><li><a href=\"/faq\">FAQ</a></li><li><a href=\"/#booking\">Request a booking</a></li></ul></nav></header><main id=\"main\"><h1>Gallery</h1><p>The pictures on this site are illustrations and do not show our centre.</p><figure><img alt=\"A red-brick building with a glass entrance canopy and a lawn in front\" width=\"1536\" height=\"864\" src=\"/src/images/hero-exterior.jpg\"><figcaption>A centre from outside</figcaption></figure><figure><img alt=\"Round tables with white cloths and chairs fill a large room, with a curtained platform at the far end\" width=\"1536\" height=\"864\" src=\"/src/images/hero-hall.jpg\"><figcaption>A hall laid out for a seated event</figcaption></figure><figure><img alt=\"Stainless-steel worktops, gas hobs and large cooking pots\" width=\"1536\" height=\"864\" src=\"/src/images/hero-kitchen.jpg\"><figcaption>A catering kitchen</figcaption></figure><figure><img alt=\"White linen, wine glasses, folded napkins and a centrepiece of white roses\" width=\"1536\" height=\"864\" src=\"/src/images/gallery-dining.jpg\"><figcaption>A table laid for dinner</figcaption></figure><figure><img alt=\"A reception desk, armchairs and potted plants in a bright room with tall windows\" width=\"1536\" height=\"864\" src=\"/src/images/gallery-foyer.jpg\"><figcaption>A foyer</figcaption></figure><figure><img alt=\"Closed curtains, a wooden floor, a microphone stand and loudspeakers\" width=\"1536\" height=\"864\" src=\"/src/images/gallery-stage.jpg\"><figcaption>A stage</figcaption></figure></main><footer><p>[Centre address]</p><p><a href=\"https://www.google.com/maps/search/?api=1&amp;query=%5BCentre%20address%5D\" target=\"_blank\" rel=\"noopener noreferrer\">Find us on the map</a></p><p>Phone: [Centre phone]</p><p>Email: [Centre email]</p><p>Open 24 hours</p><p><a href=\"/terms\">Terms and conditions</a> · <a href=\"/privacy\">Data and privacy notice</a></p></footer></div>"
+
+ ❯ src/CentreDetails.test.jsx:61:41
+     59|     openAt(path);
+     60|
+     61|     expect(document.body.innerHTML).not.toMatch(/\[Centre|%5BCentre/);
+       |                                         ^
+     62|   });
+     63|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /events: no placeholder of the form [Centre …] remains
+AssertionError: expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+
+- Expected:
+/\[Centre|%5BCentre/
+
++ Received:
+"<div><a class=\"skip-link\" href=\"#main\">Skip to main content</a><header><nav aria-label=\"Main\"><ul><li><a href=\"/\">Home</a></li><li><a href=\"/facilities\">Facilities</a></li><li><a href=\"/gallery\">Gallery</a></li><li><a href=\"/events\" aria-current=\"page\">Events</a></li><li><a href=\"/faq\">FAQ</a></li><li><a href=\"/#booking\">Request a booking</a></li></ul></nav></header><main id=\"main\"><h1>Events</h1><ul><li>Weddings</li><li>Parties</li><li>Cultural gatherings</li></ul><p>Planning something else? Send us a request and we will call you.</p></main><footer><p>[Centre address]</p><p><a href=\"https://www.google.com/maps/search/?api=1&amp;query=%5BCentre%20address%5D\" target=\"_blank\" rel=\"noopener noreferrer\">Find us on the map</a></p><p>Phone: [Centre phone]</p><p>Email: [Centre email]</p><p>Open 24 hours</p><p><a href=\"/terms\">Terms and conditions</a> · <a href=\"/privacy\">Data and privacy notice</a></p></footer></div>"
+
+ ❯ src/CentreDetails.test.jsx:61:41
+     59|     openAt(path);
+     60|
+     61|     expect(document.body.innerHTML).not.toMatch(/\[Centre|%5BCentre/);
+       |                                         ^
+     62|   });
+     63|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /faq: no placeholder of the form [Centre …] remains
+AssertionError: expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+
+- Expected:
+/\[Centre|%5BCentre/
+
++ Received:
+"<div><a class=\"skip-link\" href=\"#main\">Skip to main content</a><header><nav aria-label=\"Main\"><ul><li><a href=\"/\">Home</a></li><li><a href=\"/facilities\">Facilities</a></li><li><a href=\"/gallery\">Gallery</a></li><li><a href=\"/events\">Events</a></li><li><a href=\"/faq\" aria-current=\"page\">FAQ</a></li><li><a href=\"/#booking\">Request a booking</a></li></ul></nav></header><main id=\"main\"><h1>Frequently asked questions</h1><h2>How do I book the hall?</h2><p>Send us a <a href=\"/#booking\">booking request</a>. A request is not a booking until we accept it. We will contact you to discuss your event.</p><h2>How much does it cost?</h2><p>The price depends on the length of the event, the number of guests and the facilities you need. We agree it with you by phone. No payment is taken on this website.</p><h2>How many guests can the hall hold?</h2><p>The hall hosts up to 250 guests.</p><h2>How far ahead can I book?</h2><p>You can send a request at most six months ahead of your event.</p><h2>How long can an event last?</h2><p>An event can last between 1 and 12 hours.</p><h2>Can two events take place on the same day?</h2><p>No. The hall hosts one event per day. An event that runs past midnight takes both days.</p><h2>What happens if I do not hear back?</h2><p>If we have not answered a request within 48 hours, it lapses and its date is released, without further notice to you. You are welcome to send a new request.</p><h2>When is the centre open?</h2><p>The centre is open 24 hours.</p><h2>How do I have my details deleted?</h2><p>Ask us by phone or email, using the details at the foot of this page. If your event is still to come, we decline your request first, because we cannot hold a date without your details. Our <a href=\"/privacy\">data and privacy notice</a> says more.</p></main><footer><p>[Centre address]</p><p><a href=\"https://www.google.com/maps/search/?api=1&amp;query=%5BCentre%20address%5D\" target=\"_blank\" rel=\"noopener noreferrer\">Find us on the map</a></p><p>Phone: [Centre phone]</p><p>Email: [Centre email]</p><p>Open 24 hours</p><p><a href=\"/terms\">Terms and conditions</a> · <a href=\"/privacy\">Data and privacy notice</a></p></footer></div>"
+
+ ❯ src/CentreDetails.test.jsx:61:41
+     59|     openAt(path);
+     60|
+     61|     expect(document.body.innerHTML).not.toMatch(/\[Centre|%5BCentre/);
+       |                                         ^
+     62|   });
+     63|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /terms: no placeholder of the form [Centre …] remains
+AssertionError: expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+
+- Expected:
+/\[Centre|%5BCentre/
+
++ Received:
+"<div><a class=\"skip-link\" href=\"#main\">Skip to main content</a><header><nav aria-label=\"Main\"><ul><li><a href=\"/\">Home</a></li><li><a href=\"/facilities\">Facilities</a></li><li><a href=\"/gallery\">Gallery</a></li><li><a href=\"/events\">Events</a></li><li><a href=\"/faq\">FAQ</a></li><li><a href=\"/#booking\">Request a booking</a></li></ul></nav></header><main id=\"main\"><h1>Terms and conditions</h1><p>Last updated: 14 October 2026</p><p>These terms apply to booking requests made through this website to [Centre name], [Centre address]. You can reach us on [Centre phone] or at [Centre email].</p><h2>A request is not a booking</h2><p>Sending the form makes a booking request. It is not a booking until we accept it. We will contact you to discuss your event, and we may decline a request.</p><h2>Price and details</h2><p>The price depends on the length of the event, the number of guests and the facilities you need. The price and the final details are agreed with you by phone before we accept a request. No payment is taken through this website.</p><h2>What can be requested</h2><ul><li>The hall hosts one event per day.</li><li>An event can last at most 12 hours.</li><li>A request can be made at most six months ahead of the event.</li><li>You can have at most two requests at a time.</li></ul><h2>If you do not hear from us</h2><p>A request holds its date from the moment it is sent. If we have not answered a request within 48 hours, it lapses and its date is released, without further notice to you. You are welcome to send a new request.</p><h2>Your information</h2><p>How we use the details you give us is set out in our data and privacy notice, which is a separate document.</p></main><footer><p>[Centre address]</p><p><a href=\"https://www.google.com/maps/search/?api=1&amp;query=%5BCentre%20address%5D\" target=\"_blank\" rel=\"noopener noreferrer\">Find us on the map</a></p><p>Phone: [Centre phone]</p><p>Email: [Centre email]</p><p>Open 24 hours</p><p><a href=\"/terms\">Terms and conditions</a> · <a href=\"/privacy\">Data and privacy notice</a></p></footer></div>"
+
+ ❯ src/CentreDetails.test.jsx:61:41
+     59|     openAt(path);
+     60|
+     61|     expect(document.body.innerHTML).not.toMatch(/\[Centre|%5BCentre/);
+       |                                         ^
+     62|   });
+     63|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > /privacy: no placeholder of the form [Centre …] remains
+AssertionError: expected '<div><a class="skip-link" href="#main…' not to match /\[Centre|%5BCentre/
+
+- Expected:
+/\[Centre|%5BCentre/
+
++ Received:
+"<div><a class=\"skip-link\" href=\"#main\">Skip to main content</a><header><nav aria-label=\"Main\"><ul><li><a href=\"/\">Home</a></li><li><a href=\"/facilities\">Facilities</a></li><li><a href=\"/gallery\">Gallery</a></li><li><a href=\"/events\">Events</a></li><li><a href=\"/faq\">FAQ</a></li><li><a href=\"/#booking\">Request a booking</a></li></ul></nav></header><main id=\"main\"><h1>Data and privacy notice</h1><p>Last updated: 14 October 2026</p><h2>Who we are</h2><p>[Centre name], [Centre address], is responsible for the information you give us through this website. You can reach us on [Centre phone] or at [Centre email].</p><h2>What we collect</h2><p>When you send a booking request we collect your name, email address, phone number, the number of guests, the date and times of your event, and any event details you choose to give. We also record the network address of the device the request came from.</p><h2>Why, and our legal basis</h2><p>We use your details to handle your booking request and to contact you about it. The law allows this because these are steps taken at your request before entering a contract with you.</p><p>We use the network address only to limit how many requests one connection can send in a day. The law allows this because we have a legitimate interest in protecting the form from abuse.</p><h2>How long we keep it</h2><p>We keep your details for six months from the day your request is submitted. They are then deleted automatically, leaving only the date and the outcome of the request, which do not identify you.</p><p>We keep the network address for 7 days and then delete it.</p><h2>Who sees it</h2><p>Your details are seen by our management team and are stored by the company that hosts this website for us. We do not sell your details or pass them to anyone else.</p><h2>Your rights</h2><p>You have the right to:</p><ul><li>ask for a copy of the details we hold about you;</li><li>ask us to correct details that are wrong;</li><li>ask us to erase your details before the six months are up;</li><li>ask us to restrict how we use your details, or object to our using them.</li></ul><h2>How to ask</h2><p>Contact us by phone or email, using the details above. It is free of charge, and we will answer within one month.</p><p>If you ask us to erase your details while your event is still to come, we decline your request first, because we cannot hold a date without your details.</p><h2>How to complain</h2><p>If you are unhappy with how we have used your details, please tell us first. You also have the right to complain to the Information Commissioner's Office, at ico.org.uk or on 0303 123 1113.</p></main><footer><p>[Centre address]</p><p><a href=\"https://www.google.com/maps/search/?api=1&amp;query=%5BCentre%20address%5D\" target=\"_blank\" rel=\"noopener noreferrer\">Find us on the map</a></p><p>Phone: [Centre phone]</p><p>Email: [Centre email]</p><p>Open 24 hours</p><p><a href=\"/terms\">Terms and conditions</a> · <a href=\"/privacy\">Data and privacy notice</a></p></footer></div>"
+
+ ❯ src/CentreDetails.test.jsx:61:41
+     59|     openAt(path);
+     60|
+     61|     expect(document.body.innerHTML).not.toMatch(/\[Centre|%5BCentre/);
+       |                                         ^
+     62|   });
+     63|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > T5: the centre's details are the fictional ones > the phone number is in the range reserved for fiction
+AssertionError: expected null not to be null
+ ❯ src/CentreDetails.test.jsx:68:25
+     66|
+     67|     const numbers = text.match(/01632 ?\d{6}/g);
+     68|     expect(numbers).not.toBeNull();
+       |                         ^
+     69|     for (const number of numbers) {
+     70|       expect(number).toMatch(/^01632 960\d{3}$/);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/25]⎯
+
+ FAIL  src/CentreDetails.test.jsx > F04 T3: backups, in the privacy notice > the sentence is under How long we keep it
+AssertionError: expected ' We keep your details for six months …' to contain 'Deleted records may persist in secure…'
+
+Expected: "Deleted records may persist in secure backups for up to 7 days."
+Received: " We keep your details for six months from the day your request is submitted. They are then deleted automatically, leaving only the date and the outcome of the request, which do not identify you. We keep the network address for 7 days and then delete it."
+
+ ❯ src/CentreDetails.test.jsx:88:39
+     86|       text += ` ${element.textContent}`;
+     87|     }
+     88|     expect(text.replace(/\s+/g, " ")).toContain(
+       |                                       ^
+     89|       "Deleted records may persist in secure backups for up to 7 days.…
+     90|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/25]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  25 failed | 1 passed (26)
+   Start at  02:25:24
+   Duration  1.08s (transform 63ms, setup 133ms, import 56ms, tests 174ms, environment 491ms)
+

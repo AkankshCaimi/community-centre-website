@@ -18,7 +18,7 @@ afterEach(() => {
   window.history.pushState({}, "", "/");
 });
 
-const CENTRE = ["[Centre name]", "[Centre address]", "[Centre phone]", "[Centre email]"];
+const CENTRE = ["Lakeside Community Centre", "12 Heronbrook Lane, Coventry CV1 9ZZ", "01632 960123", "Akanksh.Caimi@warwick.ac.uk"];
 
 describe("T1: the two documents are separate pages", () => {
   test("/terms has the heading Terms and conditions and a last-updated date", () => {
@@ -110,7 +110,7 @@ describe("T4: what the terms state", () => {
 });
 
 describe("T5: the centre's details", () => {
-  test.each(["/terms", "/privacy"])("%s shows the four placeholders", (path) => {
+  test.each(["/terms", "/privacy"])("%s shows the centre details", (path) => {
     const text = openAt(path);
 
     for (const placeholder of CENTRE) {
