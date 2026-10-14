@@ -138,7 +138,7 @@ describe.each(PAGES)("every public page: %s", (path, heading, current, title) =>
     openAt(path);
 
     const footer = screen.getByRole("contentinfo");
-    for (const text of ["[Centre address]", "[Centre phone]", "[Centre email]", "Open 24 hours"]) {
+    for (const text of ["12 Heronbrook Lane, Coventry CV1 9ZZ", "01632 960123", "Akanksh.Caimi@warwick.ac.uk", "Open 24 hours"]) {
       expect(footer).toHaveTextContent(text);
     }
   });
@@ -151,7 +151,7 @@ describe.each(PAGES)("every public page: %s", (path, heading, current, title) =>
     });
     expect(link).toHaveAttribute(
       "href",
-      "https://www.google.com/maps/search/?api=1&query=%5BCentre%20address%5D",
+      "https://www.google.com/maps/search/?api=1&query=12%20Heronbrook%20Lane%2C%20Coventry%20CV1%209ZZ",
     );
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", "noopener noreferrer");

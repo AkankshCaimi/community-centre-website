@@ -39,6 +39,7 @@ export default function Privacy() {
         do not identify you.
       </p>
       <p>We keep the network address for 7 days and then delete it.</p>
+      <p>Deleted records may persist in secure backups for up to 7 days.</p>
 
       <h2>Who sees it</h2>
       <p>

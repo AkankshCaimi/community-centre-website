@@ -10,7 +10,7 @@ Each rule has a number; tests cite it.
 |---|---|
 | N1 | **All content is our own text, written into the React application.** Nothing on these pages is supplied by a client and nothing is read from the API or the database. The escaping and log-safety rules of F01 and F02 therefore do not apply to them. |
 | N2 | These pages send no request of their own. The only requests from a public page are those of the booking form (F01), where it is shown. |
-| N3 | The centre's name, address, phone and email come from `frontend/src/centre.js`, as in F04 T5. They are still placeholders. |
+| N3 | The centre's name, address, phone and email come from `frontend/src/centre.js`, as in F04 T5. They are fictional details for the demonstration site. |
 | N4 | The booking form of F01 is not changed: same component, same fields, labels, messages and requests. |
 
 ## Addresses
@@ -106,7 +106,7 @@ In `frontend/src/PublicPages.test.jsx`. Small: each page renders with its headin
 
 ## Known limits
 
-- **The centre's details are placeholders** and must be replaced before the site goes live. With a placeholder address, the map link leads nowhere useful.
+- **The centre's details are fictional** (F04 T5) and must be replaced before the site is used for a real centre. With a made-up address, the map link leads nowhere useful.
 - **The pictures are stand-ins.** FR1 and FR3 ask for images of the centre; until real photographs replace these, the site shows illustrations and says so (I2).
 - **The pictures are used as supplied.** They are 100 to 230 KB each at 1536 by 864 and are not resized for small screens.
 - **Nobody but a developer can change the content**; a change of text or picture is a change to the code.
