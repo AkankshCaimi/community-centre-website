@@ -163,13 +163,12 @@ On 2026-10-14, after the pages were built, the author confirmed every proposal o
 
 On the same day the author decided that an event lasts at most 12 hours. Until then the maximum stood only in F01 V9 and the terms; it is now in FR13 of `docs/requirements.md`, and the FAQ answer "An event can last between 1 and 12 hours." rests on it.
 
-## Proposed by the implementer
-
-Not yet confirmed by the author; all of these come from the follow-up to the first review:
+On 2026-10-14 the author confirmed the proposals from the follow-up to the first review:
 
 - An address matching only when written exactly or with one `/` at its end, and this applying to `/admin/x` as well (R1).
 - The form of I1 that can be tested: captions beginning with "A ", the words a caption or text alternative may not contain, and no other text mentioning a picture.
 - The sentence of I2 coming before the first picture.
 - The exact text of the nine answers (Q2), including "We will contact you" in the first, the sentence about midnight in the sixth, and the whole of the last.
 - The sentence added to the privacy notice (F04 T3), and the wording added to FR5 and FR18 of `docs/requirements.md`.
-- The styling rules ST1 to ST9, which replace the unspecified `site.css` of the first version, and their colours.
+
+The styling rules ST1 to ST9, which replaced the unspecified `site.css` of the first version, and their colours are recorded as retired by ADR 0005, not confirmed.

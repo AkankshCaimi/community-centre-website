@@ -66,9 +66,9 @@ A pull request should not be the first place a failure shows up. `make ci` runs 
 
 At the author's request: the `image` stage and job (S1, S5, S6, S9, S10). The tag `community-centre:ci` and the job running without `install` are the implementer's choices.
 
-## Proposed by the implementer
+## Confirmed by the author
 
-Not yet confirmed by the author:
+On 2026-10-14 the author confirmed every proposal of the implementer:
 
 - Port 15432 and the project name `community-centre-ci`.
 - The same port and project name in GitHub Actions as locally (E5), which removes `cp .env.example .env` from the workflow.
