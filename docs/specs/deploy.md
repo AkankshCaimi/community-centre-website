@@ -1,5 +1,7 @@
 # Deployment
 
+> The Azure deployment ended when the Azure for Students subscription expired in October 2026. The site now runs on Cloud Run and Neon: see `docs/specs/deploy-free.md`, which keeps G1 to G10 and M1, M2, M4, M5 of this spec and changes M3.
+
 Spec for running the website on Azure as a demonstration: one container image that serves the built React application and the API, a PostgreSQL server, and the two hourly jobs.
 
 Each rule has a number; tests and the files under `infra/` cite it.

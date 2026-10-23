@@ -1,0 +1,5 @@
+# What gcloud run deploy --source does not upload to Cloud Build (docs/specs/deploy-free.md, C9).
+# The .dockerignore still decides what goes into the image.
+.gcloudignore
+.git
+#!include:.gitignore
