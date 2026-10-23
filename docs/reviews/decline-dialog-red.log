@@ -1,0 +1,189 @@
+
+ RUN  v4.1.11 /Users/akanksh/Downloads/community-centre-website/frontend
+
+ ❯ src/AdminPageDeclineDialog.test.jsx (8 tests | 7 failed) 333ms
+     × it is fixed to the window, not added to the end of the page 102ms
+     × focus moves to Cancel when it opens 27ms
+     × Tab moves only between its two buttons 42ms
+     × Shift+Tab moves only between its two buttons 40ms
+     × Escape closes it and sends nothing 28ms
+     × after Cancel, focus returns to the row's Decline button 25ms
+     × after Escape, focus returns to the row's Decline button 29ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/AdminPageDeclineDialog.test.jsx > W12: the decline dialog is drawn over the page > it is fixed to the window, not added to the end of the page
+AssertionError: expected [ 'static', 'static', 'static', …(2) ] to include 'fixed'
+ ❯ src/AdminPageDeclineDialog.test.jsx:88:23
+     86|       positions.push(getComputedStyle(element).position);
+     87|     }
+     88|     expect(positions).toContain("fixed");
+       |                       ^
+     89|   });
+     90| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  src/AdminPageDeclineDialog.test.jsx > W12: focus while the dialog is open > focus moves to Cancel when it opens
+Error: [2mexpect([22m[31melement[39m[2m).toHaveFocus()[22m
+
+Expected element with focus:
+  [32m<button
+  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+  data-slot="button"
+  type="button"
+>
+  Cancel
+</button>[39m
+Received element with focus:
+  [31m<button
+  class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 mr-1 mb-1"
+  data-slot="button"
+  type="button"
+>
+  Decline
+</button>[39m
+ ❯ src/AdminPageDeclineDialog.test.jsx:100:60
+     98|
+     99|     const dialog = within(screen.getByRole("dialog"));
+    100|     expect(dialog.getByRole("button", { name: "Cancel" })).toHaveFocus…
+       |                                                            ^
+    101|   });
+    102|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  src/AdminPageDeclineDialog.test.jsx > W12: focus while the dialog is open > Tab moves only between its two buttons
+Error: [2mexpect([22m[31melement[39m[2m).toHaveFocus()[22m
+
+Expected element with focus:
+  [32m<button
+  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90 h-9 px-4 py-2 mr-2"
+  data-slot="button"
+  type="button"
+>
+  Yes, decline
+</button>[39m
+Received element with focus:
+  [31m<button
+  class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 mr-1 mb-1"
+  data-slot="button"
+  type="button"
+>
+  Mark contacted
+</button>[39m
+ ❯ src/AdminPageDeclineDialog.test.jsx:112:17
+    110|
+    111|     await user.tab();
+    112|     expect(yes).toHaveFocus();
+       |                 ^
+    113|     await user.tab();
+    114|     expect(cancel).toHaveFocus();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  src/AdminPageDeclineDialog.test.jsx > W12: focus while the dialog is open > Shift+Tab moves only between its two buttons
+Error: [2mexpect([22m[31melement[39m[2m).toHaveFocus()[22m
+
+Expected element with focus:
+  [32m<button
+  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90 h-9 px-4 py-2 mr-2"
+  data-slot="button"
+  type="button"
+>
+  Yes, decline
+</button>[39m
+Received element with focus:
+  [31m<button
+  class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 mr-1 mb-1"
+  data-slot="button"
+  type="button"
+>
+  Accept
+</button>[39m
+ ❯ src/AdminPageDeclineDialog.test.jsx:128:17
+    126|
+    127|     await user.tab({ shift: true });
+    128|     expect(yes).toHaveFocus();
+       |                 ^
+    129|     await user.tab({ shift: true });
+    130|     expect(cancel).toHaveFocus();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  src/AdminPageDeclineDialog.test.jsx > W12: closing the dialog > Escape closes it and sends nothing
+Error: [2mexpect([22m[31melement[39m[2m).not.toBeInTheDocument()[22m
+
+[31mexpected document not to contain element, found <div
+  aria-labelledby="decline-question"
+  aria-modal="true"
+  class="my-4 space-y-3 rounded-xl border-2 border-foreground/20 bg-muted p-4 shadow-sm"
+  role="dialog"
+>
+  <p
+    class="font-medium"
+    id="decline-question"
+  >
+    Decline this booking? This cannot be undone.
+  </p>
+  <button
+    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90 h-9 px-4 py-2 mr-2"
+    data-slot="button"
+    type="button"
+  >
+    Yes, decline
+  </button>
+  <button
+    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+    data-slot="button"
+    type="button"
+  >
+    Cancel
+  </button>
+</div> instead[39m
+ ❯ src/AdminPageDeclineDialog.test.jsx:142:46
+    140|     await user.keyboard("{Escape}");
+    141|
+    142|     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+       |                                              ^
+    143|     expect(changes).toHaveLength(0);
+    144|     expect(within(rowOf("Alice Example")).getByText("Submitted")).toBe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  src/AdminPageDeclineDialog.test.jsx > W12: closing the dialog > after Cancel, focus returns to the row's Decline button
+ FAIL  src/AdminPageDeclineDialog.test.jsx > W12: closing the dialog > after Escape, focus returns to the row's Decline button
+Error: [2mexpect([22m[31melement[39m[2m).toHaveFocus()[22m
+
+Expected element with focus:
+  [32m<button
+  class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2"
+  data-slot="button"
+  type="button"
+>
+  Cancel
+</button>[39m
+Received element with focus:
+  [31m<button
+  class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors cursor-pointer disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground h-8 rounded-md px-3 mr-1 mb-1"
+  data-slot="button"
+  type="button"
+>
+  Decline
+</button>[39m
+ ❯ src/AdminPageDeclineDialog.test.jsx:155:88
+    153|
+    154|     await user.click(declineButtonOf("Bob Jones"));
+    155|     expect(within(screen.getByRole("dialog")).getByRole("button", { na…
+       |                                                                                        ^
+    156|     await close(user);
+    157|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 1 passed (8)
+   Start at  01:51:17
+   Duration  1.15s (transform 39ms, setup 91ms, import 56ms, tests 333ms, environment 460ms)
+

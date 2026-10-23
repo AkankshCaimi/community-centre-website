@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -194,18 +194,50 @@ function Filters({ onApply }) {
   );
 }
 
+// Drawn over the page and holding the focus while open (W12). The position is
+// set inline so the dialog stays in view even without the stylesheet.
 function DeclineDialog({ onConfirm, onCancel }) {
+  const yesRef = useRef(null);
+  const cancelRef = useRef(null);
+
+  useEffect(() => {
+    cancelRef.current.focus();
+  }, []);
+
+  function handleKeyDown(event) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      onCancel();
+    } else if (event.key === "Tab") {
+      // Two buttons: Tab and Shift+Tab both move to the one without the focus.
+      event.preventDefault();
+      const next = document.activeElement === yesRef.current ? cancelRef : yesRef;
+      next.current.focus();
+    }
+  }
+
   return (
-    <div role="dialog" aria-modal="true" aria-labelledby="decline-question" className={DIALOG_CLASSES}>
-      <p id="decline-question" className="font-medium">
-        Decline this booking? This cannot be undone.
-      </p>
-      <Button type="button" variant="destructive" className="mr-2" onClick={onConfirm}>
-        Yes, decline
-      </Button>
-      <Button type="button" variant="outline" onClick={onCancel}>
-        Cancel
-      </Button>
+    <div
+      style={{ position: "fixed", inset: 0, zIndex: 50 }}
+      className="flex items-center justify-center bg-background/80 p-4 backdrop-blur-sm"
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="decline-question"
+        className={`${DIALOG_CLASSES} w-full max-w-md`}
+        onKeyDown={handleKeyDown}
+      >
+        <p id="decline-question" className="font-medium">
+          Decline this booking? This cannot be undone.
+        </p>
+        <Button ref={yesRef} type="button" variant="destructive" className="mr-2" onClick={onConfirm}>
+          Yes, decline
+        </Button>
+        <Button ref={cancelRef} type="button" variant="outline" onClick={onCancel}>
+          Cancel
+        </Button>
+      </div>
     </div>
   );
 }
@@ -315,7 +347,7 @@ function BookingRow({ booking, onAction }) {
                 variant="outline"
                 size="sm"
                 className="mr-1 mb-1"
-                onClick={() => onAction(booking, state)}
+                onClick={(event) => onAction(booking, state, event.currentTarget)}
               >
                 {ACTION_LABELS[state]}
               </Button>
@@ -409,9 +441,10 @@ function Bookings({ onSessionEnded, onLoggedOut }) {
     }
   }
 
-  function handleAction(booking, state) {
+  // `opener` is the button pressed: focus goes back to it if the decline is cancelled (W12).
+  function handleAction(booking, state, opener) {
     if (state === "declined") {
-      setDeclining(booking);
+      setDeclining({ booking, opener });
     } else {
       changeState(booking, state);
     }
@@ -504,9 +537,13 @@ function Bookings({ onSessionEnded, onLoggedOut }) {
 
       {declining && (
         <DeclineDialog
-          onCancel={() => setDeclining(null)}
+          onCancel={() => {
+            const { opener } = declining;
+            setDeclining(null);
+            opener.focus();
+          }}
           onConfirm={() => {
-            const booking = declining;
+            const { booking } = declining;
             setDeclining(null);
             changeState(booking, "declined");
           }}
