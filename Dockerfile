@@ -19,6 +19,7 @@ WORKDIR /app/backend
 COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
+COPY backend/gunicorn.conf.py ./
 COPY backend/app ./app
 COPY backend/db ./db
 COPY --from=frontend /build/dist /app/frontend/dist
@@ -33,4 +34,5 @@ USER 10001
 EXPOSE 8000
 # No access log: a visitor's network address must not reach the log (M3).
 # No control socket: nothing manages gunicorn from inside the container.
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "--no-control-socket", "app:create_app()"]
+# The address comes from gunicorn.conf.py: 0.0.0.0 on PORT, 8000 by default (deploy-free P1, P4).
+CMD ["gunicorn", "--config", "gunicorn.conf.py", "--workers", "2", "--no-control-socket", "app:create_app()"]

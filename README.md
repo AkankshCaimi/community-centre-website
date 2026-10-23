@@ -82,4 +82,10 @@ The booking form links to `/terms` and `/privacy`. Both show the centre's name, 
 
 ## Deployment
 
-The site runs on Azure as one container image that serves the built frontend and the API. The commands for a first run and a redeploy are in `infra/README.md`; the rules are in `docs/specs/deploy.md`.
+Live: **<live URL: the `run.app` address printed by step 4 of the first run>**
+
+The site runs on Google Cloud Run's free tier as one container image that serves the built frontend and the API, with its database on Neon's free tier. Cloud Scheduler runs the auto-decline and purge jobs as Cloud Run Jobs, at minute 0 and minute 30 of every hour. The commands for a first run, a redeploy and the smoke test are in `infra/README.md`; the rules are in `docs/specs/deploy-free.md`.
+
+It ran on Azure Container Apps until the Azure for Students subscription expired in October 2026 (`docs/specs/deploy.md`).
+
+The first visit after a quiet spell can take several seconds while Cloud Run starts the site and Neon wakes the database; a ping every 5 minutes keeps both awake.

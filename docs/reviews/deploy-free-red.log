@@ -1,0 +1,380 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/akanksh/Downloads/community-centre-website/backend
+configfile: pyproject.toml
+plugins: platformdirs-4.13.0
+collected 23 items
+
+tests/deploy/test_port.py FFFFFFFFFFFFFFFFFF..FF.                        [100%]
+
+=================================== FAILURES ===================================
+__________________ test_p1_binds_all_interfaces_on_port[8080] __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1090d1350>
+port = '8080'
+
+    @pytest.mark.parametrize("port", ["8080", "10000", "1", "65535"])
+    def test_p1_binds_all_interfaces_on_port(monkeypatch, port):
+>       assert load_settings(monkeypatch, port)["bind"] == f"0.0.0.0:{port}"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_port.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/deploy/test_port.py:23: in load_settings
+    return runpy.run_path(str(SETTINGS))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen runpy>:293: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+<frozen runpy>:261: FileNotFoundError
+_________________ test_p1_binds_all_interfaces_on_port[10000] __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1090d0770>
+port = '10000'
+
+    @pytest.mark.parametrize("port", ["8080", "10000", "1", "65535"])
+    def test_p1_binds_all_interfaces_on_port(monkeypatch, port):
+>       assert load_settings(monkeypatch, port)["bind"] == f"0.0.0.0:{port}"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_port.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/deploy/test_port.py:23: in load_settings
+    return runpy.run_path(str(SETTINGS))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen runpy>:293: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+<frozen runpy>:261: FileNotFoundError
+___________________ test_p1_binds_all_interfaces_on_port[1] ____________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1090cdd90>
+port = '1'
+
+    @pytest.mark.parametrize("port", ["8080", "10000", "1", "65535"])
+    def test_p1_binds_all_interfaces_on_port(monkeypatch, port):
+>       assert load_settings(monkeypatch, port)["bind"] == f"0.0.0.0:{port}"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_port.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/deploy/test_port.py:23: in load_settings
+    return runpy.run_path(str(SETTINGS))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen runpy>:293: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+<frozen runpy>:261: FileNotFoundError
+_________________ test_p1_binds_all_interfaces_on_port[65535] __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1090a3240>
+port = '65535'
+
+    @pytest.mark.parametrize("port", ["8080", "10000", "1", "65535"])
+    def test_p1_binds_all_interfaces_on_port(monkeypatch, port):
+>       assert load_settings(monkeypatch, port)["bind"] == f"0.0.0.0:{port}"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_port.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/deploy/test_port.py:23: in load_settings
+    return runpy.run_path(str(SETTINGS))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen runpy>:293: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+<frozen runpy>:261: FileNotFoundError
+________________ test_p1_settings_file_is_in_the_backend_folder ________________
+
+    def test_p1_settings_file_is_in_the_backend_folder():
+>       assert SETTINGS.is_file()
+E       AssertionError: assert False
+E        +  where False = is_file()
+E        +    where is_file = PosixPath('/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py').is_file
+
+tests/deploy/test_port.py:42: AssertionError
+_______ test_p1_image_copies_the_settings_file_to_the_working_directory ________
+
+    def test_p1_image_copies_the_settings_file_to_the_working_directory():
+        text = DOCKERFILE.read_text()
+        assert "WORKDIR /app/backend" in text
+>       assert any(
+            line.startswith("COPY ") and line.split()[1:] == ["backend/gunicorn.conf.py", "./"]
+            for line in text.splitlines()
+        )
+E       assert False
+E        +  where False = any(<generator object test_p1_image_copies_the_settings_file_to_the_working_directory.<locals>.<genexpr> at 0x109121fc0>)
+
+tests/deploy/test_port.py:48: AssertionError
+________________ test_p1_default_command_uses_the_settings_file ________________
+
+    def test_p1_default_command_uses_the_settings_file():
+        command = default_command()
+        assert command[0] == "gunicorn"
+>       assert command[command.index("--config") + 1] == "gunicorn.conf.py"
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: list.index(x): x not in list
+
+tests/deploy/test_port.py:57: ValueError
+____________________ test_p2_without_port_binds_8000[None] _____________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1090a3df0>
+port = None
+
+    @pytest.mark.parametrize("port", [None, ""])
+    def test_p2_without_port_binds_8000(monkeypatch, port):
+>       assert load_settings(monkeypatch, port)["bind"] == "0.0.0.0:8000"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_port.py:65: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/deploy/test_port.py:23: in load_settings
+    return runpy.run_path(str(SETTINGS))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen runpy>:293: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+<frozen runpy>:261: FileNotFoundError
+______________________ test_p2_without_port_binds_8000[] _______________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109156650>, port = ''
+
+    @pytest.mark.parametrize("port", [None, ""])
+    def test_p2_without_port_binds_8000(monkeypatch, port):
+>       assert load_settings(monkeypatch, port)["bind"] == "0.0.0.0:8000"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_port.py:65: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/deploy/test_port.py:23: in load_settings
+    return runpy.run_path(str(SETTINGS))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen runpy>:293: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+<frozen runpy>:261: FileNotFoundError
+_________________ test_p3_bad_port_is_refused_naming_port[abc] _________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109156f50>
+port = 'abc'
+
+    @pytest.mark.parametrize("port", ["abc", "0", "65536", "-1", "80.5", " 8080", "8080 ", "+80", "٨٠"])
+    def test_p3_bad_port_is_refused_naming_port(monkeypatch, port):
+        with pytest.raises(Exception) as error:
+            load_settings(monkeypatch, port)
+>       assert "PORT" in str(error.value)
+E       assert 'PORT' in "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'"
+E        +  where "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'" = str(FileNotFoundError(2, 'No such file or directory'))
+E        +    where FileNotFoundError(2, 'No such file or directory') = <ExceptionInfo FileNotFoundError(2, 'No such file or directory') tblen=4>.value
+
+tests/deploy/test_port.py:75: AssertionError
+__________________ test_p3_bad_port_is_refused_naming_port[0] __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109197980>
+port = '0'
+
+    @pytest.mark.parametrize("port", ["abc", "0", "65536", "-1", "80.5", " 8080", "8080 ", "+80", "٨٠"])
+    def test_p3_bad_port_is_refused_naming_port(monkeypatch, port):
+        with pytest.raises(Exception) as error:
+            load_settings(monkeypatch, port)
+>       assert "PORT" in str(error.value)
+E       assert 'PORT' in "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'"
+E        +  where "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'" = str(FileNotFoundError(2, 'No such file or directory'))
+E        +    where FileNotFoundError(2, 'No such file or directory') = <ExceptionInfo FileNotFoundError(2, 'No such file or directory') tblen=4>.value
+
+tests/deploy/test_port.py:75: AssertionError
+________________ test_p3_bad_port_is_refused_naming_port[65536] ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1091967b0>
+port = '65536'
+
+    @pytest.mark.parametrize("port", ["abc", "0", "65536", "-1", "80.5", " 8080", "8080 ", "+80", "٨٠"])
+    def test_p3_bad_port_is_refused_naming_port(monkeypatch, port):
+        with pytest.raises(Exception) as error:
+            load_settings(monkeypatch, port)
+>       assert "PORT" in str(error.value)
+E       assert 'PORT' in "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'"
+E        +  where "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'" = str(FileNotFoundError(2, 'No such file or directory'))
+E        +    where FileNotFoundError(2, 'No such file or directory') = <ExceptionInfo FileNotFoundError(2, 'No such file or directory') tblen=4>.value
+
+tests/deploy/test_port.py:75: AssertionError
+_________________ test_p3_bad_port_is_refused_naming_port[-1] __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109121a90>
+port = '-1'
+
+    @pytest.mark.parametrize("port", ["abc", "0", "65536", "-1", "80.5", " 8080", "8080 ", "+80", "٨٠"])
+    def test_p3_bad_port_is_refused_naming_port(monkeypatch, port):
+        with pytest.raises(Exception) as error:
+            load_settings(monkeypatch, port)
+>       assert "PORT" in str(error.value)
+E       assert 'PORT' in "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'"
+E        +  where "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'" = str(FileNotFoundError(2, 'No such file or directory'))
+E        +    where FileNotFoundError(2, 'No such file or directory') = <ExceptionInfo FileNotFoundError(2, 'No such file or directory') tblen=4>.value
+
+tests/deploy/test_port.py:75: AssertionError
+________________ test_p3_bad_port_is_refused_naming_port[80.5] _________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109123070>
+port = '80.5'
+
+    @pytest.mark.parametrize("port", ["abc", "0", "65536", "-1", "80.5", " 8080", "8080 ", "+80", "٨٠"])
+    def test_p3_bad_port_is_refused_naming_port(monkeypatch, port):
+        with pytest.raises(Exception) as error:
+            load_settings(monkeypatch, port)
+>       assert "PORT" in str(error.value)
+E       assert 'PORT' in "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'"
+E        +  where "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'" = str(FileNotFoundError(2, 'No such file or directory'))
+E        +    where FileNotFoundError(2, 'No such file or directory') = <ExceptionInfo FileNotFoundError(2, 'No such file or directory') tblen=4>.value
+
+tests/deploy/test_port.py:75: AssertionError
+________________ test_p3_bad_port_is_refused_naming_port[ 8080] ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109188870>
+port = ' 8080'
+
+    @pytest.mark.parametrize("port", ["abc", "0", "65536", "-1", "80.5", " 8080", "8080 ", "+80", "٨٠"])
+    def test_p3_bad_port_is_refused_naming_port(monkeypatch, port):
+        with pytest.raises(Exception) as error:
+            load_settings(monkeypatch, port)
+>       assert "PORT" in str(error.value)
+E       assert 'PORT' in "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'"
+E        +  where "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'" = str(FileNotFoundError(2, 'No such file or directory'))
+E        +    where FileNotFoundError(2, 'No such file or directory') = <ExceptionInfo FileNotFoundError(2, 'No such file or directory') tblen=4>.value
+
+tests/deploy/test_port.py:75: AssertionError
+________________ test_p3_bad_port_is_refused_naming_port[8080 ] ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1091c8050>
+port = '8080 '
+
+    @pytest.mark.parametrize("port", ["abc", "0", "65536", "-1", "80.5", " 8080", "8080 ", "+80", "٨٠"])
+    def test_p3_bad_port_is_refused_naming_port(monkeypatch, port):
+        with pytest.raises(Exception) as error:
+            load_settings(monkeypatch, port)
+>       assert "PORT" in str(error.value)
+E       assert 'PORT' in "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'"
+E        +  where "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'" = str(FileNotFoundError(2, 'No such file or directory'))
+E        +    where FileNotFoundError(2, 'No such file or directory') = <ExceptionInfo FileNotFoundError(2, 'No such file or directory') tblen=4>.value
+
+tests/deploy/test_port.py:75: AssertionError
+_________________ test_p3_bad_port_is_refused_naming_port[+80] _________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1091c8290>
+port = '+80'
+
+    @pytest.mark.parametrize("port", ["abc", "0", "65536", "-1", "80.5", " 8080", "8080 ", "+80", "٨٠"])
+    def test_p3_bad_port_is_refused_naming_port(monkeypatch, port):
+        with pytest.raises(Exception) as error:
+            load_settings(monkeypatch, port)
+>       assert "PORT" in str(error.value)
+E       assert 'PORT' in "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'"
+E        +  where "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'" = str(FileNotFoundError(2, 'No such file or directory'))
+E        +    where FileNotFoundError(2, 'No such file or directory') = <ExceptionInfo FileNotFoundError(2, 'No such file or directory') tblen=4>.value
+
+tests/deploy/test_port.py:75: AssertionError
+____________ test_p3_bad_port_is_refused_naming_port[\u0668\u0660] _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109132360>
+port = '٨٠'
+
+    @pytest.mark.parametrize("port", ["abc", "0", "65536", "-1", "80.5", " 8080", "8080 ", "+80", "٨٠"])
+    def test_p3_bad_port_is_refused_naming_port(monkeypatch, port):
+        with pytest.raises(Exception) as error:
+            load_settings(monkeypatch, port)
+>       assert "PORT" in str(error.value)
+E       assert 'PORT' in "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'"
+E        +  where "[Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'" = str(FileNotFoundError(2, 'No such file or directory'))
+E        +    where FileNotFoundError(2, 'No such file or directory') = <ExceptionInfo FileNotFoundError(2, 'No such file or directory') tblen=4>.value
+
+tests/deploy/test_port.py:75: AssertionError
+_____________________ test_p4_no_bind_on_the_command_line ______________________
+
+    def test_p4_no_bind_on_the_command_line():
+>       assert not any(arg == "-b" or arg.startswith("--bind") for arg in default_command())
+E       assert not True
+E        +  where True = any(<generator object test_p4_no_bind_on_the_command_line.<locals>.<genexpr> at 0x109123ae0>)
+
+tests/deploy/test_port.py:91: AssertionError
+____________________________ test_p4_no_access_log _____________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1091320a0>
+
+    def test_p4_no_access_log(monkeypatch):
+        assert not any(arg.startswith("--access-log") for arg in default_command())
+>       assert load_settings(monkeypatch, "8080").get("accesslog") is None
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/deploy/test_port.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/deploy/test_port.py:23: in load_settings
+    return runpy.run_path(str(SETTINGS))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen runpy>:293: in run_path
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fname = '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/akanksh/Downloads/community-centre-website/backend/gunicorn.conf.py'
+
+<frozen runpy>:261: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/deploy/test_port.py::test_p1_binds_all_interfaces_on_port[8080]
+FAILED tests/deploy/test_port.py::test_p1_binds_all_interfaces_on_port[10000]
+FAILED tests/deploy/test_port.py::test_p1_binds_all_interfaces_on_port[1] - F...
+FAILED tests/deploy/test_port.py::test_p1_binds_all_interfaces_on_port[65535]
+FAILED tests/deploy/test_port.py::test_p1_settings_file_is_in_the_backend_folder
+FAILED tests/deploy/test_port.py::test_p1_image_copies_the_settings_file_to_the_working_directory
+FAILED tests/deploy/test_port.py::test_p1_default_command_uses_the_settings_file
+FAILED tests/deploy/test_port.py::test_p2_without_port_binds_8000[None] - Fil...
+FAILED tests/deploy/test_port.py::test_p2_without_port_binds_8000[] - FileNot...
+FAILED tests/deploy/test_port.py::test_p3_bad_port_is_refused_naming_port[abc]
+FAILED tests/deploy/test_port.py::test_p3_bad_port_is_refused_naming_port[0]
+FAILED tests/deploy/test_port.py::test_p3_bad_port_is_refused_naming_port[65536]
+FAILED tests/deploy/test_port.py::test_p3_bad_port_is_refused_naming_port[-1]
+FAILED tests/deploy/test_port.py::test_p3_bad_port_is_refused_naming_port[80.5]
+FAILED tests/deploy/test_port.py::test_p3_bad_port_is_refused_naming_port[ 8080]
+FAILED tests/deploy/test_port.py::test_p3_bad_port_is_refused_naming_port[8080 ]
+FAILED tests/deploy/test_port.py::test_p3_bad_port_is_refused_naming_port[+80]
+FAILED tests/deploy/test_port.py::test_p3_bad_port_is_refused_naming_port[\u0668\u0660]
+FAILED tests/deploy/test_port.py::test_p4_no_bind_on_the_command_line - asser...
+FAILED tests/deploy/test_port.py::test_p4_no_access_log - FileNotFoundError: ...
+========================= 20 failed, 3 passed in 0.05s =========================

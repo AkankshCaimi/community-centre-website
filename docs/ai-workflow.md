@@ -129,7 +129,7 @@ The full suite stands at **951 backend and 435 frontend tests**. F01 scored 91.5
 
 ## Deployment
 
-The agent wrote the whole deployment: the container image, the infrastructure files, the command sequence. It ran nothing that created or changed anything in Azure; read-only queries only, while diagnosing. I executed every command by hand and pasted each failure back for diagnosis. Same loop as everything else: the agent as author, me as operator. The system runs on Azure Container Apps with Postgres behind it.
+The agent wrote the whole deployment: the container image, the infrastructure files, the command sequence. It ran nothing that created or changed anything in Azure; read-only queries only, while diagnosing. I executed every command by hand and pasted each failure back for diagnosis. Same loop as everything else: the agent as author, me as operator. The system ran on Azure Container Apps until the student subscription expired, then moved to the free tier of Google Cloud Run with Neon Postgres, same image.
 
 ## Where to look
 
